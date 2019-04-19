@@ -110,6 +110,10 @@ msgstr "Mit &externem Editor\tStrg+Alt+E"
 msgid "&with..."
 msgstr "&Mit..."
 
+#: Merge.rc:2E3BFCA1
+msgid "S&hell Menu"
+msgstr ""
+
 #: Merge.rc:1A8FADD3
 #, c-format
 msgid "View &Differences"
@@ -144,6 +148,22 @@ msgstr "&Aktiver Ausschnitt"
 #, c-format
 msgid "&Zoom"
 msgstr "&Zoom"
+
+#: Merge.rc:7C622F87
+#, c-format
+msgid "Zoom &In\tCtrl++"
+msgstr "Ver&größern\tStrg++"
+
+#: Merge.rc:FE3C1D1
+#, c-format
+msgid "Zoom &Out\tCtrl+-"
+msgstr "Ver&kleinern\tStrg+-"
+
+#. Zoom to normal
+#: Merge.rc:78B3B622
+#, c-format
+msgid "&Normal\tCtrl+*"
+msgstr "&Normal\tStrg+*"
 
 #: Merge.rc:AC3AA13
 #, c-format
@@ -334,7 +354,7 @@ msgstr "&Automatisch entpacken"
 msgid "&Edit with Unpacker..."
 msgstr ""
 
-#: Merge.rc:78B3B622
+#: Merge.rc:78B3B623
 #, c-format
 msgid "&Reload plugins"
 msgstr "Plugins &neu laden"
@@ -524,7 +544,7 @@ msgstr "Schrift &auswählen..."
 msgid "Use Default F&ont"
 msgstr "Standard-Schrift &verwenden"
 
-#: Merge.rc:2E3BFCA1
+#: Merge.rc:2E3BFCA2
 #, c-format
 msgid "Sw&ap Panes"
 msgstr "Ausschnitt v&ertauschen"
@@ -624,7 +644,7 @@ msgstr "&Links speichern"
 msgid "Save &Middle"
 msgstr "&Mitte speichern"
 
-#: Merge.rc:2E3BFCA2
+#: Merge.rc:2E3BFCA3
 #, c-format
 msgid "Save &Right"
 msgstr "&Rechts speichern"
@@ -668,7 +688,7 @@ msgstr "Druck&vorschau"
 msgid "&Convert Line Endings to"
 msgstr "&Zeilenenden konvertieren nach"
 
-#: Merge.rc:78B3B623
+#: Merge.rc:78B3B624
 #, c-format
 msgid "&Merge Mode\tF9"
 msgstr "&Merge Modus\tF9"
@@ -792,22 +812,6 @@ msgstr "&Alle Lesezeichen löschen"
 #, c-format
 msgid "&Go To...\tCtrl+G"
 msgstr "&Gehe nach...\tStrg+G"
-
-#: Merge.rc:7C622F87
-#, c-format
-msgid "Zoom &In\tCtrl++"
-msgstr "Ver&größern\tStrg++"
-
-#: Merge.rc:FE3C1D1
-#, c-format
-msgid "Zoom &Out\tCtrl+-"
-msgstr "Ver&kleinern\tStrg+-"
-
-#. Zoom to normal
-#: Merge.rc:78B3B624
-#, c-format
-msgid "&Normal\tCtrl+*"
-msgstr "&Normal\tStrg+*"
 
 #: Merge.rc:1BF42627
 #, c-format
@@ -4255,7 +4259,7 @@ msgstr "Komma-getrennte Liste"
 msgid "Tab-separated list"
 msgstr "Tab-getrennte Liste"
 
-#: Merge.rc:2E3BFCA3
+#: Merge.rc:2E3BFCA4
 #, c-format
 msgid "Simple HTML"
 msgstr "Einfaches HTML"

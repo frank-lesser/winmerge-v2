@@ -110,6 +110,10 @@ msgstr ""
 msgid "&with..."
 msgstr "Čí&m..."
 
+#: Merge.rc:2E3BFCA1
+msgid "S&hell Menu"
+msgstr ""
+
 #: Merge.rc:1A8FADD3
 #, c-format
 msgid "View &Differences"
@@ -144,6 +148,22 @@ msgstr ""
 #, c-format
 msgid "&Zoom"
 msgstr "&Priblíženie"
+
+#: Merge.rc:7C622F87
+#, c-format
+msgid "Zoom &In\tCtrl++"
+msgstr "&Priblížiť\tCtrl++"
+
+#: Merge.rc:FE3C1D1
+#, c-format
+msgid "Zoom &Out\tCtrl+-"
+msgstr "&Oddialiť\tCtrl+-"
+
+#. Zoom to normal
+#: Merge.rc:78B3B622
+#, c-format
+msgid "&Normal\tCtrl+*"
+msgstr "&Normálna veľkosť\tCtrl+*"
 
 #: Merge.rc:AC3AA13
 #, c-format
@@ -334,7 +354,7 @@ msgstr "&Automatické rozbalenie"
 msgid "&Edit with Unpacker..."
 msgstr ""
 
-#: Merge.rc:78B3B622
+#: Merge.rc:78B3B623
 #, c-format
 msgid "&Reload plugins"
 msgstr "&Znovu načítať zásuvné moduly"
@@ -524,7 +544,7 @@ msgstr "&Zvoliť písmo..."
 msgid "Use Default F&ont"
 msgstr "Použiť základné písm&o"
 
-#: Merge.rc:2E3BFCA1
+#: Merge.rc:2E3BFCA2
 #, c-format
 msgid "Sw&ap Panes"
 msgstr "&Vymeniť panely"
@@ -624,7 +644,7 @@ msgstr "Uložiť ľ&avý"
 msgid "Save &Middle"
 msgstr ""
 
-#: Merge.rc:2E3BFCA2
+#: Merge.rc:2E3BFCA3
 #, c-format
 msgid "Save &Right"
 msgstr "Uložiť &pravý"
@@ -668,7 +688,7 @@ msgstr "Náhľad p&red tlačou"
 msgid "&Convert Line Endings to"
 msgstr "&Konvertovať konce riadkov na"
 
-#: Merge.rc:78B3B623
+#: Merge.rc:78B3B624
 #, c-format
 msgid "&Merge Mode\tF9"
 msgstr "&Zlučovací režim\tF9"
@@ -792,22 +812,6 @@ msgstr "&Zmazať všetky záložky"
 #, c-format
 msgid "&Go To...\tCtrl+G"
 msgstr "&Prejsť na...\tCtrl+G"
-
-#: Merge.rc:7C622F87
-#, c-format
-msgid "Zoom &In\tCtrl++"
-msgstr "&Priblížiť\tCtrl++"
-
-#: Merge.rc:FE3C1D1
-#, c-format
-msgid "Zoom &Out\tCtrl+-"
-msgstr "&Oddialiť\tCtrl+-"
-
-#. Zoom to normal
-#: Merge.rc:78B3B624
-#, c-format
-msgid "&Normal\tCtrl+*"
-msgstr "&Normálna veľkosť\tCtrl+*"
 
 #: Merge.rc:1BF42627
 #, c-format
@@ -4228,7 +4232,7 @@ msgstr "Zoznam oddelený čiarkami"
 msgid "Tab-separated list"
 msgstr "Zoznam oddelený tabulátormi"
 
-#: Merge.rc:2E3BFCA3
+#: Merge.rc:2E3BFCA4
 #, c-format
 msgid "Simple HTML"
 msgstr "Jednoduché HTML"

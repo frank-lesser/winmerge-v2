@@ -112,6 +112,10 @@ msgstr "med Extern Redigerare\tCtrl+Alt+E"
 msgid "&with..."
 msgstr "med ..."
 
+#: Merge.rc:2E3BFCA1
+msgid "S&hell Menu"
+msgstr ""
+
 #: Merge.rc:1A8FADD3
 #, c-format
 msgid "View &Differences"
@@ -146,6 +150,22 @@ msgstr "Gällande Ruta"
 #, c-format
 msgid "&Zoom"
 msgstr "Zoom"
+
+#: Merge.rc:7C622F87
+#, c-format
+msgid "Zoom &In\tCtrl++"
+msgstr "Zooma in\tCtrl++"
+
+#: Merge.rc:FE3C1D1
+#, c-format
+msgid "Zoom &Out\tCtrl+-"
+msgstr "Zooma ut\tCtrl+-"
+
+#. Zoom to normal
+#: Merge.rc:78B3B622
+#, c-format
+msgid "&Normal\tCtrl+*"
+msgstr "Normal\tCtrl+*"
 
 #: Merge.rc:AC3AA13
 #, c-format
@@ -336,7 +356,7 @@ msgstr "Automatisk Uppackning"
 msgid "&Edit with Unpacker..."
 msgstr "Redigera med Uppackare ..."
 
-#: Merge.rc:78B3B622
+#: Merge.rc:78B3B623
 #, c-format
 msgid "&Reload plugins"
 msgstr "Återladda InsticksProgram"
@@ -526,7 +546,7 @@ msgstr "Välj Teckensnitt ..."
 msgid "Use Default F&ont"
 msgstr "Använd FörvalsTeckensnitt"
 
-#: Merge.rc:2E3BFCA1
+#: Merge.rc:2E3BFCA2
 #, c-format
 msgid "Sw&ap Panes"
 msgstr "Växla Rutor"
@@ -626,7 +646,7 @@ msgstr "Spara Vänster fil"
 msgid "Save &Middle"
 msgstr "Spara Mitter fil"
 
-#: Merge.rc:2E3BFCA2
+#: Merge.rc:2E3BFCA3
 #, c-format
 msgid "Save &Right"
 msgstr "Spara Höger fil"
@@ -670,7 +690,7 @@ msgstr "Förhandsgranska Utskrift"
 msgid "&Convert Line Endings to"
 msgstr "Omvandla Radslut till"
 
-#: Merge.rc:78B3B623
+#: Merge.rc:78B3B624
 #, c-format
 msgid "&Merge Mode\tF9"
 msgstr "SammanFogningsLäge\tF9"
@@ -794,22 +814,6 @@ msgstr "Rensa Bokmärken"
 #, c-format
 msgid "&Go To...\tCtrl+G"
 msgstr "Gå till ...\tCtrl+G"
-
-#: Merge.rc:7C622F87
-#, c-format
-msgid "Zoom &In\tCtrl++"
-msgstr "Zooma in\tCtrl++"
-
-#: Merge.rc:FE3C1D1
-#, c-format
-msgid "Zoom &Out\tCtrl+-"
-msgstr "Zooma ut\tCtrl+-"
-
-#. Zoom to normal
-#: Merge.rc:78B3B624
-#, c-format
-msgid "&Normal\tCtrl+*"
-msgstr "Normal\tCtrl+*"
 
 #: Merge.rc:1BF42627
 #, c-format
@@ -4282,7 +4286,7 @@ msgstr "Komma-skild lista"
 msgid "Tab-separated list"
 msgstr "Tab-skild lista"
 
-#: Merge.rc:2E3BFCA3
+#: Merge.rc:2E3BFCA4
 #, c-format
 msgid "Simple HTML"
 msgstr "Enkel HTML"

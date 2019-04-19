@@ -79,9 +79,9 @@ BEGIN_MESSAGE_MAP(COpenView, CFormView)
 	ON_CBN_SELCHANGE(IDC_PATH0_COMBO, OnSelchangePathCombo<0>)
 	ON_CBN_SELCHANGE(IDC_PATH1_COMBO, OnSelchangePathCombo<1>)
 	ON_CBN_SELCHANGE(IDC_PATH2_COMBO, OnSelchangePathCombo<2>)
-	ON_CBN_EDITCHANGE(IDC_PATH0_COMBO, OnEditEvent)
-	ON_CBN_EDITCHANGE(IDC_PATH1_COMBO, OnEditEvent)
-	ON_CBN_EDITCHANGE(IDC_PATH2_COMBO, OnEditEvent)
+	ON_CBN_EDITCHANGE(IDC_PATH0_COMBO, OnEditEvent<0>)
+	ON_CBN_EDITCHANGE(IDC_PATH1_COMBO, OnEditEvent<1>)
+	ON_CBN_EDITCHANGE(IDC_PATH2_COMBO, OnEditEvent<2>)
 	ON_BN_CLICKED(IDC_SELECT_UNPACKER, OnSelectUnpacker)
 	ON_CBN_SELENDCANCEL(IDC_PATH0_COMBO, UpdateButtonStates)
 	ON_CBN_SELENDCANCEL(IDC_PATH1_COMBO, UpdateButtonStates)
@@ -200,28 +200,6 @@ void COpenView::OnInitialUpdate()
 	m_constraint.SetMaxSizePixels(-1, m_sizeOrig.cy);
 	m_constraint.SetScrollScale(this, 1.0, 1.0);
 	m_constraint.SetSizeGrip(prdlg::CMoveConstraint::SG_NONE);
-	// configure how individual controls adjust when dialog resizes
-	m_constraint.ConstrainItem(IDC_PATH0_COMBO, 0, 1, 0, 0); // grows right
-	m_constraint.ConstrainItem(IDC_PATH1_COMBO, 0, 1, 0, 0); // grows right
-	m_constraint.ConstrainItem(IDC_PATH2_COMBO, 0, 1, 0, 0); // grows right
-	m_constraint.ConstrainItem(IDC_EXT_COMBO, 0, 0.5, 0, 0); // grows right
-	m_constraint.ConstrainItem(IDC_UNPACKER_EDIT, 0.5, 0.5, 0, 0); // grows right
-	m_constraint.ConstrainItem(IDC_FILES_DIRS_GROUP0, 0, 1, 0, 0); // grows right
-	m_constraint.ConstrainItem(IDC_FILES_DIRS_GROUP1, 0, 1, 0, 0); // grows right
-	m_constraint.ConstrainItem(IDC_FILES_DIRS_GROUP2, 0, 1, 0, 0); // grows right
-	m_constraint.ConstrainItem(IDC_FILES_DIRS_GROUP3X, 0, 0.5, 0, 0); // grows right
-	m_constraint.ConstrainItem(IDC_FILES_DIRS_GROUP4, 0.5, 0, 0, 0); // grows right
-	m_constraint.ConstrainItem(IDC_FILES_DIRS_GROUP4X, 0.5, 0.5, 0, 0); // grows right
-	m_constraint.ConstrainItem(IDC_PATH0_BUTTON, 1, 0, 0, 0); // slides right
-	m_constraint.ConstrainItem(IDC_PATH1_BUTTON, 1, 0, 0, 0); // slides right
-	m_constraint.ConstrainItem(IDC_PATH2_BUTTON, 1, 0, 0, 0); // slides right
-	m_constraint.ConstrainItem(IDC_SELECT_UNPACKER, 1, 0, 0, 0); // slides right
-	m_constraint.ConstrainItem(IDC_OPEN_STATUS, 0, 1, 0, 0); // grows right
-	m_constraint.ConstrainItem(IDC_SELECT_FILTER, 0.5, 0, 0, 0); // slides right
-	m_constraint.ConstrainItem(IDC_OPTIONS, 1, 0, 0, 0); // slides right
-	m_constraint.ConstrainItem(IDOK, 1, 0, 0, 0); // slides right
-	m_constraint.ConstrainItem(IDCANCEL, 1, 0, 0, 0); // slides right
-	m_constraint.ConstrainItem(ID_HELP, 1, 0, 0, 0); // slides right
 	m_constraint.DisallowHeightGrowth();
 	//m_constraint.SubclassWnd(); // install subclassing
 
@@ -260,7 +238,7 @@ void COpenView::OnInitialUpdate()
 	LoadComboboxStates();
 
 	bool bDoUpdateData = true;
-	for (int index = 0; index < countof(m_strPath); index++)
+	for (int index = 0; index < std::size(m_strPath); index++)
 	{
 		if (!m_strPath[index].empty())
 			bDoUpdateData = false;
@@ -581,7 +559,7 @@ void COpenView::OnOK()
 
 	int index;
 	int nFiles = 0;
-	for (index = 0; index < countof(m_strPath); index++)
+	for (index = 0; index < std::size(m_strPath); index++)
 	{
 		if (index == 2 && m_strPath[index].empty())
 			break;
@@ -1050,8 +1028,25 @@ void COpenView::OnDragBeginPathCombo(UINT id, NMHDR *pNMHDR, LRESULT *pResult)
 /**
  * @brief Called every time paths are edited.
  */
+template <int N>
 void COpenView::OnEditEvent()
 {
+	if (CEdit *const edit = m_ctlPath[N].GetEditCtrl())
+	{
+		int const len = edit->GetWindowTextLength();
+		if (edit->GetSel() == MAKEWPARAM(len, len))
+		{
+			CString text;
+			edit->GetWindowText(text);
+			// Remove any double quotes
+			text.Remove('"');
+			if (text.GetLength() != len)
+			{
+				edit->SetSel(0, len);
+				edit->ReplaceSel(text);
+			}
+		}
+	}
 	// (Re)start timer to path validity check delay
 	// If timer starting fails, update buttonstates immediately
 	if (!SetTimer(IDT_CHECKFILES, CHECKFILES_TIMEOUT, nullptr))
@@ -1081,7 +1076,7 @@ void COpenView::OnSelectUnpacker()
 
 	int index;
 	int nFiles = 0;
-	for (index = 0; index < countof(m_strPath); index++)
+	for (index = 0; index < std::size(m_strPath); index++)
 	{
 		if (index == 2 && m_strPath[index].empty())
 			break;
@@ -1252,7 +1247,7 @@ bool COpenView::LoadProjectFile(const String &path)
  */
 void COpenView::TrimPaths()
 {
-	for (int index = 0; index < countof(m_strPath); index++)
+	for (int index = 0; index < std::size(m_strPath); index++)
 		m_strPath[index] = strutils::trim_ws(m_strPath[index]);
 }
 

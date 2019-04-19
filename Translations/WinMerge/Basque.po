@@ -113,6 +113,10 @@ msgstr ""
 msgid "&with..."
 msgstr "&Honekin..."
 
+#: Merge.rc:2E3BFCA1
+msgid "S&hell Menu"
+msgstr ""
+
 #: Merge.rc:1A8FADD3
 #, c-format
 msgid "View &Differences"
@@ -147,6 +151,22 @@ msgstr ""
 #, c-format
 msgid "&Zoom"
 msgstr "&Zooma"
+
+#: Merge.rc:7C622F87
+#, c-format
+msgid "Zoom &In\tCtrl++"
+msgstr "Zooma &Handitu\tCtrl++"
+
+#: Merge.rc:FE3C1D1
+#, c-format
+msgid "Zoom &Out\tCtrl+-"
+msgstr "Zooma &Gutxitu\tCtrl+-"
+
+#. Zoom to normal
+#: Merge.rc:78B3B622
+#, c-format
+msgid "&Normal\tCtrl+*"
+msgstr "&Normala\tCtrl+*"
 
 #: Merge.rc:AC3AA13
 #, c-format
@@ -337,7 +357,7 @@ msgstr "Be&rezgaitasunezko Despaketatzea"
 msgid "&Edit with Unpacker..."
 msgstr ""
 
-#: Merge.rc:78B3B622
+#: Merge.rc:78B3B623
 #, c-format
 msgid "&Reload plugins"
 msgstr "B&irgertatu pluginak"
@@ -527,7 +547,7 @@ msgstr "Hautatu &Hizkia..."
 msgid "Use Default F&ont"
 msgstr "Erabili Berezko H&izkia"
 
-#: Merge.rc:2E3BFCA1
+#: Merge.rc:2E3BFCA2
 #, c-format
 msgid "Sw&ap Panes"
 msgstr "&Trukatu Panelak"
@@ -627,7 +647,7 @@ msgstr "Gorde E&zkerra"
 msgid "Save &Middle"
 msgstr ""
 
-#: Merge.rc:2E3BFCA2
+#: Merge.rc:2E3BFCA3
 #, c-format
 msgid "Save &Right"
 msgstr "Gorde E&skuina"
@@ -671,7 +691,7 @@ msgstr "Irarkitu Aurreikus&pena"
 msgid "&Convert Line Endings to"
 msgstr "Bihurtu &Lerro Amaierak hona"
 
-#: Merge.rc:78B3B623
+#: Merge.rc:78B3B624
 #, c-format
 msgid "&Merge Mode\tF9"
 msgstr "Batu &Modua\tF9"
@@ -795,22 +815,6 @@ msgstr "&Garbitu Lastermarka Guztiak"
 #, c-format
 msgid "&Go To...\tCtrl+G"
 msgstr "&Joan Hona...\tCtrl+G"
-
-#: Merge.rc:7C622F87
-#, c-format
-msgid "Zoom &In\tCtrl++"
-msgstr "Zooma &Handitu\tCtrl++"
-
-#: Merge.rc:FE3C1D1
-#, c-format
-msgid "Zoom &Out\tCtrl+-"
-msgstr "Zooma &Gutxitu\tCtrl+-"
-
-#. Zoom to normal
-#: Merge.rc:78B3B624
-#, c-format
-msgid "&Normal\tCtrl+*"
-msgstr "&Normala\tCtrl+*"
 
 #: Merge.rc:1BF42627
 #, c-format
@@ -4231,7 +4235,7 @@ msgstr "Kakotxaz banandutako zerrenda"
 msgid "Tab-separated list"
 msgstr "Fitxaz banandutako zerrenda"
 
-#: Merge.rc:2E3BFCA3
+#: Merge.rc:2E3BFCA4
 #, c-format
 msgid "Simple HTML"
 msgstr "HTML Arrunta"

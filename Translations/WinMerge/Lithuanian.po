@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WinMerge\n"
 "Report-Msgid-Bugs-To: http://bugs.winmerge.org/\n"
-"POT-Creation-Date: 2019-03-17 19:29+0000\n"
-"PO-Revision-Date: 2019-01-18 15:20+0200\n"
+"POT-Creation-Date: 2019-04-11 07:50+0000\n"
+"PO-Revision-Date: 2019-04-12 12:42+0200\n"
 "Last-Translator: Tichij <tichij@mail.com>\n"
 "Language-Team: Lithuanian <winmerge-translate@lists.sourceforge.net>\n"
 "Language: lt\n"
@@ -95,6 +95,10 @@ msgstr "su Išoriniu r&edaktoriumi\tCtrl+Alt+E"
 msgid "&with..."
 msgstr "&su..."
 
+#: Merge.rc:2E3BFCA1
+msgid "S&hell Menu"
+msgstr "&Sistemos meniu"
+
 #: Merge.rc:1A8FADD3
 msgid "View &Differences"
 msgstr "Ro&dyti skirtumus"
@@ -122,6 +126,19 @@ msgstr "&Aktyvus polangis"
 #: Merge.rc:43017E43
 msgid "&Zoom"
 msgstr "&Keisti mastelį"
+
+#: Merge.rc:7C622F87
+msgid "Zoom &In\tCtrl++"
+msgstr "Did&inti\tCtrl++"
+
+#: Merge.rc:FE3C1D1
+msgid "Zoom &Out\tCtrl+-"
+msgstr "Mažint&i\tCtrl+-"
+
+#. Zoom to normal
+#: Merge.rc:78B3B622
+msgid "&Normal\tCtrl+*"
+msgstr "&Normalus\tCtrl+*"
 
 #: Merge.rc:AC3AA13
 msgid "&Overlay"
@@ -275,7 +292,7 @@ msgstr "&Automatinis išpakavimas"
 msgid "&Edit with Unpacker..."
 msgstr "R&edaguoti su išpakavimu..."
 
-#: Merge.rc:78B3B622
+#: Merge.rc:78B3B623
 msgid "&Reload plugins"
 msgstr "&Iš naujo įkelti papildinius"
 
@@ -427,7 +444,7 @@ msgstr "Parinkti &šriftą..."
 msgid "Use Default F&ont"
 msgstr "Naud&oti numatytąjį šriftą"
 
-#: Merge.rc:2E3BFCA1
+#: Merge.rc:2E3BFCA2
 msgid "Sw&ap Panes"
 msgstr "Sukeisti pol&angius"
 
@@ -507,7 +524,7 @@ msgstr "Išsaugoti &kairįjį"
 msgid "Save &Middle"
 msgstr "Išsaugoti &vidurinį"
 
-#: Merge.rc:2E3BFCA2
+#: Merge.rc:2E3BFCA3
 msgid "Save &Right"
 msgstr "Išsaugoti &dešinįjį"
 
@@ -543,7 +560,7 @@ msgstr "Spaudinio peržiūr&a"
 msgid "&Convert Line Endings to"
 msgstr "Keisti eilučių pabaigos formatą į"
 
-#: Merge.rc:78B3B623
+#: Merge.rc:78B3B624
 msgid "&Merge Mode\tF9"
 msgstr "Sulieji&mo režimas\tF9"
 
@@ -642,19 +659,6 @@ msgstr "&Išvalyti visas žymes"
 #: Merge.rc:1A9EBDEE
 msgid "&Go To...\tCtrl+G"
 msgstr "&Pereiti į...\tCtrl+G"
-
-#: Merge.rc:7C622F87
-msgid "Zoom &In\tCtrl++"
-msgstr "Did&inti\tCtrl++"
-
-#: Merge.rc:FE3C1D1
-msgid "Zoom &Out\tCtrl+-"
-msgstr "Mažint&i\tCtrl+-"
-
-#. Zoom to normal
-#: Merge.rc:78B3B624
-msgid "&Normal\tCtrl+*"
-msgstr "&Normalus\tCtrl+*"
 
 #: Merge.rc:1BF42627
 msgid "Syntax Highlight"
@@ -3531,7 +3535,7 @@ msgstr "Kableliais sudalintas sąrašas"
 msgid "Tab-separated list"
 msgstr "TAB simboliais sudalintas sąrašas"
 
-#: Merge.rc:2E3BFCA3
+#: Merge.rc:2E3BFCA4
 msgid "Simple HTML"
 msgstr "Paprastas HTML"
 

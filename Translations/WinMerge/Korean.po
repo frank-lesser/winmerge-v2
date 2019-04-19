@@ -114,6 +114,10 @@ msgstr "외부 편집기로(&E)\tCtrl+Alt+E"
 msgid "&with..."
 msgstr "프로그램 선택(&W)..."
 
+#: Merge.rc:2E3BFCA1
+msgid "S&hell Menu"
+msgstr ""
+
 #: Merge.rc:1A8FADD3
 #, c-format
 msgid "View &Differences"
@@ -148,6 +152,22 @@ msgstr "활성 창(&A)"
 #, c-format
 msgid "&Zoom"
 msgstr "확대/축소(&Z)"
+
+#: Merge.rc:7C622F87
+#, c-format
+msgid "Zoom &In\tCtrl++"
+msgstr "확대(&I)\tCtrl++"
+
+#: Merge.rc:FE3C1D1
+#, c-format
+msgid "Zoom &Out\tCtrl+-"
+msgstr "축소(&O)\tCtrl+-"
+
+#. Zoom to normal
+#: Merge.rc:78B3B622
+#, c-format
+msgid "&Normal\tCtrl+*"
+msgstr "보통(&N)\tCtrl+*"
 
 #: Merge.rc:AC3AA13
 #, c-format
@@ -338,7 +358,7 @@ msgstr "자동 언패킹(&A)"
 msgid "&Edit with Unpacker..."
 msgstr "언패커로 편집(E)..."
 
-#: Merge.rc:78B3B622
+#: Merge.rc:78B3B623
 #, c-format
 msgid "&Reload plugins"
 msgstr "플러그인 다시 불러오기(&R)"
@@ -528,7 +548,7 @@ msgstr "글꼴 선택(&F)..."
 msgid "Use Default F&ont"
 msgstr "기본 글꼴 사용(&O)"
 
-#: Merge.rc:2E3BFCA1
+#: Merge.rc:2E3BFCA2
 #, c-format
 msgid "Sw&ap Panes"
 msgstr "창 맞바꾸기(&A)"
@@ -628,7 +648,7 @@ msgstr "왼쪽 저장(&L)"
 msgid "Save &Middle"
 msgstr "가운데 저장(&M)"
 
-#: Merge.rc:2E3BFCA2
+#: Merge.rc:2E3BFCA3
 #, c-format
 msgid "Save &Right"
 msgstr "오른쪽 저장(&R)"
@@ -672,7 +692,7 @@ msgstr "인쇄 미리보기(&R)"
 msgid "&Convert Line Endings to"
 msgstr "줄 끝 변환(&C)"
 
-#: Merge.rc:78B3B623
+#: Merge.rc:78B3B624
 #, c-format
 msgid "&Merge Mode\tF9"
 msgstr "병합 모드\tF9"
@@ -796,22 +816,6 @@ msgstr "전체 책갈피 지우기(&C)"
 #, c-format
 msgid "&Go To...\tCtrl+G"
 msgstr "이동(&G)...\tCtrl+G"
-
-#: Merge.rc:7C622F87
-#, c-format
-msgid "Zoom &In\tCtrl++"
-msgstr "확대(&I)\tCtrl++"
-
-#: Merge.rc:FE3C1D1
-#, c-format
-msgid "Zoom &Out\tCtrl+-"
-msgstr "축소(&O)\tCtrl+-"
-
-#. Zoom to normal
-#: Merge.rc:78B3B624
-#, c-format
-msgid "&Normal\tCtrl+*"
-msgstr "보통(&N)\tCtrl+*"
 
 #: Merge.rc:1BF42627
 #, c-format
@@ -4255,7 +4259,7 @@ msgstr "쉼표로 분리된 목록"
 msgid "Tab-separated list"
 msgstr "탭으로 분리된 목록"
 
-#: Merge.rc:2E3BFCA3
+#: Merge.rc:2E3BFCA4
 #, c-format
 msgid "Simple HTML"
 msgstr "단순한 HTML"

@@ -620,9 +620,7 @@
 #define IDS_OPEN_ALLINVALID             17210
 #define IDS_OPEN_UNPACKERDISABLED       17211
 #define IDS_OPEN_MISMATCH               17212
-
 #define IDS_OPEN_RIGHTINVALID3          17213
-
 #define IDS_ERROR_FILE_NOT_FOUND        17216
 #define IDS_ERROR_FILE_NOT_UNPACKED     17217
 #define IDS_ERROR_FILEOPEN              17221
@@ -1231,6 +1229,7 @@
 #define ID_FILE_PROJECT_MRU_LAST        33644
 #define IDS_CREATE_FOLDER               33645
 #define IDS_CREATE_FOLDER_ERROR         33646
+#define ID_FILE_SHELLMENU               33648
 
 // Next default values for new objects
 // 
@@ -1238,7 +1237,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
 #define _APS_NEXT_RESOURCE_VALUE        248
-#define _APS_NEXT_COMMAND_VALUE         33647
+#define _APS_NEXT_COMMAND_VALUE         33649
 #define _APS_NEXT_CONTROL_VALUE         8828
 #define _APS_NEXT_SYMED_VALUE           116
 #endif

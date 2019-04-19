@@ -36,7 +36,7 @@
 #include "Environment.h"
 #include "MovedLines.h"
 #include "MergeEditView.h"
-#include "ChildFrm.h"
+#include "MergeEditFrm.h"
 #include "DirDoc.h"
 #include "files.h"
 #include "FileTransform.h"
@@ -570,14 +570,12 @@ void CMergeDoc::FlagTrivialLines(void)
 				DIFFOPTIONS diffOptions = {0};
 				m_diffWrapper.GetOptions(&diffOptions);
 
-				std::vector<strdiff::wdiff> worddiffs;
 				// Make the call to stringdiffs, which does all the hard & tedious computations
-				strdiff::ComputeWordDiffs(m_nBuffers, str,
+				std::vector<strdiff::wdiff> worddiffs = strdiff::ComputeWordDiffs(m_nBuffers, str,
 					!diffOptions.bIgnoreCase,
 					diffOptions.nIgnoreWhitespace,
 					GetBreakType(), // whitespace only or include punctuation
-					GetByteColoringOption(),
-					&worddiffs);
+					GetByteColoringOption());
 				if (!worddiffs.empty())
 				{
 					for (int file = 0; file < m_nBuffers; ++file)
@@ -868,7 +866,7 @@ void CMergeDoc::CopyMultipleList(int srcPane, int dstPane, int firstDiff, int la
 			}			
 			// Group merge with previous (merge undo data to one action)
 			bGroupWithPrevious = true;
-			if (i > firstDiff)
+			if (i > firstDiff || firstWordDiff <= 0)
 			{
 				if (!ListCopy(srcPane, dstPane, -1, bGroupWithPrevious, false))
 					break; // sync failure
@@ -1187,7 +1185,7 @@ bool CMergeDoc::ListCopy(int srcPane, int dstPane, int nDiff /* = -1*/,
 }
 
 bool CMergeDoc::WordListCopy(int srcPane, int dstPane, int nDiff, int firstWordDiff, int lastWordDiff,
-		std::vector<int> *pWordDiffIndice, bool bGroupWithPrevious /*= false*/, bool bUpdateView /*= true*/)
+		const std::vector<int> *pWordDiffIndice, bool bGroupWithPrevious /*= false*/, bool bUpdateView /*= true*/)
 {
 	int nGroup = GetActiveMergeView()->m_nThisGroup;
 	CMergeEditView *pViewSrc = m_pView[nGroup][srcPane];
@@ -1215,8 +1213,7 @@ bool CMergeDoc::WordListCopy(int srcPane, int dstPane, int nDiff, int firstWordD
 		return false; // abort copying
 	}
 
-	std::vector<WordDiff> worddiffs;
-	GetWordDiffArray(cd_dbegin, &worddiffs);
+	std::vector<WordDiff> worddiffs = GetWordDiffArrayInDiffBlock(nDiff);
 
 	if (worddiffs.empty())
 		return false;
@@ -2415,9 +2412,9 @@ void CMergeDoc::SetDirDoc(CDirDoc * pDirDoc)
 /**
  * @brief Return pointer to parent frame
  */
-CChildFrame * CMergeDoc::GetParentFrame() 
+CMergeEditFrame * CMergeDoc::GetParentFrame() 
 {
-	return dynamic_cast<CChildFrame *>(m_pView[0][0]->GetParentFrame()); 
+	return dynamic_cast<CMergeEditFrame *>(m_pView[0][0]->GetParentFrame()); 
 }
 
 /**
@@ -2636,7 +2633,7 @@ bool CMergeDoc::OpenDocs(int nFiles, const FileLocation ifileloc[],
 	// Bail out if either side failed
 	if (std::find_if(nSuccess, nSuccess + m_nBuffers, [](DWORD d){return !FileLoadResult::IsOk(d);} ) != nSuccess + m_nBuffers)
 	{
-		CChildFrame *pFrame = GetParentFrame();
+		CMergeEditFrame *pFrame = GetParentFrame();
 		if (pFrame != nullptr)
 		{
 			// Use verify macro to trap possible error in debug.
@@ -2901,7 +2898,7 @@ void CMergeDoc::RefreshOptions()
  */
 void CMergeDoc::UpdateHeaderPath(int pane)
 {
-	CChildFrame *pf = GetParentFrame();
+	CMergeEditFrame *pf = GetParentFrame();
 	ASSERT(pf != nullptr);
 	String sText;
 	bool bChanges = false;
@@ -2934,7 +2931,7 @@ void CMergeDoc::UpdateHeaderPath(int pane)
  */
 void CMergeDoc::UpdateHeaderActivity(int pane, bool bActivate)
 {
-	CChildFrame *pf = GetParentFrame();
+	CMergeEditFrame *pf = GetParentFrame();
 	ASSERT(pf != nullptr);
 	pf->GetHeaderInterface()->SetActive(pane, bActivate);
 }

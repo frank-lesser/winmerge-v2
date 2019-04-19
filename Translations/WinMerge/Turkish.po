@@ -111,6 +111,10 @@ msgstr "Dış Düz&enleyici ile\tCtrl+Alt+E"
 msgid "&with..."
 msgstr "&Birlikte Aç..."
 
+#: Merge.rc:2E3BFCA1
+msgid "S&hell Menu"
+msgstr ""
+
 #: Merge.rc:1A8FADD3
 #, c-format
 msgid "View &Differences"
@@ -145,6 +149,22 @@ msgstr "Etkin S&ayfa"
 #, c-format
 msgid "&Zoom"
 msgstr "&Yakınlaştır"
+
+#: Merge.rc:7C622F87
+#, c-format
+msgid "Zoom &In\tCtrl++"
+msgstr "&Yakınlaştır\tCtrl++"
+
+#: Merge.rc:FE3C1D1
+#, c-format
+msgid "Zoom &Out\tCtrl+-"
+msgstr "&Uzaklaştır\tCtrl+-"
+
+#. Zoom to normal
+#: Merge.rc:78B3B622
+#, c-format
+msgid "&Normal\tCtrl+*"
+msgstr "&Normal\tCtrl+*"
 
 #: Merge.rc:AC3AA13
 #, c-format
@@ -335,7 +355,7 @@ msgstr "Otomatik &Ayıklama"
 msgid "&Edit with Unpacker..."
 msgstr "Ayıklayıcı ile Düz&enle..."
 
-#: Merge.rc:78B3B622
+#: Merge.rc:78B3B623
 #, c-format
 msgid "&Reload plugins"
 msgstr "Uygulama Ekle&rini Yeniden Yükle"
@@ -525,7 +545,7 @@ msgstr "Ya&zı Türünü Seçin..."
 msgid "Use Default F&ont"
 msgstr "Varsayılan Yazı &Türü Kullanılsın"
 
-#: Merge.rc:2E3BFCA1
+#: Merge.rc:2E3BFCA2
 #, c-format
 msgid "Sw&ap Panes"
 msgstr "&Panoların Yerini Değiştir"
@@ -625,7 +645,7 @@ msgstr "So&lu Kaydet"
 msgid "Save &Middle"
 msgstr "&Ortayı Kaydet"
 
-#: Merge.rc:2E3BFCA2
+#: Merge.rc:2E3BFCA3
 #, c-format
 msgid "Save &Right"
 msgstr "&Sağı Kaydet"
@@ -669,7 +689,7 @@ msgstr "&Baskı Önizleme"
 msgid "&Convert Line Endings to"
 msgstr "Sa&tır Sonlarını Dönüştür"
 
-#: Merge.rc:78B3B623
+#: Merge.rc:78B3B624
 #, c-format
 msgid "&Merge Mode\tF9"
 msgstr "Birleştir&me Kipi\tF9"
@@ -793,22 +813,6 @@ msgstr "&Tüm Yer İmlerini Sil"
 #, c-format
 msgid "&Go To...\tCtrl+G"
 msgstr "&Git...\tCtrl+G"
-
-#: Merge.rc:7C622F87
-#, c-format
-msgid "Zoom &In\tCtrl++"
-msgstr "&Yakınlaştır\tCtrl++"
-
-#: Merge.rc:FE3C1D1
-#, c-format
-msgid "Zoom &Out\tCtrl+-"
-msgstr "&Uzaklaştır\tCtrl+-"
-
-#. Zoom to normal
-#: Merge.rc:78B3B624
-#, c-format
-msgid "&Normal\tCtrl+*"
-msgstr "&Normal\tCtrl+*"
 
 #: Merge.rc:1BF42627
 #, c-format
@@ -4198,7 +4202,7 @@ msgstr "Virgül ile ayrılmış liste"
 msgid "Tab-separated list"
 msgstr "Sekme ile ayrılmış liste"
 
-#: Merge.rc:2E3BFCA3
+#: Merge.rc:2E3BFCA4
 #, c-format
 msgid "Simple HTML"
 msgstr "Basit HTML"

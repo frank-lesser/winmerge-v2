@@ -113,6 +113,10 @@ msgstr "com o &Editor Externo\tCtrl+Alt+E"
 msgid "&with..."
 msgstr "&com..."
 
+#: Merge.rc:2E3BFCA1
+msgid "S&hell Menu"
+msgstr ""
+
 #: Merge.rc:1A8FADD3
 #, c-format
 msgid "View &Differences"
@@ -147,6 +151,22 @@ msgstr "&Painel Ativo"
 #, c-format
 msgid "&Zoom"
 msgstr "&Zoom"
+
+#: Merge.rc:7C622F87
+#, c-format
+msgid "Zoom &In\tCtrl++"
+msgstr "Mais &Zoom\tCtrl++"
+
+#: Merge.rc:FE3C1D1
+#, c-format
+msgid "Zoom &Out\tCtrl+-"
+msgstr "Menos &Zoom\tCtrl+-"
+
+#. Zoom to normal
+#: Merge.rc:78B3B622
+#, c-format
+msgid "&Normal\tCtrl+*"
+msgstr "&Zoom Normal\tCtrl+*"
 
 #: Merge.rc:AC3AA13
 #, c-format
@@ -337,7 +357,7 @@ msgstr "&Desempacotamento Automático"
 msgid "&Edit with Unpacker..."
 msgstr "&Editar com o Desempacotador..."
 
-#: Merge.rc:78B3B622
+#: Merge.rc:78B3B623
 #, c-format
 msgid "&Reload plugins"
 msgstr "&Recarregar plugins"
@@ -527,7 +547,7 @@ msgstr "Selecionar a &Fonte..."
 msgid "Use Default F&ont"
 msgstr "Usar a Fonte P&adrão"
 
-#: Merge.rc:2E3BFCA1
+#: Merge.rc:2E3BFCA2
 #, c-format
 msgid "Sw&ap Panes"
 msgstr "Tr&ocar os Painéis"
@@ -627,7 +647,7 @@ msgstr "Salvar &o da Esquerda"
 msgid "Save &Middle"
 msgstr "Salvar &o do Meio"
 
-#: Merge.rc:2E3BFCA2
+#: Merge.rc:2E3BFCA3
 #, c-format
 msgid "Save &Right"
 msgstr "Salvar &o da Direita"
@@ -671,7 +691,7 @@ msgstr "Pré-Visualização da Impressã&o"
 msgid "&Convert Line Endings to"
 msgstr "&Converter os Finais das Linhas para"
 
-#: Merge.rc:78B3B623
+#: Merge.rc:78B3B624
 #, c-format
 msgid "&Merge Mode\tF9"
 msgstr "&Modo de União\tF9"
@@ -795,22 +815,6 @@ msgstr "&Limpar Todos os Favoritos"
 #, c-format
 msgid "&Go To...\tCtrl+G"
 msgstr "&Ir Para...\tCtrl+G"
-
-#: Merge.rc:7C622F87
-#, c-format
-msgid "Zoom &In\tCtrl++"
-msgstr "Mais &Zoom\tCtrl++"
-
-#: Merge.rc:FE3C1D1
-#, c-format
-msgid "Zoom &Out\tCtrl+-"
-msgstr "Menos &Zoom\tCtrl+-"
-
-#. Zoom to normal
-#: Merge.rc:78B3B624
-#, c-format
-msgid "&Normal\tCtrl+*"
-msgstr "&Zoom Normal\tCtrl+*"
 
 #: Merge.rc:1BF42627
 #, c-format
@@ -4255,7 +4259,7 @@ msgstr "Lista separada por vírgula"
 msgid "Tab-separated list"
 msgstr "Lista separada por aba"
 
-#: Merge.rc:2E3BFCA3
+#: Merge.rc:2E3BFCA4
 #, c-format
 msgid "Simple HTML"
 msgstr "HTML Simples"
