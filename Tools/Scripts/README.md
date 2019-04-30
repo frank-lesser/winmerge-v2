@@ -1,16 +1,6 @@
 Some useful scripts:
 
 
-BuildManualChm.bat
-------------------
-Batch file for creating HTML help (.chm) manual.
-
-
-BuildManualWeb.bat
-------------------
-Batch file for creating manual as separate HTML files.
-
-
 CheckMenuResources.vbs
 ----------------------
 Script that checking the menu resources for missing mnemonic chars and description texts.
@@ -19,12 +9,6 @@ Script that checking the menu resources for missing mnemonic chars and descripti
 CheckUnusedResources.vbs
 ------------------------
 Script for creating a list of (hopefully) unused resource IDs.
-
-
-SetVersions.py
---------------
- A script for setting version numbers of different components.
- See the file SetVersions.txt for documentation of the script.
 
 
 tsvn_patch.py

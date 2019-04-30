@@ -2069,6 +2069,10 @@ msgstr " يادداشتها "
 msgid "Filter Comments"
 msgstr " پالايه توضيحات "
 
+#: Merge.rc:57F02FB4
+msgid "Diff &algorithm (Experimental):"
+msgstr ""
+
 #: Merge.rc:3BB91A82
 #, c-format
 msgid "Editor"
@@ -2760,6 +2764,10 @@ msgstr ""
 msgid "&Quick compare limit (MB):"
 msgstr "&Q حد همسنجي سريع (مگابايت)"
 
+#: Merge.rc:175DEEF0
+msgid "&Binary compare limit (MB):"
+msgstr ""
+
 #: Merge.rc:2188DD49
 #, c-format
 msgid "&Number of compare threads (a negative value implies addition of the number of available CPU cores):"
@@ -3000,7 +3008,7 @@ msgstr "&a پرش از همگي "
 msgid "Don't display this &message again."
 msgstr "&m دوباره اين پيام را نمايش نده "
 
-#: Merge.rc:57F02FB4
+#: Merge.rc:57F02FB5
 #, c-format
 msgid "Don't ask this &question again."
 msgstr "&q دوباره اين پرسش را نپرس "

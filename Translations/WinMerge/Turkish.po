@@ -2065,6 +2065,10 @@ msgstr "Açıklamalar"
 msgid "Filter Comments"
 msgstr "Açıklamalar Süzülsün"
 
+#: Merge.rc:57F02FB4
+msgid "Diff &algorithm (Experimental):"
+msgstr ""
+
 #: Merge.rc:3BB91A82
 #, c-format
 msgid "Editor"
@@ -2754,6 +2758,10 @@ msgstr "Yeniden İşleme Noktala&rı Yok Sayılsın"
 msgid "&Quick compare limit (MB):"
 msgstr "&Hızlı Karşılaştırma Sınırı (MB):"
 
+#: Merge.rc:175DEEF0
+msgid "&Binary compare limit (MB):"
+msgstr ""
+
 #: Merge.rc:2188DD49
 #, c-format
 msgid "&Number of compare threads (a negative value implies addition of the number of available CPU cores):"
@@ -2995,7 +3003,7 @@ msgstr "&Tümünü Atla"
 msgid "Don't display this &message again."
 msgstr "Bu ileti &yeniden görüntülenmesin."
 
-#: Merge.rc:57F02FB4
+#: Merge.rc:57F02FB5
 #, c-format
 msgid "Don't ask this &question again."
 msgstr "Bu soru &yeniden sorulmasın."

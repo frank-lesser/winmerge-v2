@@ -2067,6 +2067,10 @@ msgstr "Kommentarer"
 msgid "Filter Comments"
 msgstr "FilterKommentarer"
 
+#: Merge.rc:57F02FB4
+msgid "Diff &algorithm (Experimental):"
+msgstr ""
+
 #: Merge.rc:3BB91A82
 #, c-format
 msgid "Editor"
@@ -2759,6 +2763,10 @@ msgstr "Åsidosätt ÅtertolkningsMarkeringar"
 msgid "&Quick compare limit (MB):"
 msgstr "Högsta SnabbJämförelseStorlek (MB):"
 
+#: Merge.rc:175DEEF0
+msgid "&Binary compare limit (MB):"
+msgstr ""
+
 #: Merge.rc:2188DD49
 msgid ""
 "&Number of compare threads (a negative value implies addition of the number "
@@ -3017,7 +3025,7 @@ msgstr "Hoppa över allt"
 msgid "Don't display this &message again."
 msgstr "Visa inte detta meddelande igen."
 
-#: Merge.rc:57F02FB4
+#: Merge.rc:57F02FB5
 #, c-format
 msgid "Don't ask this &question again."
 msgstr "Fråga inte denna fråga igen."

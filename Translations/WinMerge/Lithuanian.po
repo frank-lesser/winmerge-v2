@@ -1677,6 +1677,10 @@ msgstr "Komentarai"
 msgid "Filter Comments"
 msgstr "Filtro komentarai"
 
+#: Merge.rc:57F02FB4
+msgid "Diff &algorithm (Experimental):"
+msgstr ""
+
 #: Merge.rc:3BB91A82
 msgid "Editor"
 msgstr "Redaktoriaus"
@@ -2233,6 +2237,10 @@ msgstr "Ignoruoti paka&rtotinio apdorojimo taškus"
 msgid "&Quick compare limit (MB):"
 msgstr "&Greitojo palyginimo limitas (MB):"
 
+#: Merge.rc:175DEEF0
+msgid "&Binary compare limit (MB):"
+msgstr ""
+
 #: Merge.rc:2188DD49
 msgid "&Number of compare threads (a negative value implies addition of the number of available CPU cores):"
 msgstr "Lygi&nimo srautų skaičius (neigiama reikšmė reiškia turimų procesoriaus branduolių skaičiaus pridėjimą):"
@@ -2448,7 +2456,7 @@ msgstr "Praleisti visk&ą"
 msgid "Don't display this &message again."
 msgstr "Daugiau nerodyti šio praneši&mo."
 
-#: Merge.rc:57F02FB4
+#: Merge.rc:57F02FB5
 msgid "Don't ask this &question again."
 msgstr "Daugiau neklausti šio &klausimo."
 
