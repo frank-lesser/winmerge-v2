@@ -1687,6 +1687,14 @@ msgstr "移動ブロック検出を有効にする(&N)"
 msgid "&Match similar lines"
 msgstr "類似行をマッチさせる(&M)"
 
+#: Merge.rc:57F02FB4
+msgid "Diff &algorithm (Experimental):"
+msgstr "Diff アルゴリズム (実験的機能)(&A):"
+
+#: Merge.rc:6AE6FCAE
+msgid "Enable indent &heuristic"
+msgstr "indent heuristic を有効にする(&H)"
+
 #: Merge.rc:4C3E0A2F
 msgid "Comments"
 msgstr "コメント"
@@ -1694,10 +1702,6 @@ msgstr "コメント"
 #: Merge.rc:1AFA3491
 msgid "Filter Comments"
 msgstr "コメントの差異を無視する"
-
-#: Merge.rc:57F02FB4
-msgid "Diff &algorithm (Experimental):"
-msgstr "Diff アルゴリズム (実験的機能)(&A):"
 
 #: Merge.rc:3BB91A82
 msgid "Editor"
@@ -2227,6 +2231,14 @@ msgstr "シェル拡張を登録(&R)"
 #: Merge.rc:175DEEEF
 msgid "&Unregister shell extension"
 msgstr "シェル拡張の登録を解除(&U)"
+
+#: Merge.rc:2D682DC2
+msgid "Register shell extension for current user &only"
+msgstr "現在のユーザーのみシェル拡張を登録(&O)"
+
+#: Merge.rc:5C3A0110
+msgid "Unregister shell extension for current user on&ly"
+msgstr "現在のユーザーのみシェル拡張の登録を解除(&L)"
 
 #: Merge.rc:7262BE24
 msgid "Folder"

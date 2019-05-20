@@ -2066,6 +2066,14 @@ msgstr "启用检测移动的区块(&N)"
 msgid "&Match similar lines"
 msgstr "匹配相似的行(&M)"
 
+#: Merge.rc:57F02FB4
+msgid "Diff &algorithm (Experimental):"
+msgstr ""
+
+#: Merge.rc:6AE6FCAE
+msgid "Enable indent &heuristic"
+msgstr ""
+
 #: Merge.rc:4C3E0A2F
 #, c-format
 msgid "Comments"
@@ -2075,10 +2083,6 @@ msgstr "备注"
 #, c-format
 msgid "Filter Comments"
 msgstr "过滤注释"
-
-#: Merge.rc:57F02FB4
-msgid "Diff &algorithm (Experimental):"
-msgstr ""
 
 #: Merge.rc:3BB91A82
 #, c-format
@@ -2729,6 +2733,14 @@ msgstr "注册到外壳扩展(&R)"
 #, c-format
 msgid "&Unregister shell extension"
 msgstr "取消注册到外壳扩展(&U)"
+
+#: Merge.rc:2D682DC2
+msgid "Register shell extension for current user &only"
+msgstr ""
+
+#: Merge.rc:5C3A0110
+msgid "Unregister shell extension for current user on&ly"
+msgstr ""
 
 #: Merge.rc:7262BE24
 #, c-format

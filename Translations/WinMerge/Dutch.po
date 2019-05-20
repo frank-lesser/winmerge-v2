@@ -2071,6 +2071,14 @@ msgstr "Detectie verplaatste blokken inschakelen"
 msgid "&Match similar lines"
 msgstr "Gelijke regels laten overeenkomen"
 
+#: Merge.rc:57F02FB4
+msgid "Diff &algorithm (Experimental):"
+msgstr ""
+
+#: Merge.rc:6AE6FCAE
+msgid "Enable indent &heuristic"
+msgstr ""
+
 #: Merge.rc:4C3E0A2F
 #, c-format
 msgid "Comments"
@@ -2080,10 +2088,6 @@ msgstr "Opmerkingen"
 #, c-format
 msgid "Filter Comments"
 msgstr "Filter-opmerkingen"
-
-#: Merge.rc:57F02FB4
-msgid "Diff &algorithm (Experimental):"
-msgstr ""
 
 #: Merge.rc:3BB91A82
 #, c-format
@@ -2744,6 +2748,14 @@ msgstr "Shell-extensie registreren"
 #, c-format
 msgid "&Unregister shell extension"
 msgstr "Shell-extensie de-registreren"
+
+#: Merge.rc:2D682DC2
+msgid "Register shell extension for current user &only"
+msgstr ""
+
+#: Merge.rc:5C3A0110
+msgid "Unregister shell extension for current user on&ly"
+msgstr ""
 
 #: Merge.rc:7262BE24
 #, c-format
