@@ -28,7 +28,7 @@
 // CDirView view
 #include <afxcview.h>
 #include <memory>
-#include "OptionsDiffColors.h"
+#include "OptionsDirColors.h"
 #include "SortHeaderCtrl.h"
 #include "UnicodeString.h"
 #include "DirItemIterator.h"
@@ -190,7 +190,7 @@ protected:
 	int GetFirstDifferentItem();
 	int GetLastDifferentItem();
 	int AddSpecialItems();
-	void GetCurrentColRegKeys(std::vector<String>& colKeys);
+	std::vector<String>	GetCurrentColRegKeys();
 	void OpenSpecialItems(DIFFITEM *pos1, DIFFITEM *pos2, DIFFITEM *pos3);
 
 // Implementation data
@@ -215,7 +215,8 @@ protected:
 	int m_lastDiffItem;
 	bool m_bNeedSearchFirstDiffItem;
 	bool m_bNeedSearchLastDiffItem;
-	COLORSETTINGS m_cachedColors; /**< Cached color settings */
+	DIRCOLORSETTINGS m_cachedColors; /**< Cached color settings */
+	bool m_bUseColors;
 
 	std::unique_ptr<CShellContextMenu> m_pShellContextMenuLeft; /**< Shell context menu for group of left files */
 	std::unique_ptr<CShellContextMenu> m_pShellContextMenuMiddle; /**< Shell context menu for group of middle files */
@@ -294,6 +295,7 @@ protected:
 	afx_msg void OnCtxtOpenWithUnpacker();
 	afx_msg void OnUpdateCtxtOpenWithUnpacker(CCmdUI* pCmdUI);
 	afx_msg void OnToolsGenerateReport();
+	afx_msg LRESULT OnGenerateFileCmpReport(WPARAM wParam, LPARAM lParam);
 	afx_msg void OnToolsGeneratePatch();
 	template<int flag>
 	afx_msg void OnCtxtDirZip();
@@ -343,6 +345,9 @@ protected:
 	afx_msg void OnOptionsShowDifferentLeftOnly();
 	afx_msg void OnOptionsShowDifferentMiddleOnly();
 	afx_msg void OnOptionsShowDifferentRightOnly();
+	afx_msg void OnOptionsShowMissingLeftOnly();
+	afx_msg void OnOptionsShowMissingMiddleOnly();
+	afx_msg void OnOptionsShowMissingRightOnly();
 	afx_msg void OnUpdateOptionsShowdifferent(CCmdUI* pCmdUI);
 	afx_msg void OnUpdateOptionsShowidentical(CCmdUI* pCmdUI);
 	afx_msg void OnUpdateOptionsShowuniqueleft(CCmdUI* pCmdUI);
@@ -353,6 +358,9 @@ protected:
 	afx_msg void OnUpdateOptionsShowDifferentLeftOnly(CCmdUI* pCmdUI);
 	afx_msg void OnUpdateOptionsShowDifferentMiddleOnly(CCmdUI* pCmdUI);
 	afx_msg void OnUpdateOptionsShowDifferentRightOnly(CCmdUI* pCmdUI);
+	afx_msg void OnUpdateOptionsShowMissingLeftOnly(CCmdUI* pCmdUI);
+	afx_msg void OnUpdateOptionsShowMissingMiddleOnly(CCmdUI* pCmdUI);
+	afx_msg void OnUpdateOptionsShowMissingRightOnly(CCmdUI* pCmdUI);
 	afx_msg void OnMergeCompare();
 	template<SELECTIONTYPE seltype>
 	afx_msg void OnMergeCompare2();

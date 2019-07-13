@@ -325,6 +325,15 @@ msgstr "Alleen midden verschillende items weergeven"
 msgid "Show &Right Only Different Items"
 msgstr "Alleen rechts verschillende items weergeven"
 
+msgid "Show L&eft Only Missing Items"
+msgstr ""
+
+msgid "Show Mi&ddle Only Missing Items"
+msgstr ""
+
+msgid "Show Rig&ht Only Missing Items"
+msgstr ""
+
 msgid "Show Hidd&en Items"
 msgstr "Verborgen items weergeven"
 
@@ -1114,6 +1123,21 @@ msgstr "Geselecteerd woordverschil:"
 
 msgid "Defaults"
 msgstr "Standaardwaarden"
+
+msgid "&Use folder compare colors"
+msgstr ""
+
+msgid "Items equal:"
+msgstr ""
+
+msgid "Items different:"
+msgstr ""
+
+msgid "Items not exists all:"
+msgstr ""
+
+msgid "Items filtered:"
+msgstr ""
 
 msgid "System"
 msgstr "Systeem"
@@ -1913,6 +1937,9 @@ msgstr ""
 msgid "Syntax"
 msgstr "Syntax"
 
+msgid "Folder Compare"
+msgstr ""
+
 msgid "Differences"
 msgstr "Verschillen"
 
@@ -1934,9 +1961,6 @@ msgstr "Naar rechts:"
 #, c-format
 msgid "Version %1"
 msgstr "Versie %1 - Nederlands"
-
-msgid "Unicode"
-msgstr "Unicode"
 
 msgid "X64"
 msgstr "X64"

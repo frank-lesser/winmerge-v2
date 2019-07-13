@@ -424,6 +424,15 @@ msgstr "가운데만 다른 항목 보기(&M)"
 msgid "Show &Right Only Different Items"
 msgstr "오른쪽만 다른 항목 보기(&R)"
 
+msgid "Show L&eft Only Missing Items"
+msgstr ""
+
+msgid "Show Mi&ddle Only Missing Items"
+msgstr ""
+
+msgid "Show Rig&ht Only Missing Items"
+msgstr ""
+
 #, c-format
 msgid "Show Hidd&en Items"
 msgstr "숨김 파일 보기(&E)"
@@ -1446,6 +1455,21 @@ msgstr "선택된 단어 차이점:"
 msgid "Defaults"
 msgstr "기본값"
 
+msgid "&Use folder compare colors"
+msgstr ""
+
+msgid "Items equal:"
+msgstr ""
+
+msgid "Items different:"
+msgstr ""
+
+msgid "Items not exists all:"
+msgstr ""
+
+msgid "Items filtered:"
+msgstr ""
+
 #, c-format
 msgid "System"
 msgstr "시스템"
@@ -2457,6 +2481,9 @@ msgstr "이 메시지 상자를 다시 표시하려면, 옵션 대화상자의 �
 msgid "Syntax"
 msgstr "구문"
 
+msgid "Folder Compare"
+msgstr ""
+
 #, c-format
 msgid "Differences"
 msgstr "차이점"
@@ -2484,10 +2511,6 @@ msgstr "오른쪽으로:"
 #, c-format
 msgid "Version %1"
 msgstr "버전 %1"
-
-#, c-format
-msgid "Unicode"
-msgstr "유니코드"
 
 #, c-format
 msgid "X64"

@@ -24,21 +24,12 @@
 #include "UnicodeString.h"
 #include "PathContext.h"
 
-/**
- * @brief Class for handling project files.
- *
- * This class loads and saves project files. Expat parser and SCEW wrapper for
- * expat are used for XML parsing. We use UTF-8 encoding so Unicode paths are
- * supported.
- */
-class ProjectFile
+class ProjectFileItem
 {
+	friend class ProjectFile;
 	friend class ProjectFileHandler;
 public:
-	ProjectFile();
-	bool Read(const String& path);
-	bool Save(const String& path) const;
-	
+	ProjectFileItem();
 	bool HasLeft() const;
 	bool HasMiddle() const;
 	bool HasRight() const;
@@ -63,8 +54,6 @@ public:
 	void GetPaths(PathContext& files, bool & bSubFolders) const;
 	void SetPaths(const PathContext& files, bool bSubFolders = false);
 
-	static const String PROJECTFILE_EXT;
-
 private:
 	PathContext m_paths;
 	bool m_bHasLeft; /**< Has left path? */
@@ -78,3 +67,141 @@ private:
 	bool m_bMiddleReadOnly; /**< Is middle path opened as read-only */
 	bool m_bRightReadOnly; /**< Is right path opened as read-only */
 };
+
+/**
+ * @brief Class for handling project files.
+ *
+ * This class loads and saves project files. Expat parser and SCEW wrapper for
+ * expat are used for XML parsing. We use UTF-8 encoding so Unicode paths are
+ * supported.
+ */
+class ProjectFile
+{
+public:
+	bool Read(const String& path);
+	bool Save(const String& path) const;
+	const std::list<ProjectFileItem>& Items() const { return m_items; };
+	std::list<ProjectFileItem>& Items() { return m_items; }
+	static const String PROJECTFILE_EXT;
+private:
+	std::list<ProjectFileItem> m_items;
+};
+
+/** 
+ * @brief Returns if left path is defined in project file.
+ * @return true if project file has left path.
+ */
+inline bool ProjectFileItem::HasLeft() const
+{
+	return m_bHasLeft;
+}
+
+/** 
+ * @brief Returns if middle path is defined.
+ */
+inline bool ProjectFileItem::HasMiddle() const
+{
+	return m_bHasMiddle;
+}
+
+/** 
+ * @brief Returns if right path is defined in project file.
+ * @return true if project file has right path.
+ */
+inline bool ProjectFileItem::HasRight() const
+{
+	return m_bHasRight;
+}
+
+/** 
+ * @brief Returns if filter is defined in project file.
+ * @return true if project file has filter.
+ */
+inline bool ProjectFileItem::HasFilter() const
+{
+	return m_bHasFilter;
+}
+
+/** 
+ * @brief Returns if subfolder is defined in projectfile.
+ * @return true if project file has subfolder definition.
+ */
+inline bool ProjectFileItem::HasSubfolders() const
+{
+	return m_bHasSubfolders;
+}
+
+/** 
+ * @brief Returns if left path is specified read-only.
+ * @return true if left path is read-only, false otherwise.
+ */
+inline bool ProjectFileItem::GetLeftReadOnly() const
+{
+	return m_bLeftReadOnly;
+}
+
+/** 
+ * @brief Returns if middle path is specified read-only.
+ */
+inline bool ProjectFileItem::GetMiddleReadOnly() const
+{
+	return m_bMiddleReadOnly;
+}
+
+/** 
+ * @brief Returns if right path is specified read-only.
+ * @return true if right path is read-only, false otherwise.
+ */
+inline bool ProjectFileItem::GetRightReadOnly() const
+{
+	return m_bRightReadOnly;
+}
+
+/** 
+ * @brief Returns filter.
+ * @return Filter string.
+ */
+inline String ProjectFileItem::GetFilter() const
+{
+	return m_filter;
+}
+
+/** 
+ * @brief Set filter.
+ * @param [in] sFilter New filter string to set.
+ */
+inline void ProjectFileItem::SetFilter(const String& sFilter)
+{
+	m_filter = sFilter;
+}
+
+/** 
+ * @brief Returns subfolder included -setting.
+ * @return != 0 if subfolders are included.
+ */
+inline int ProjectFileItem::GetSubfolders() const
+{
+	return m_subfolders;
+}
+
+/** 
+ * @brief set subfolder.
+ * @param [in] iSubfolder New value for subfolder inclusion.
+ */
+inline void ProjectFileItem::SetSubfolders(bool bSubfolder)
+{
+	m_subfolders = bSubfolder ? 1 : 0;
+}
+
+/** 
+ * @brief 
+ *
+ * @param [in] files Files in project
+ * @param [in] bSubFolders If true subfolders included (recursive compare)
+ */
+inline void ProjectFileItem::SetPaths(const PathContext& files, bool bSubfolders)
+{
+	m_paths = files;
+	m_subfolders = bSubfolders;
+}
+

@@ -40,7 +40,7 @@
 #include "FileOrFolderSelect.h"
 #include "7zCommon.h"
 #include "Constants.h"
-#include "Picture.h"
+#include "Bitmap.h"
 #include "DropHandler.h"
 #include "FileFilterHelper.h"
 #include "Plugins.h"
@@ -177,7 +177,7 @@ void COpenView::OnInitialUpdate()
 
 	theApp.TranslateDialog(m_hWnd);
 
-	if (!m_picture.Load(IDR_LOGO))
+	if (!LoadImageFromResource(m_image, MAKEINTRESOURCE(IDR_LOGO), _T("IMAGE")))
 		return;
 
 	CFormView::OnInitialUpdate();
@@ -238,9 +238,9 @@ void COpenView::OnInitialUpdate()
 	LoadComboboxStates();
 
 	bool bDoUpdateData = true;
-	for (int index = 0; index < std::size(m_strPath); index++)
+	for (auto& strPath: m_strPath)
 	{
-		if (!m_strPath[index].empty())
+		if (!strPath.empty())
 			bDoUpdateData = false;
 	}
 	UpdateData(bDoUpdateData);
@@ -319,9 +319,9 @@ void COpenView::OnPaint()
 	GetClientRect(&rc);
 
 	// Draw the logo image
-	CSize size = m_picture.GetImageSize(&dc);
+	CSize size{ m_image.GetWidth(), m_image.GetHeight() };
 	CRect rcImage(0, 0, size.cx * GetSystemMetrics(SM_CXSMICON) / 16, size.cy * GetSystemMetrics(SM_CYSMICON) / 16);
-	m_picture.Render(&dc, rcImage);
+	m_image.Draw(dc.m_hDC, rcImage, Gdiplus::InterpolationModeBicubic);
 	// And extend it to the Right boundary
     dc.PatBlt(rcImage.Width(), 0, rc.Width() - rcImage.Width(), rcImage.Height(), PATCOPY);
 
@@ -557,16 +557,15 @@ void COpenView::OnOK()
 	UpdateData(TRUE);
 	TrimPaths();
 
-	int index;
 	int nFiles = 0;
-	for (index = 0; index < std::size(m_strPath); index++)
+	for (auto& strPath: m_strPath)
 	{
-		if (index == 2 && m_strPath[index].empty())
+		if (nFiles == 2 && strPath.empty())
 			break;
 		m_files.SetSize(nFiles + 1);
-		m_files[nFiles] = m_strPath[index];
+		m_files[nFiles] = strPath;
 		m_dwFlags[nFiles] &= ~FFILEOPEN_READONLY;
-		m_dwFlags[nFiles] |= m_bReadOnly[index] ? FFILEOPEN_READONLY : 0;
+		m_dwFlags[nFiles] |= m_bReadOnly[nFiles] ? FFILEOPEN_READONLY : 0;
 		nFiles++;
 	}
 	// If left path is a project-file, load it
@@ -583,7 +582,7 @@ void COpenView::OnOK()
 		return;
 	}
 
-	for (index = 0; index < nFiles; index++)
+	for (int index = 0; index < nFiles; index++)
 	{
 		// If user has edited path by hand, expand environment variables
 		bool bExpand = false;
@@ -681,17 +680,19 @@ void COpenView::OnLoadProject()
 	ProjectFile project;
 	if (!theApp.LoadProjectFile(fileName, project))
 		return;
-
+	if (project.Items().size() == 0)
+		return;
 	PathContext paths;
-	project.GetPaths(paths, m_bRecurse);
-	project.GetLeftReadOnly();
-	if (paths.size() < 3)
+	ProjectFileItem& projItem = *project.Items().begin();
+	projItem.GetPaths(paths, m_bRecurse);
+	projItem.GetLeftReadOnly();
+	if (paths.GetSize() < 3)
 	{
 		m_strPath[0] = paths[0];
 		m_strPath[1] = paths[1];
 		m_strPath[2] = _T("");
-		m_bReadOnly[0] = project.GetLeftReadOnly();
-		m_bReadOnly[1] = project.GetRightReadOnly();
+		m_bReadOnly[0] = projItem.GetLeftReadOnly();
+		m_bReadOnly[1] = projItem.GetRightReadOnly();
 		m_bReadOnly[2] = false;
 	}
 	else
@@ -699,11 +700,11 @@ void COpenView::OnLoadProject()
 		m_strPath[0] = paths[0];
 		m_strPath[1] = paths[1];
 		m_strPath[2] = paths[2];
-		m_bReadOnly[0] = project.GetLeftReadOnly();
-		m_bReadOnly[1] = project.GetMiddleReadOnly();
-		m_bReadOnly[2] = project.GetRightReadOnly();
+		m_bReadOnly[0] = projItem.GetLeftReadOnly();
+		m_bReadOnly[1] = projItem.GetMiddleReadOnly();
+		m_bReadOnly[2] = projItem.GetRightReadOnly();
 	}
-	m_strExt = project.GetFilter();
+	m_strExt = projItem.GetFilter();
 
 	UpdateData(FALSE);
 	LangMessageBox(IDS_PROJFILE_LOAD_SUCCESS, MB_ICONINFORMATION);
@@ -721,20 +722,21 @@ void COpenView::OnSaveProject()
 		return;
 
 	ProjectFile project;
+	ProjectFileItem projItem;
 
 	if (!m_strPath[0].empty())
-		project.SetLeft(m_strPath[0], &m_bReadOnly[0]);
+		projItem.SetLeft(m_strPath[0], &m_bReadOnly[0]);
 	if (m_strPath[2].empty())
 	{
 		if (!m_strPath[1].empty())
-			project.SetRight(m_strPath[1], &m_bReadOnly[1]);
+			projItem.SetRight(m_strPath[1], &m_bReadOnly[1]);
 	}
 	else
 	{
 		if (!m_strPath[1].empty())
-			project.SetMiddle(m_strPath[1], &m_bReadOnly[1]);
+			projItem.SetMiddle(m_strPath[1], &m_bReadOnly[1]);
 		if (!m_strPath[2].empty())
-			project.SetRight(m_strPath[2], &m_bReadOnly[2]);
+			projItem.SetRight(m_strPath[2], &m_bReadOnly[2]);
 	}
 	if (!m_strExt.empty())
 	{
@@ -747,9 +749,10 @@ void COpenView::OnSaveProject()
 			strExt.erase(0, prefix.length());
 		}
 		strExt = strutils::trim_ws_begin(strExt);
-		project.SetFilter(strExt);
+		projItem.SetFilter(strExt);
 	}
-	project.SetSubfolders(m_bRecurse);
+	projItem.SetSubfolders(m_bRecurse);
+	project.Items().push_back(projItem);
 
 	if (!theApp.SaveProjectFile(fileName, project))
 		return;
@@ -1074,14 +1077,13 @@ void COpenView::OnSelectUnpacker()
 	paths::PATH_EXISTENCE pathsType;
 	UpdateData(TRUE);
 
-	int index;
 	int nFiles = 0;
-	for (index = 0; index < std::size(m_strPath); index++)
+	for (auto& strPath: m_strPath)
 	{
-		if (index == 2 && m_strPath[index].empty())
+		if (nFiles == 2 && strPath.empty())
 			break;
 		m_files.SetSize(nFiles + 1);
-		m_files[nFiles] = m_strPath[index];
+		m_files[nFiles] = strPath;
 		nFiles++;
 	}
 	pathsType = paths::GetPairComparability(m_files);
@@ -1214,27 +1216,29 @@ bool COpenView::LoadProjectFile(const String &path)
 
 	if (!theApp.LoadProjectFile(path, prj))
 		return false;
-
+	if (prj.Items().size() == 0)
+		return false;
 	bool recurse;
-	prj.GetPaths(m_files, recurse);
+	ProjectFileItem& projItem = *prj.Items().begin();
+	projItem.GetPaths(m_files, recurse);
 	m_bRecurse = recurse;
 	m_dwFlags[0] &= ~FFILEOPEN_READONLY;
-	m_dwFlags[0] |= prj.GetLeftReadOnly() ?	FFILEOPEN_READONLY : 0;
+	m_dwFlags[0] |= projItem.GetLeftReadOnly() ?	FFILEOPEN_READONLY : 0;
 	if (m_files.GetSize() < 3)
 	{
 		m_dwFlags[1] &= ~FFILEOPEN_READONLY;
-		m_dwFlags[1] |= prj.GetRightReadOnly() ? FFILEOPEN_READONLY : 0;
+		m_dwFlags[1] |= projItem.GetRightReadOnly() ? FFILEOPEN_READONLY : 0;
 	}
 	else
 	{
 		m_dwFlags[1] &= ~FFILEOPEN_READONLY;
-		m_dwFlags[1] |= prj.GetMiddleReadOnly() ? FFILEOPEN_READONLY : 0;
+		m_dwFlags[1] |= projItem.GetMiddleReadOnly() ? FFILEOPEN_READONLY : 0;
 		m_dwFlags[2] &= ~FFILEOPEN_READONLY;
-		m_dwFlags[2] |= prj.GetRightReadOnly() ? FFILEOPEN_READONLY : 0;
+		m_dwFlags[2] |= projItem.GetRightReadOnly() ? FFILEOPEN_READONLY : 0;
 	}
-	if (prj.HasFilter())
+	if (projItem.HasFilter())
 	{
-		m_strExt = strutils::trim_ws(prj.GetFilter());
+		m_strExt = strutils::trim_ws(projItem.GetFilter());
 		if (m_strExt[0] != '*')
 			m_strExt.insert(0, filterPrefix);
 	}
@@ -1247,8 +1251,8 @@ bool COpenView::LoadProjectFile(const String &path)
  */
 void COpenView::TrimPaths()
 {
-	for (int index = 0; index < std::size(m_strPath); index++)
-		m_strPath[index] = strutils::trim_ws(m_strPath[index]);
+	for (auto& strPath: m_strPath)
+		strPath = strutils::trim_ws(strPath);
 }
 
 /** 

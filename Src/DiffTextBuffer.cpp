@@ -205,24 +205,6 @@ OnNotifyLineHasBeenEdited(int nLine)
 }
 
 /**
- * @brief Set the folder for temp files.
- * @param [in] path Temp files folder.
- */
-void CDiffTextBuffer::SetTempPath(const String &path)
-{
-	m_strTempPath = path;
-}
-
-/**
- * @brief Is the buffer initialized?
- * @return true if the buffer is initialized, false otherwise.
- */
-bool CDiffTextBuffer::IsInitialized() const
-{
-	return !!m_bInit;
-}
-
-/**
  * @brief Load file from disk into buffer
  *
  * @param [in] pszFileNameInit File to load
@@ -464,7 +446,7 @@ int CDiffTextBuffer::SaveToFile (const String& pszFileName,
 	if (bTempFile)
 	{
 		file.SetUnicoding(ucr::UTF8);
-		file.SetBom(false);
+		file.SetBom(GetOptionsMgr()->GetInt(OPT_CMP_DIFF_ALGORITHM) == 0);
 		bOpenSuccess = !!file.OpenCreate(pszFileName);
 	}
 	else
@@ -487,10 +469,10 @@ int CDiffTextBuffer::SaveToFile (const String& pszFileName,
 			sError = uniErr.GetError();
 			if (bTempFile)
 				LogErrorString(strutils::format(_T("Opening file %s failed: %s"),
-					pszFileName.c_str(), sError.c_str()));
+					pszFileName, sError));
 			else
 				LogErrorString(strutils::format(_T("Opening file %s failed: %s"),
-					sIntermediateFilename.c_str(), sError.c_str()));
+					sIntermediateFilename, sError));
 		}
 		return SAVE_FAILED;
 	}

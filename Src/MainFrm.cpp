@@ -280,11 +280,8 @@ CMainFrame::~CMainFrame()
 	strdiff::Close();
 }
 
-#ifdef _UNICODE
 const TCHAR CMainFrame::szClassName[] = _T("WinMergeWindowClassW");
-#else
-const TCHAR CMainFrame::szClassName[] = _T("WinMergeWindowClassA");
-#endif
+
 /**
  * @brief Change MainFrame window class name
  *        see http://support.microsoft.com/kb/403825/ja
@@ -421,7 +418,7 @@ HMENU CMainFrame::GetPrediffersSubmenu(HMENU mainMenu)
  */
 HMENU CMainFrame::NewMenu(int view, int ID)
 {
-	int menu_view, index;
+	int menu_view;
 	if (m_pMenus[view] == nullptr)
 	{
 		m_pMenus[view].reset(new BCMenu());
@@ -457,11 +454,11 @@ HMENU CMainFrame::NewMenu(int view, int ID)
 	}
 
 	// Load bitmaps to menuitems
-	for (index = 0; index < std::size(m_MenuIcons); index ++)
+	for (auto& menu_icon: m_MenuIcons)
 	{
-		if (menu_view == (m_MenuIcons[index].menusToApply & menu_view))
+		if (menu_view == (menu_icon.menusToApply & menu_view))
 		{
-			m_pMenus[view]->ModifyODMenu(nullptr, m_MenuIcons[index].menuitemID, m_MenuIcons[index].iconResID);
+			m_pMenus[view]->ModifyODMenu(nullptr, menu_icon.menuitemID, menu_icon.iconResID);
 		}
 	}
 
@@ -683,31 +680,6 @@ bool CMainFrame::ShowMergeDoc(CDirDoc * pDirDoc,
 		{
 			FileLocationGuessEncodings(fileloc[pane], iGuessEncodingType);
 		}
-
-		// TODO (Perry, 2005-12-04)
-		// Should we do any unification if unicodings are different?
-
-
-#ifndef _UNICODE
-		// In ANSI (8-bit) build, character loss can occur in merging
-		// if the two buffers use different encodings
-		if (pane > 0 && fileloc[pane - 1].encoding.m_codepage != fileloc[pane].encoding.m_codepage)
-		{
-			CString msg;
-			msg.Format(theApp.LoadString(IDS_SUGGEST_IGNORECODEPAGE).c_str(), fileloc[pane - 1].encoding.m_codepage,fileloc[pane].encoding.m_codepage);
-			int msgflags = MB_YESNO | MB_ICONQUESTION | MB_DONT_ASK_AGAIN;
-			// Two files with different codepages
-			// Warn and propose to use the default codepage for both
-			int userChoice = AfxMessageBox(msg, msgflags);
-			if (userChoice == IDYES)
-			{
-				fileloc[pane - 1].encoding.SetCodepage(ucr::getDefaultCodepage());
-				fileloc[pane - 1].encoding.m_bom = false;
-				fileloc[pane].encoding.SetCodepage(ucr::getDefaultCodepage());
-				fileloc[pane].encoding.m_bom = false;
-			}
-		}
-#endif
 	}
 
 	// Note that OpenDocs() takes care of closing compare window when needed.
@@ -1591,7 +1563,6 @@ void CMainFrame::OnToolsFilters()
 	CPropertySheet sht(title.c_str());
 	LineFiltersDlg lineFiltersDlg;
 	FileFiltersDlg fileFiltersDlg;
-	vector<FileFilterInfo> fileFilters;
 	std::unique_ptr<LineFiltersList> lineFilters(new LineFiltersList());
 	String selectedFilter;
 	const String origFilter = theApp.m_pGlobalFileFilter->GetFilterNameOrMask();
@@ -1602,8 +1573,7 @@ void CMainFrame::OnToolsFilters()
 	// Make sure all filters are up-to-date
 	theApp.m_pGlobalFileFilter->ReloadUpdatedFilters();
 
-	theApp.m_pGlobalFileFilter->GetFileFilters(&fileFilters, selectedFilter);
-	fileFiltersDlg.SetFilterArray(&fileFilters);
+	fileFiltersDlg.SetFilterArray(theApp.m_pGlobalFileFilter->GetFileFilters(selectedFilter));
 	fileFiltersDlg.SetSelected(selectedFilter);
 	const bool lineFiltersEnabledOrig = GetOptionsMgr()->GetBool(OPT_LINEFILTER_ENABLED);
 	lineFiltersDlg.m_bIgnoreRegExp = lineFiltersEnabledOrig;
@@ -1791,7 +1761,7 @@ void CMainFrame::OnFileOpenProject()
 	// store this as the new project path
 	GetOptionsMgr()->SaveOption(OPT_PROJECTS_PATH, strProjectPath);
 
-	theApp.LoadAndOpenProjectFile(sFilepath.c_str());
+	theApp.LoadAndOpenProjectFile(sFilepath);
 }
 
 /**
@@ -1908,7 +1878,7 @@ void CMainFrame::OnSaveProject()
 	{
 		CMergeDoc * pMergeDoc = static_cast<CMergeDoc *>(pFrame->GetActiveDocument());
 		pOpenDoc->m_files = pMergeDoc->m_filePaths;
-		for (size_t pane = 0; pane < pOpenDoc->m_files.size(); ++pane)
+		for (int pane = 0; pane < pOpenDoc->m_files.GetSize(); ++pane)
 			pOpenDoc->m_dwFlags[pane] = FFILEOPEN_PROJECT | (pMergeDoc->m_ptBuf[pane]->GetReadOnly() ? FFILEOPEN_PROJECT : 0);
 		pOpenDoc->m_bRecurse = GetOptionsMgr()->GetBool(OPT_CMP_INCLUDE_SUBDIRS);
 		pOpenDoc->m_strExt = theApp.m_pGlobalFileFilter->GetFilterNameOrMask();
@@ -2132,17 +2102,10 @@ BOOL CMainFrame::OnToolTipText(UINT, NMHDR* pNMHDR, LRESULT* pResult)
 		// this is the command id, not the button index
 		AfxExtractSubString(strTipText, strFullText.c_str(), 1, '\n');
 	}
-#ifndef _UNICODE
-	if (pNMHDR->code == TTN_NEEDTEXTA)
-		lstrcpyn(pTTTA->szText, strTipText, std::size(pTTTA->szText));
-	else
-		_mbstowcsz(pTTTW->szText, strTipText, std::size(pTTTW->szText));
-#else
 	if (pNMHDR->code == TTN_NEEDTEXTA)
 		_wcstombsz(pTTTA->szText, strTipText, static_cast<ULONG>(std::size(pTTTA->szText)));
 	else
 		lstrcpyn(pTTTW->szText, strTipText, static_cast<int>(std::size(pTTTW->szText)));
-#endif
 	*pResult = 0;
 
 	// bring the tooltip window above other popup windows

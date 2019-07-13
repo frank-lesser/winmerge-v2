@@ -8,10 +8,8 @@
 #include "CompareStats.h"
 #include <cassert>
 #include <cstring>
-#include <Poco/ScopedLock.h>
+#include <atomic>
 #include "DiffItem.h"
-
-using Poco::FastMutex;
 
 /** 
  * @brief Constructor, initializes critical section.
@@ -34,45 +32,19 @@ CompareStats::~CompareStats()
 }
 
 /** 
- * @brief Increase found items (dirs and files) count.
- * @param [in] count Amount of items to add.
- */
-void CompareStats::IncreaseTotalItems(int count /*= 1*/)
-{
-	FastMutex::ScopedLock lock(m_csProtect);
-	m_nTotalItems += count;
-}
-
-/** 
  * @brief Add compared item.
  * @param [in] code Resultcode to add.
  */
 void CompareStats::AddItem(int code)
 {
-	FastMutex::ScopedLock lock(m_csProtect);
-	RESULT res = GetResultFromCode(code);
-	int index = static_cast<int>(res);
-	m_counts[index] += 1;
+	if (code != -1)
+	{
+		RESULT res = GetResultFromCode(code);
+		int index = static_cast<int>(res);
+		m_counts[index] += 1;
+	}
 	++m_nComparedItems;
 	assert(m_nComparedItems <= m_nTotalItems);
-}
-
-/** 
- * @brief Return count by resultcode.
- * @param [in] result Resultcode to return.
- * @return Count of items for given resultcode.
- */
-int CompareStats::GetCount(CompareStats::RESULT result) const
-{
-	return m_counts[result];
-}
-
-/** 
- * @brief Return total count of items (so far) found.
- */
-int CompareStats::GetTotalItems() const
-{
-	return m_nTotalItems;
 }
 
 /**
@@ -127,14 +99,6 @@ void CompareStats::SetCompareState(CompareStats::CMP_STATE state)
 		m_bCompareDone = true;
 
 	m_state = state;
-}
-
-/** 
- * @brief Return current comparestate.
- */
-CompareStats::CMP_STATE CompareStats::GetCompareState() const
-{
-	return m_state;
 }
 
 /** 
@@ -204,8 +168,8 @@ CompareStats::RESULT CompareStats::GetResultFromCode(unsigned diffcode) const
 void CompareStats::Swap(int idx1, int idx2)
 {
 	idx2 = m_nDirs < 3 ? idx2 + 1 : idx2;
-	std::swap(m_counts[RESULT_LUNIQUE + idx1], m_counts[RESULT_LUNIQUE + idx2]);
-	std::swap(m_counts[RESULT_LMISSING + idx1], m_counts[RESULT_LMISSING + idx2]);
-	std::swap(m_counts[RESULT_LDIRUNIQUE + idx1], m_counts[RESULT_LDIRUNIQUE + idx2]);
-	std::swap(m_counts[RESULT_LDIRMISSING + idx1], m_counts[RESULT_LDIRMISSING + idx2]);
+	m_counts[RESULT_LUNIQUE     + idx2] = m_counts[RESULT_LUNIQUE     + idx1].exchange(m_counts[RESULT_LUNIQUE     + idx2]);
+	m_counts[RESULT_LMISSING    + idx2] = m_counts[RESULT_LMISSING    + idx1].exchange(m_counts[RESULT_LMISSING    + idx2]);
+	m_counts[RESULT_LDIRUNIQUE  + idx2] = m_counts[RESULT_LDIRUNIQUE  + idx1].exchange(m_counts[RESULT_LDIRUNIQUE  + idx2]);
+	m_counts[RESULT_LDIRMISSING + idx2] = m_counts[RESULT_LDIRMISSING + idx1].exchange(m_counts[RESULT_LDIRMISSING + idx2]);
 }

@@ -13,11 +13,13 @@
 #include <Poco/Base64Encoder.h>
 #include "locality.h"
 #include "DirCmpReport.h"
-#include "DirCmpReportDlg.h"
 #include "paths.h"
 #include "unicoder.h"
 #include "markdown.h"
-#include "IListCtrl.h"
+#include "CompareStats.h"
+#include "DiffItem.h"
+#include "DiffThread.h"
+#include "IAbortable.h"
 
 UINT CF_HTML = RegisterClipboardFormat(_T("HTML Format"));
 
@@ -42,9 +44,9 @@ static String GetCurrentTimeString()
 static String BeginEl(const String& elName, const String& attr = _T(""))
 {
 	if (attr.empty())
-		return strutils::format(_T("<%s>"), elName.c_str());
+		return strutils::format(_T("<%s>"), elName);
 	else
-		return strutils::format(_T("<%s %s>"), elName.c_str(), attr.c_str());
+		return strutils::format(_T("<%s %s>"), elName, attr);
 }
 
 /**
@@ -54,7 +56,7 @@ static String BeginEl(const String& elName, const String& attr = _T(""))
  */
 static String EndEl(const String& elName)
 {
-	return strutils::format(_T("</%s>"), elName.c_str());
+	return strutils::format(_T("</%s>"), elName);
 }
 
 /**
@@ -69,6 +71,9 @@ DirCmpReport::DirCmpReport(const std::vector<String> & colRegKeys)
 , m_pFileCmpReport(nullptr)
 , m_bIncludeFileCmpReport(false)
 , m_bOutputUTF8(false)
+, m_myStruct(nullptr)
+, m_bCopyToClipboard(false)
+, m_nReportType(REPORT_TYPE_COMMALIST)
 {
 }
 
@@ -77,7 +82,7 @@ DirCmpReport::DirCmpReport(const std::vector<String> & colRegKeys)
  */
 void DirCmpReport::SetList(IListCtrl *pList)
 {
-	m_pList = pList;
+	m_pList.reset(pList);
 }
 
 /**
@@ -104,7 +109,7 @@ void DirCmpReport::SetColumns(int columns)
  */
 void DirCmpReport::SetFileCmpReport(IFileCmpReport *pFileCmpReport)
 {
-	m_pFileCmpReport = pFileCmpReport;
+	m_pFileCmpReport.reset(pFileCmpReport);
 }
 
 static ULONG GetLength32(CFile const &f)
@@ -147,28 +152,24 @@ bool DirCmpReport::GenerateReport(String &errStr)
 	assert(m_pList != nullptr);
 	assert(m_pFile == nullptr);
 	bool bRet = false;
-
-	DirCmpReportDlg dlg;
-	dlg.LoadSettings();
-	dlg.m_sReportFile = m_sReportFile;
-
-	if (!m_sReportFile.empty() || dlg.DoModal() == IDOK) try
+	try
 	{
-		CWaitCursor waitstatus;
-		if (dlg.m_bCopyToClipboard)
+		if (m_bCopyToClipboard)
 		{
-			if (!CWnd::GetSafeOwner()->OpenClipboard())
+			if (!OpenClipboard(NULL))
 				return false;
 			if (!EmptyClipboard())
 				return false;
 			CSharedFile file(GMEM_DDESHARE|GMEM_MOVEABLE|GMEM_ZEROINIT);
 			m_pFile = &file;
-			GenerateReport(dlg.m_nReportType);
+			bool savedIncludeFileCmpReport = m_bIncludeFileCmpReport;
+			m_bIncludeFileCmpReport = false;
+			GenerateReport(m_nReportType);
 			HGLOBAL hMem = file.Detach();
 			SetClipboardData(CF_UNICODETEXT, ConvertToUTF16ForClipboard(hMem, m_bOutputUTF8 ? CP_UTF8 : CP_THREAD_ACP));
 			GlobalFree(hMem);
 			// If report type is HTML, render CF_HTML format as well
-			if (dlg.m_nReportType == REPORT_TYPE_SIMPLEHTML)
+			if (m_nReportType == REPORT_TYPE_SIMPLEHTML)
 			{
 				// Reconstruct the CSharedFile object
 				file.~CSharedFile();
@@ -200,21 +201,21 @@ bool DirCmpReport::GenerateReport(String &errStr)
 				SetClipboardData(CF_HTML, GlobalReAlloc(file.Detach(), size, 0));
 			}
 			CloseClipboard();
+			m_bIncludeFileCmpReport = savedIncludeFileCmpReport;
 		}
-		if (!dlg.m_sReportFile.empty())
+		if (!m_sReportFile.empty())
 		{
 			String path;
-			paths::SplitFilename(dlg.m_sReportFile, &path, nullptr, nullptr);
+			paths::SplitFilename(m_sReportFile, &path, nullptr, nullptr);
 			if (!paths::CreateIfNeeded(path))
 			{
 				errStr = _("Folder does not exist.");
 				return false;
 			}
-			CFile file(dlg.m_sReportFile.c_str(),
+			CFile file(m_sReportFile.c_str(),
 				CFile::modeWrite|CFile::modeCreate|CFile::shareDenyWrite);
 			m_pFile = &file;
-			m_bIncludeFileCmpReport = dlg.m_bIncludeFileCmpReport;
-			GenerateReport(dlg.m_nReportType);
+			GenerateReport(m_nReportType);
 		}
 		bRet = true;
 	}
@@ -323,7 +324,14 @@ void DirCmpReport::GenerateContent()
 	// Report:Detail. All currently displayed columns will be added
 	for (int currRow = 0; currRow < nRows; currRow++)
 	{
+		if (m_myStruct && m_myStruct->context->GetAbortable()->ShouldAbort())
+			break;
 		WriteString(_T("\n"));
+		DIFFITEM* pdi = reinterpret_cast<DIFFITEM*>(m_pList->GetItemData(currRow));
+		if (reinterpret_cast<uintptr_t>(pdi) == -1)
+			continue;
+		if (m_myStruct)
+			m_myStruct->context->m_pCompareStats->BeginCompare(pdi, 0);
 		for (int currCol = 0; currCol < m_nColumns; currCol++)
 		{
 			String value = m_pList->GetItemText(currRow, currCol);
@@ -339,6 +347,8 @@ void DirCmpReport::GenerateContent()
 			if (currCol < m_nColumns - 1)
 				WriteString(m_sSeparator);
 		}
+		if (m_myStruct)
+			m_myStruct->context->m_pCompareStats->AddItem(-1);
 	}
 
 }
@@ -393,7 +403,7 @@ void DirCmpReport::GenerateHTMLHeader()
 			enc.rdbuf()->setLineLength(0);
 			enc << m_pList->GetIconPNGData(i);
 			enc.close();
-			WriteString(strutils::format(_T("\t\t.icon%d { background-image: url('data:image/png;base64,%s'); background-repeat: no-repeat; background-size: 16px 16px; }\n"), i, ucr::toTString(stream.str()).c_str()));
+			WriteString(strutils::format(_T("\t\t.icon%d { background-image: url('data:image/png;base64,%s'); background-repeat: no-repeat; background-size: 16px 16px; }\n"), i, ucr::toTString(stream.str())));
 		}
 	}
 	for (int i = 0; i < maxIndent + 1; ++i)
@@ -432,13 +442,13 @@ void DirCmpReport::GenerateXmlHeader()
 	WriteString(_T("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
 				_T("<WinMergeDiffReport version=\"2\">\n")
 				_T("<left>"));
-	WriteStringEntityAware(m_rootPaths.GetLeft().c_str());
+	WriteStringEntityAware(m_rootPaths.GetLeft());
 	WriteString(_T("</left>\n")
 				_T("<right>"));
-	WriteStringEntityAware(m_rootPaths.GetRight().c_str());
+	WriteStringEntityAware(m_rootPaths.GetRight());
 	WriteString(_T("</right>\n")
 				_T("<time>"));
-	WriteStringEntityAware(GetCurrentTimeString().c_str());
+	WriteStringEntityAware(GetCurrentTimeString());
 	WriteString(_T("</time>\n"));
 
 	// Add column headers
@@ -471,9 +481,16 @@ void DirCmpReport::GenerateXmlHtmlContent(bool xml)
 	// Report:Detail. All currently displayed columns will be added
 	for (int currRow = 0; currRow < nRows; currRow++)
 	{
+		if (m_myStruct && m_myStruct->context->GetAbortable()->ShouldAbort())
+			break;
+		DIFFITEM* pdi = reinterpret_cast<DIFFITEM*>(m_pList->GetItemData(currRow));
+		if (reinterpret_cast<uintptr_t>(pdi) == -1)
+			continue;
 		String sLinkPath;
+		if (m_myStruct)
+			m_myStruct->context->m_pCompareStats->BeginCompare(pdi, 0);
 		if (!xml && m_bIncludeFileCmpReport && m_pFileCmpReport != nullptr)
-			(*m_pFileCmpReport)(REPORT_TYPE_SIMPLEHTML, m_pList, currRow, sDestDir, sLinkPath);
+			(*m_pFileCmpReport.get())(REPORT_TYPE_SIMPLEHTML, m_pList.get(), currRow, sDestDir, sLinkPath);
 
 		String rowEl = _T("tr");
 		if (xml)
@@ -520,6 +537,8 @@ void DirCmpReport::GenerateXmlHtmlContent(bool xml)
 			WriteString(EndEl(colEl));
 		}
 		WriteString(EndEl(rowEl) + _T("\n"));
+		if (m_myStruct)
+			m_myStruct->context->m_pCompareStats->AddItem(-1);
 	}
 	if (!xml)
 		WriteString(_T("</table>\n"));

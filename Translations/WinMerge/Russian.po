@@ -1,5 +1,4 @@
-﻿# This file is part from WinMerge <http://winmerge.org/>
-# Released under the "GNU General Public License"
+﻿# Released under the "GNU General Public License"
 #
 # Translators:
 # * Dmitriy Rublev <kaktebyavirubit at gmail.com>
@@ -422,6 +421,15 @@ msgstr "Показать отличающиеся только посереди�
 #, c-format
 msgid "Show &Right Only Different Items"
 msgstr "Показать отличающиеся только справа"
+
+msgid "Show L&eft Only Missing Items"
+msgstr "Показать отсутствующие только слева"
+
+msgid "Show Mi&ddle Only Missing Items"
+msgstr "Показать отсутствующие только посередине"
+
+msgid "Show Rig&ht Only Missing Items"
+msgstr "Показать отсутствующие только справа"
 
 #, c-format
 msgid "Show Hidd&en Items"
@@ -1445,6 +1453,21 @@ msgstr "Выбранное словарное отличие:"
 msgid "Defaults"
 msgstr "По умолчанию"
 
+msgid "&Use folder compare colors"
+msgstr "Использовать цвета сравнения папок"
+
+msgid "Items equal:"
+msgstr "Элементы одинаковые:"
+
+msgid "Items different:"
+msgstr "Элементы отличаются:"
+
+msgid "Items not exists all:"
+msgstr "Элементы существуют не все:"
+
+msgid "Items filtered:"
+msgstr "Элементы отфильтрованы:"
+
 #, c-format
 msgid "System"
 msgstr "Система"
@@ -1654,10 +1677,10 @@ msgid "&Match similar lines"
 msgstr "Искать похожие строки"
 
 msgid "Diff &algorithm (Experimental):"
-msgstr "Алгоритм сравнения (экспериментальный):"
+msgstr "Алгоритм сравнения (эксперимент.):"
 
 msgid "Enable indent &heuristic"
-msgstr ""
+msgstr "Включать эвристику отступов"
 
 #, c-format
 msgid "Comments"
@@ -2432,6 +2455,9 @@ msgstr "Чтобы снова сделать окно сообщений вид�
 msgid "Syntax"
 msgstr "Синтаксис"
 
+msgid "Folder Compare"
+msgstr "Сравнение папок"
+
 #, c-format
 msgid "Differences"
 msgstr "Отличия"
@@ -2459,10 +2485,6 @@ msgstr "Направо:"
 #, c-format
 msgid "Version %1"
 msgstr "Версия %1"
-
-#, c-format
-msgid "Unicode"
-msgstr "Юникод"
 
 #, c-format
 msgid "X64"

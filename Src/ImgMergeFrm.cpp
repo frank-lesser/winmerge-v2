@@ -162,9 +162,9 @@ CImgMergeFrame::CImgMergeFrame()
 , m_bAutoMerged(false)
 , m_pImgMergeWindow(nullptr)
 , m_pImgToolWindow(nullptr)
+, m_nBufferType{BUFFER_NORMAL, BUFFER_NORMAL, BUFFER_NORMAL}
+, m_bRO{}
 {
-	std::fill_n(m_nBufferType, 3, BUFFER_NORMAL);
-	std::fill_n(m_bRO, 3, false);
 }
 
 CImgMergeFrame::~CImgMergeFrame()
@@ -178,20 +178,20 @@ CImgMergeFrame::~CImgMergeFrame()
 	HMODULE hModule = GetModuleHandleW(L"WinIMergeLib.dll");
 	if (hModule != nullptr)
 	{
-		bool (*WinIMerge_DestroyWindow)(IImgMergeWindow *) = 
+		bool (*pfnWinIMerge_DestroyWindow)(IImgMergeWindow *) = 
 			(bool (*)(IImgMergeWindow *))GetProcAddress(hModule, "WinIMerge_DestroyWindow");
-		bool (*WinIMerge_DestroyToolWindow)(IImgToolWindow *) = 
+		bool (*pfnWinIMerge_DestroyToolWindow)(IImgToolWindow *) = 
 			(bool (*)(IImgToolWindow *))GetProcAddress(hModule, "WinIMerge_DestroyToolWindow");
-		if (WinIMerge_DestroyWindow != nullptr && WinIMerge_DestroyToolWindow != nullptr)
+		if (pfnWinIMerge_DestroyWindow != nullptr && pfnWinIMerge_DestroyToolWindow != nullptr)
 		{
 			if (m_pImgMergeWindow != nullptr)
 			{
 				for (int pane = 0; pane < m_pImgMergeWindow->GetPaneCount(); ++pane)
 					RevokeDragDrop(m_pImgMergeWindow->GetPaneHWND(pane));
-				WinIMerge_DestroyWindow(m_pImgMergeWindow);
+				pfnWinIMerge_DestroyWindow(m_pImgMergeWindow);
 			}
 			if (m_pImgToolWindow != nullptr)
-				WinIMerge_DestroyToolWindow(m_pImgToolWindow);
+				pfnWinIMerge_DestroyToolWindow(m_pImgToolWindow);
 			m_pImgMergeWindow = nullptr;
 			m_pImgToolWindow = nullptr;
 		}
@@ -418,10 +418,10 @@ BOOL CImgMergeFrame::OnCreateClient( LPCREATESTRUCT /*lpcs*/,
 	if (hModule == nullptr)
 		return FALSE;
 
-	IImgMergeWindow * (*WinIMerge_CreateWindow)(HINSTANCE hInstance, HWND hWndParent, int nID) = 
+	IImgMergeWindow * (*pfnWinIMerge_CreateWindow)(HINSTANCE hInstance, HWND hWndParent, int nID) = 
 			(IImgMergeWindow * (*)(HINSTANCE hInstance, HWND hWndParent, int nID))GetProcAddress(hModule, "WinIMerge_CreateWindow");
-	if (WinIMerge_CreateWindow == nullptr || 
-		(m_pImgMergeWindow = WinIMerge_CreateWindow(hModule, m_hWnd, AFX_IDW_PANE_FIRST)) == nullptr)
+	if (pfnWinIMerge_CreateWindow == nullptr || 
+		(m_pImgMergeWindow = pfnWinIMerge_CreateWindow(hModule, m_hWnd, AFX_IDW_PANE_FIRST)) == nullptr)
 	{
 		FreeLibrary(hModule);
 		return FALSE;
@@ -460,10 +460,10 @@ BOOL CImgMergeFrame::OnCreateClient( LPCREATESTRUCT /*lpcs*/,
 		return FALSE;
 	}
 
-	IImgToolWindow * (*WinIMerge_CreateToolWindow)(HINSTANCE hInstance, HWND hWndParent, IImgMergeWindow *) = 
+	IImgToolWindow * (*pfnWinIMerge_CreateToolWindow)(HINSTANCE hInstance, HWND hWndParent, IImgMergeWindow *) = 
 			(IImgToolWindow * (*)(HINSTANCE hInstance, HWND hWndParent, IImgMergeWindow *pImgMergeWindow))GetProcAddress(hModule, "WinIMerge_CreateToolWindow");
-	if (WinIMerge_CreateToolWindow == nullptr ||
-		(m_pImgToolWindow = WinIMerge_CreateToolWindow(hModule, m_wndLocationBar.m_hWnd, m_pImgMergeWindow)) == nullptr)
+	if (pfnWinIMerge_CreateToolWindow == nullptr ||
+		(m_pImgToolWindow = pfnWinIMerge_CreateToolWindow(hModule, m_wndLocationBar.m_hWnd, m_pImgMergeWindow)) == nullptr)
 	{
 		return FALSE;
 	}
@@ -684,7 +684,7 @@ bool CImgMergeFrame::DoFileSaveAs(int pane)
 RETRY:
 	if (SelectFile(AfxGetMainWnd()->GetSafeHwnd(), strPath, false, path.c_str(), title))
 	{
-		std::wstring filename = ucr::toUTF16(strPath).c_str();
+		std::wstring filename = ucr::toUTF16(strPath);
 		if (!m_pImgMergeWindow->SaveImageAs(pane, filename.c_str()))
 		{
 			String str = strutils::format_string2(_("Saving file failed.\n%1\n%2\nDo you want to:\n\t-use a different filename (Press Ok)\n\t-abort the current operation (Press Cancel)?"), strPath, GetSysError());
@@ -1973,8 +1973,8 @@ bool CImgMergeFrame::GenerateReport(const String& sFileName) const
 	for (int i = 0; i < m_pImgMergeWindow->GetPaneCount(); ++i)
 	{
 		imgfilepath[i] = ucr::toTString(m_pImgMergeWindow->GetFileName(i));
-		diffimg_filename[i] = strutils::format(_T("%s/%d.png"), imgdir.c_str(), i + 1);
-		m_pImgMergeWindow->SaveDiffImageAs(i, ucr::toUTF16(strutils::format(_T("%s\\%d.png"), imgdir_full.c_str(), i + 1)).c_str());
+		diffimg_filename[i] = strutils::format(_T("%s/%d.png"), imgdir, i + 1);
+		m_pImgMergeWindow->SaveDiffImageAs(i, ucr::toUTF16(strutils::format(_T("%s\\%d.png"), imgdir_full, i + 1)).c_str());
 	}
 
 	UniStdioFile file;
@@ -2006,14 +2006,14 @@ bool CImgMergeFrame::GenerateReport(const String& sFileName) const
 		_T("<table>\n")
 		_T("<tr>\n"));
 	for (int i = 0; i < m_pImgMergeWindow->GetPaneCount(); ++i)
-		file.WriteString(strutils::format(_T("<th class=\"title\">%s</th>\n"), imgfilepath[i].c_str()));
+		file.WriteString(strutils::format(_T("<th class=\"title\">%s</th>\n"), imgfilepath[i]));
 	file.WriteString(
 		_T("</tr>\n")
 		_T("<tr>\n"));
 	for (int i = 0; i < m_pImgMergeWindow->GetPaneCount(); ++i)
 		file.WriteString(
 			strutils::format(_T("<td><div class=\"img\"><img src=\"%s\" alt=\"%s\"></div></td>\n"),
-			diffimg_filename[i].c_str(), diffimg_filename[i].c_str()));
+			diffimg_filename[i], diffimg_filename[i]));
 	file.WriteString(
 		_T("</tr>\n")
 		_T("</table>\n")

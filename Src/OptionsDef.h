@@ -25,6 +25,9 @@ extern const String OPT_SHOW_SKIPPED OP("Settings/ShowSkipped");
 extern const String OPT_SHOW_DIFFERENT_LEFT_ONLY OP("Settings/ShowDifferentLeftOnly");
 extern const String OPT_SHOW_DIFFERENT_MIDDLE_ONLY OP("Settings/ShowDifferentMiddleOnly");
 extern const String OPT_SHOW_DIFFERENT_RIGHT_ONLY OP("Settings/ShowDifferentRightOnly");
+extern const String OPT_SHOW_MISSING_LEFT_ONLY OP("Settings/ShowMissingLeftOnly");
+extern const String OPT_SHOW_MISSING_MIDDLE_ONLY OP("Settings/ShowMissingMiddleOnly");
+extern const String OPT_SHOW_MISSING_RIGHT_ONLY OP("Settings/ShowMissingRightOnly");
 extern const String OPT_TREE_MODE OP("Settings/TreeMode");
 
 // Show/hide toolbar/statusbar/tabbar
@@ -156,6 +159,26 @@ extern const String OPT_CLR_SELECTED_WORDDIFF_DELETED OP("Settings/SelectedWordD
 extern const String OPT_CLR_SELECTED_WORDDIFF_TEXT OP("Settings/SelectedWordDifferenceTextColor");
 // Whether to use default (theme) text colors
 extern const String OPT_CLR_DEFAULT_TEXT_COLORING OP("Settings/DefaultTextColoring");
+
+// DirCompare Color options
+// The item equal background color
+extern const String OPT_DIRCLR_ITEM_EQUAL OP("Settings/DirItemEqualColor");
+// The item equal text color
+extern const String OPT_DIRCLR_ITEM_EQUAL_TEXT OP("Settings/DirItemEqualTextColor");
+// The item diff background color
+extern const String OPT_DIRCLR_ITEM_DIFF OP("Settings/DirItemDiffColor");
+// The item diff text color
+extern const String OPT_DIRCLR_ITEM_DIFF_TEXT OP("Settings/DirItemDiffTextColor");
+// The item not-exist-all background color
+extern const String OPT_DIRCLR_ITEM_NOT_EXIST_ALL OP("Settings/DirItemNotExistAllColor");
+// The item not-exist-all text color
+extern const String OPT_DIRCLR_ITEM_NOT_EXIST_ALL_TEXT OP("Settings/DirItemNotExistAllTextColor");
+// The item filtered background color
+extern const String OPT_DIRCLR_ITEM_FILTERED OP("Settings/DirItemFilteredColor");
+// The item filtered text color
+extern const String OPT_DIRCLR_ITEM_FILTERED_TEXT OP("Settings/DirItemFilteredTextColor");
+// Use dir compare coloring?
+extern const String OPT_DIRCLR_USE_COLORS OP("Settings/UseDirCompareColors");
 
 // Compare options
 extern const String OPT_CMP_IGNORE_WHITESPACE OP("Settings/IgnoreSpace");

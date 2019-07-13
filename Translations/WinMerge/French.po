@@ -425,6 +425,15 @@ msgstr "Afficher éléments différents au &Milieu seulement"
 msgid "Show &Right Only Different Items"
 msgstr "Afficher éléments différents à d&roite seulement"
 
+msgid "Show L&eft Only Missing Items"
+msgstr ""
+
+msgid "Show Mi&ddle Only Missing Items"
+msgstr ""
+
+msgid "Show Rig&ht Only Missing Items"
+msgstr ""
+
 #, c-format
 msgid "Show Hidd&en Items"
 msgstr "A&fficher les éléments cachés"
@@ -1452,6 +1461,21 @@ msgstr "Mot différent sélectionné :"
 #, c-format
 msgid "Defaults"
 msgstr "Défauts"
+
+msgid "&Use folder compare colors"
+msgstr ""
+
+msgid "Items equal:"
+msgstr ""
+
+msgid "Items different:"
+msgstr ""
+
+msgid "Items not exists all:"
+msgstr ""
+
+msgid "Items filtered:"
+msgstr ""
 
 #, c-format
 msgid "System"
@@ -2491,6 +2515,9 @@ msgstr ""
 msgid "Syntax"
 msgstr "Syntaxe"
 
+msgid "Folder Compare"
+msgstr ""
+
 #, c-format
 msgid "Differences"
 msgstr "Différences"
@@ -2518,10 +2545,6 @@ msgstr "Vers la Droite :"
 #, c-format
 msgid "Version %1"
 msgstr "Version %1"
-
-#, c-format
-msgid "Unicode"
-msgstr "Unicode"
 
 #, c-format
 msgid "X64"

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WinMerge\n"
 "Report-Msgid-Bugs-To: http://bugs.winmerge.org/\n"
-"POT-Creation-Date: 2019-06-04 21:54+0000\n"
+"POT-Creation-Date: 2019-07-09 07:44+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: English <winmerge-translate@lists.sourceforge.net>\n"
@@ -316,6 +316,15 @@ msgid "Show &Middle Only Different Items"
 msgstr ""
 
 msgid "Show &Right Only Different Items"
+msgstr ""
+
+msgid "Show L&eft Only Missing Items"
+msgstr ""
+
+msgid "Show Mi&ddle Only Missing Items"
+msgstr ""
+
+msgid "Show Rig&ht Only Missing Items"
 msgstr ""
 
 msgid "Show Hidd&en Items"
@@ -1103,6 +1112,21 @@ msgstr ""
 msgid "Defaults"
 msgstr ""
 
+msgid "&Use folder compare colors"
+msgstr ""
+
+msgid "Items equal:"
+msgstr ""
+
+msgid "Items different:"
+msgstr ""
+
+msgid "Items not exists all:"
+msgstr ""
+
+msgid "Items filtered:"
+msgstr ""
+
 msgid "System"
 msgstr ""
 
@@ -1825,6 +1849,9 @@ msgstr ""
 msgid "Syntax"
 msgstr ""
 
+msgid "Folder Compare"
+msgstr ""
+
 msgid "Differences"
 msgstr ""
 
@@ -1845,9 +1872,6 @@ msgstr ""
 
 #, c-format
 msgid "Version %1"
-msgstr ""
-
-msgid "Unicode"
 msgstr ""
 
 msgid "X64"

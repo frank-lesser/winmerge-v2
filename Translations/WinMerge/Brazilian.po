@@ -423,6 +423,15 @@ msgstr "Só &Mostrar Itens Diferentes no Meio"
 msgid "Show &Right Only Different Items"
 msgstr "Só &Mostrar Itens Diferentes a Direita"
 
+msgid "Show L&eft Only Missing Items"
+msgstr ""
+
+msgid "Show Mi&ddle Only Missing Items"
+msgstr ""
+
+msgid "Show Rig&ht Only Missing Items"
+msgstr ""
+
 #, c-format
 msgid "Show Hidd&en Items"
 msgstr "Mostrar Ite&ns Escondidos"
@@ -1445,6 +1454,21 @@ msgstr "Diferença das Palavras Selecionadas:"
 msgid "Defaults"
 msgstr "Padrões"
 
+msgid "&Use folder compare colors"
+msgstr ""
+
+msgid "Items equal:"
+msgstr ""
+
+msgid "Items different:"
+msgstr ""
+
+msgid "Items not exists all:"
+msgstr ""
+
+msgid "Items filtered:"
+msgstr ""
+
 #, c-format
 msgid "System"
 msgstr "Sistema"
@@ -2456,6 +2480,9 @@ msgstr "Pra tornar esta caixa de mensagem visível de novo pressione o botão Re
 msgid "Syntax"
 msgstr "Sintaxe"
 
+msgid "Folder Compare"
+msgstr ""
+
 #, c-format
 msgid "Differences"
 msgstr "Diferenças"
@@ -2483,10 +2510,6 @@ msgstr "Para a direita:"
 #, c-format
 msgid "Version %1"
 msgstr "Versão %1"
-
-#, c-format
-msgid "Unicode"
-msgstr "Unicode"
 
 #, c-format
 msgid "X64"

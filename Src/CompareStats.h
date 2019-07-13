@@ -5,9 +5,7 @@
  */ 
 #pragma once
 
-#define POCO_NO_UNWINDOWS 1
-#include <Poco/Mutex.h>
-#include <Poco/AtomicCounter.h>
+#include <atomic>
 #include <vector>
 #include <array>
 
@@ -95,19 +93,54 @@ public:
 	int GetCompareDirs() const { return m_nDirs; }
 
 private:
-	std::array<int, RESULT_COUNT> m_counts; /**< Table storing result counts */
-	mutable Poco::FastMutex m_csProtect; /**< For synchronizing read/write of counts */
-	long m_nTotalItems; /**< Total items found to compare */
-	long m_nComparedItems; /**< Compared items so far */
+	std::array<std::atomic_int, RESULT_COUNT> m_counts; /**< Table storing result counts */
+	std::atomic_int m_nTotalItems; /**< Total items found to compare */
+	std::atomic_int m_nComparedItems; /**< Compared items so far */
 	CMP_STATE m_state; /**< State for compare (idle, collect, compare,..) */
 	bool m_bCompareDone; /**< Have we finished last compare? */
 	int m_nDirs; /**< number of directories to compare */
 	struct ThreadState
 	{
 		ThreadState() : m_nHitCount(0), m_pDiffItem(nullptr) {}
-		Poco::AtomicCounter m_nHitCount;
+		ThreadState(const ThreadState& other) : m_nHitCount(other.m_nHitCount.load()), m_pDiffItem(other.m_pDiffItem) {}
+		std::atomic_int m_nHitCount;
 		const DIFFITEM *m_pDiffItem;
 	};
 	std::vector<ThreadState> m_rgThreadState;
 
 };
+
+/** 
+ * @brief Increase found items (dirs and files) count.
+ * @param [in] count Amount of items to add.
+ */
+inline void CompareStats::IncreaseTotalItems(int count)
+{
+	m_nTotalItems += count;
+}
+
+/** 
+ * @brief Return count by resultcode.
+ * @param [in] result Resultcode to return.
+ * @return Count of items for given resultcode.
+ */
+inline int CompareStats::GetCount(CompareStats::RESULT result) const
+{
+	return m_counts[result];
+}
+
+/**
+ * @brief Return total count of items (so far) found.
+ */
+inline int CompareStats::GetTotalItems() const
+{
+	return m_nTotalItems;
+}
+
+/**
+ * @brief Return current comparestate.
+ */
+inline CompareStats::CMP_STATE CompareStats::GetCompareState() const
+{
+	return m_state;
+}

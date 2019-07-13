@@ -294,7 +294,7 @@ DIFFITEM *FindItemFromPaths(const CDiffContext& ctxt, const PathContext& paths)
 {
 	int nBuffer;
 	String file[3], path[3], base;
-	for (nBuffer = 0; nBuffer < static_cast<int>(paths.size()); ++nBuffer)
+	for (nBuffer = 0; nBuffer < paths.GetSize(); ++nBuffer)
 	{
 		String p = paths[nBuffer];
 		file[nBuffer] = paths::FindFileName(p);
@@ -312,11 +312,11 @@ DIFFITEM *FindItemFromPaths(const CDiffContext& ctxt, const PathContext& paths)
 	}
 
 	// Filenames must be identical
-	if (static_cast<size_t>(std::count(file, file + paths.size(), file[0])) < paths.size())
+	if (std::count(file, file + paths.GetSize(), file[0]) < paths.GetSize())
 		return 0;
 
 	DIFFITEM *pos = ctxt.GetFirstDiffPosition();
-	if (paths.size() == 2)
+	if (paths.GetSize() == 2)
 	{
 		while (DIFFITEM *currentPos = pos) // Save our current pos before getting next
 		{
@@ -583,6 +583,12 @@ bool IsShowable(const CDiffContext& ctxt, const DIFFITEM &di, const DirViewFilte
 					return false;
 				if (di.diffcode.isSideThirdOnly() && !filter.show_unique_right)
 					return false;
+				if (di.diffcode.isMissingFirstOnly() && !filter.show_missing_left_only)
+					return false;
+				if (di.diffcode.isMissingSecondOnly() && !filter.show_missing_middle_only)
+					return false;
+				if (di.diffcode.isMissingThirdOnly() && !filter.show_missing_right_only)
+					return false;
 			}
 
 			// result filters
@@ -604,6 +610,12 @@ bool IsShowable(const CDiffContext& ctxt, const DIFFITEM &di, const DirViewFilte
 				if (di.diffcode.isSideSecondOnly() && !filter.show_unique_middle)
 					return false;
 				if (di.diffcode.isSideThirdOnly() && !filter.show_unique_right)
+					return false;
+				if (di.diffcode.isMissingFirstOnly() && !filter.show_missing_left_only)
+					return false;
+				if (di.diffcode.isMissingSecondOnly() && !filter.show_missing_middle_only)
+					return false;
+				if (di.diffcode.isMissingThirdOnly() && !filter.show_missing_right_only)
 					return false;
 			}
 
@@ -642,6 +654,15 @@ bool IsShowable(const CDiffContext& ctxt, const DIFFITEM &di, const DirViewFilte
 			return false;
 		if (di.diffcode.isSideSecondOnly() && !filter.show_unique_right)
 			return false;
+		if (ctxt.GetCompareDirs() > 2)
+		{
+			if (di.diffcode.isMissingFirstOnly() && !filter.show_missing_left_only)
+				return false;
+			if (di.diffcode.isMissingSecondOnly() && !filter.show_missing_middle_only)
+				return false;
+			if (di.diffcode.isMissingThirdOnly() && !filter.show_missing_right_only)
+				return false;
+		}
 
 		// file type filters
 		if (di.diffcode.isBin() && !filter.show_binaries)
@@ -652,15 +673,29 @@ bool IsShowable(const CDiffContext& ctxt, const DIFFITEM &di, const DirViewFilte
 			return false;
 		if (di.diffcode.isResultError() && false/* && !GetMainFrame()->m_bShowErrors FIXME:*/)
 			return false;
-		if (di.diffcode.isResultDiff() && !filter.show_different)
-			return false;
-		if (ctxt.GetCompareDirs() > 2)
+		if (ctxt.GetCompareDirs() < 3)
 		{
-			if ((di.diffcode.diffcode & DIFFCODE::COMPAREFLAGS3WAY) == DIFFCODE::DIFF1STONLY && !filter.show_different_left_only)
+			if (di.diffcode.isResultDiff() && !filter.show_different)
 				return false;
-			if ((di.diffcode.diffcode & DIFFCODE::COMPAREFLAGS3WAY) == DIFFCODE::DIFF2NDONLY && !filter.show_different_middle_only)
-				return false;
-			if ((di.diffcode.diffcode & DIFFCODE::COMPAREFLAGS3WAY) == DIFFCODE::DIFF3RDONLY && !filter.show_different_right_only)
+		}
+		else
+		{
+			if ((di.diffcode.diffcode & DIFFCODE::COMPAREFLAGS3WAY) == DIFFCODE::DIFF1STONLY)
+			{
+				if (!filter.show_different_left_only)
+					return false;
+			}
+			else if ((di.diffcode.diffcode & DIFFCODE::COMPAREFLAGS3WAY) == DIFFCODE::DIFF2NDONLY)
+			{
+				if (!filter.show_different_middle_only)
+					return false;
+			}
+			else if ((di.diffcode.diffcode & DIFFCODE::COMPAREFLAGS3WAY) == DIFFCODE::DIFF3RDONLY)
+			{
+				if (!filter.show_different_right_only)
+					return false;
+			}
+			else if (di.diffcode.isResultDiff() && !filter.show_different)
 				return false;
 		}
 	}
@@ -1387,7 +1422,7 @@ CheckAllowUpwardDirectory(const CDiffContext& ctxt, const CTempPathContext *pTem
 			}
 			for (int i = 0; i < static_cast<int>(path.size()); ++i)
 				pathsParent[i] = pTempPathContext->m_strDisplayRoot[i];
-			if (pathsParent.size() < 3)
+			if (pathsParent.GetSize() < 3)
 			{
 				if (!ctxt.m_piFilterGlobal->includeFile(pathsParent[0], pathsParent[1]))
 					return AllowUpwardDirectory::Never;

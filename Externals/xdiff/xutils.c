@@ -26,6 +26,10 @@
 
 
 
+static inline int is_eol(char const* ptr, char const* top)
+{
+	return (*ptr == '\n' || (*ptr == '\r' && (ptr == top - 1 || *(ptr + 1) != '\n')));
+}
 
 long xdl_bogosqrt(long n) {
 	long i;
@@ -120,11 +124,6 @@ void *xdl_cha_alloc(chastore_t *cha) {
 	ancur->icurr += cha->isize;
 
 	return data;
-}
-
-static inline int is_eol(char const* ptr, char const* top)
-{
-	return (*ptr == '\n' || (*ptr == '\r' && (ptr == top - 1 || *(ptr + 1) != '\n')));
 }
 
 long xdl_guess_lines(mmfile_t *mf, long sample) {
@@ -246,8 +245,11 @@ int xdl_recmatch(const char *l1, long s1, const char *l2, long s2, long flags)
 			i1++;
 			i2++;
 		}
+		int has_eol1 = s1 > 0 && is_eol(l1 + s1 - 1, l1 + s1);
+		int has_eol2 = s2 > 0 && is_eol(l2 + s2 - 1, l2 + s2);
 		return (ends_with_optional_cr(l1, s1, i1) &&
-			ends_with_optional_cr(l2, s2, i2));
+			ends_with_optional_cr(l2, s2, i2)) && 
+			((has_eol1 && has_eol2) || (!has_eol1 && !has_eol2));
 	}
 
 	/*
@@ -256,6 +258,10 @@ int xdl_recmatch(const char *l1, long s1, const char *l2, long s2, long flags)
 	 * ignore-whitespace-at-eol case may break out of the loop
 	 * while there still are characters remaining on both lines.
 	 */
+	int has_eol1 = s1 > 0 && is_eol(l1 + s1 - 1, l1 + s1);
+	int has_eol2 = s2 > 0 && is_eol(l2 + s2 - 1, l2 + s2);
+	if (!((has_eol1 && has_eol2) || (!has_eol1 && !has_eol2)))
+		return 0;
 	if (i1 < s1) {
 		while (i1 < s1 && XDL_ISSPACE(l1[i1]))
 			i1++;

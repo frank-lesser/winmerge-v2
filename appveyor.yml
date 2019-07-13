@@ -1,6 +1,6 @@
 version: 1.0.{build}
 image: Visual Studio 2017
-configuration: Release Unicode
+configuration: Release
 platform: x64
 shallow_clone: true
 install:
@@ -15,7 +15,7 @@ build_script:
 - cmd: >-
     DownloadDeps.cmd
 
-    BuildAll.vs2017.cmd x64
+    BuildAll.vs2017.cmd x64 -ci
 artifacts:
 - path: build/Releases/*.exe
 - path: build/Releases/*.zip

@@ -422,6 +422,15 @@ msgstr "显示只在中间不同的项目(&M)"
 msgid "Show &Right Only Different Items"
 msgstr "显示只在右侧不同的项目(&R)"
 
+msgid "Show L&eft Only Missing Items"
+msgstr ""
+
+msgid "Show Mi&ddle Only Missing Items"
+msgstr ""
+
+msgid "Show Rig&ht Only Missing Items"
+msgstr ""
+
 #, c-format
 msgid "Show Hidd&en Items"
 msgstr "显示隐藏的项目(&E)"
@@ -1444,6 +1453,21 @@ msgstr "选中的单词差异:"
 msgid "Defaults"
 msgstr "默认"
 
+msgid "&Use folder compare colors"
+msgstr ""
+
+msgid "Items equal:"
+msgstr ""
+
+msgid "Items different:"
+msgstr ""
+
+msgid "Items not exists all:"
+msgstr ""
+
+msgid "Items filtered:"
+msgstr ""
+
 #, c-format
 msgid "System"
 msgstr "系统"
@@ -2397,6 +2421,9 @@ msgstr "如需重新显示这些提示消息, 请在\"选项\"对话框中\"常�
 msgid "Syntax"
 msgstr "语法"
 
+msgid "Folder Compare"
+msgstr ""
+
 #, c-format
 msgid "Differences"
 msgstr "差异"
@@ -2424,10 +2451,6 @@ msgstr "到右侧:"
 #, c-format
 msgid "Version %1"
 msgstr "版本 %1"
-
-#, c-format
-msgid "Unicode"
-msgstr "Unicode"
 
 #, c-format
 msgid "X64"

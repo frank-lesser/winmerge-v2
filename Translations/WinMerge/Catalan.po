@@ -419,6 +419,15 @@ msgstr ""
 msgid "Show &Right Only Different Items"
 msgstr ""
 
+msgid "Show L&eft Only Missing Items"
+msgstr ""
+
+msgid "Show Mi&ddle Only Missing Items"
+msgstr ""
+
+msgid "Show Rig&ht Only Missing Items"
+msgstr ""
+
 #, c-format
 msgid "Show Hidd&en Items"
 msgstr "Mostra els elements ama&gats"
@@ -1441,6 +1450,21 @@ msgstr "Paraula diferent seleccionada:"
 msgid "Defaults"
 msgstr "Predeterminats"
 
+msgid "&Use folder compare colors"
+msgstr ""
+
+msgid "Items equal:"
+msgstr ""
+
+msgid "Items different:"
+msgstr ""
+
+msgid "Items not exists all:"
+msgstr ""
+
+msgid "Items filtered:"
+msgstr ""
+
 #, c-format
 msgid "System"
 msgstr "Sistema"
@@ -2394,6 +2418,9 @@ msgstr ""
 msgid "Syntax"
 msgstr ""
 
+msgid "Folder Compare"
+msgstr ""
+
 #, c-format
 msgid "Differences"
 msgstr "Diferències"
@@ -2421,10 +2448,6 @@ msgstr "A dreta:"
 #, c-format
 msgid "Version %1"
 msgstr "Versió %1 - Català"
-
-#, c-format
-msgid "Unicode"
-msgstr ""
 
 #, c-format
 msgid "X64"

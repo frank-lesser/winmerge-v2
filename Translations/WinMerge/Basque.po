@@ -423,6 +423,15 @@ msgstr ""
 msgid "Show &Right Only Different Items"
 msgstr ""
 
+msgid "Show L&eft Only Missing Items"
+msgstr ""
+
+msgid "Show Mi&ddle Only Missing Items"
+msgstr ""
+
+msgid "Show Rig&ht Only Missing Items"
+msgstr ""
+
 #, c-format
 msgid "Show Hidd&en Items"
 msgstr "Erakutsi E&zkutatutako Gaiak"
@@ -1445,6 +1454,21 @@ msgstr "Hautatutako Hitz Ezberd:"
 msgid "Defaults"
 msgstr "Berezkoak"
 
+msgid "&Use folder compare colors"
+msgstr ""
+
+msgid "Items equal:"
+msgstr ""
+
+msgid "Items different:"
+msgstr ""
+
+msgid "Items not exists all:"
+msgstr ""
+
+msgid "Items filtered:"
+msgstr ""
+
 #, c-format
 msgid "System"
 msgstr "Sistema"
@@ -2432,6 +2456,9 @@ msgstr ""
 msgid "Syntax"
 msgstr "Joskera"
 
+msgid "Folder Compare"
+msgstr ""
+
 #, c-format
 msgid "Differences"
 msgstr "Ezberdintasunak"
@@ -2459,10 +2486,6 @@ msgstr "Eskuinera:"
 #, c-format
 msgid "Version %1"
 msgstr "Bertsioa %1"
-
-#, c-format
-msgid "Unicode"
-msgstr "Unicode"
 
 #, c-format
 msgid "X64"

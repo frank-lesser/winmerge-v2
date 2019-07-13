@@ -420,6 +420,15 @@ msgstr ""
 msgid "Show &Right Only Different Items"
 msgstr ""
 
+msgid "Show L&eft Only Missing Items"
+msgstr ""
+
+msgid "Show Mi&ddle Only Missing Items"
+msgstr ""
+
+msgid "Show Rig&ht Only Missing Items"
+msgstr ""
+
 #, c-format
 msgid "Show Hidd&en Items"
 msgstr "&Rejtett elemek mutatása"
@@ -1442,6 +1451,21 @@ msgstr "Kijelölt szó eltérés:"
 msgid "Defaults"
 msgstr "Alapértékek"
 
+msgid "&Use folder compare colors"
+msgstr ""
+
+msgid "Items equal:"
+msgstr ""
+
+msgid "Items different:"
+msgstr ""
+
+msgid "Items not exists all:"
+msgstr ""
+
+msgid "Items filtered:"
+msgstr ""
+
 #, c-format
 msgid "System"
 msgstr "Rendszer"
@@ -2395,6 +2419,9 @@ msgstr ""
 msgid "Syntax"
 msgstr ""
 
+msgid "Folder Compare"
+msgstr ""
+
 #, c-format
 msgid "Differences"
 msgstr "Eltérések"
@@ -2422,10 +2449,6 @@ msgstr "Jobbra:"
 #, c-format
 msgid "Version %1"
 msgstr "Verzió %1"
-
-#, c-format
-msgid "Unicode"
-msgstr "Unicode"
 
 #, c-format
 msgid "X64"

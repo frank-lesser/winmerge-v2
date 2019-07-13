@@ -11,6 +11,7 @@
 #include "RegOptionsMgr.h"
 #include "OptionsDiffOptions.h"
 #include "OptionsDiffColors.h"
+#include "OptionsDirColors.h"
 #include "OptionsFont.h"
 #include "DiffWrapper.h" // CMP_CONTENT
 #include "paths.h"
@@ -55,6 +56,9 @@ void Init(COptionsMgr *pOptions)
 	pOptions->InitOption(OPT_SHOW_DIFFERENT_LEFT_ONLY, true);
 	pOptions->InitOption(OPT_SHOW_DIFFERENT_MIDDLE_ONLY, true);
 	pOptions->InitOption(OPT_SHOW_DIFFERENT_RIGHT_ONLY, true);
+	pOptions->InitOption(OPT_SHOW_MISSING_LEFT_ONLY, true);
+	pOptions->InitOption(OPT_SHOW_MISSING_MIDDLE_ONLY, true);
+	pOptions->InitOption(OPT_SHOW_MISSING_RIGHT_ONLY, true);
 
 	pOptions->InitOption(OPT_SHOW_TOOLBAR, true);
 	pOptions->InitOption(OPT_SHOW_STATUSBAR, true);
@@ -192,6 +196,7 @@ void Init(COptionsMgr *pOptions)
 
 	Options::DiffOptions::SetDefaults(pOptions);
 	Options::DiffColors::SetDefaults(pOptions);
+	Options::DirColors::SetDefaults(pOptions);
 	Options::Font::SetDefaults(pOptions);
 }
 

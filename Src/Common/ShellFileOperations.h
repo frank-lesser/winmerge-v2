@@ -45,7 +45,7 @@ public:
 	void Reset();
 
 protected:
-	void GetPathList(bool source, std::vector<TCHAR>& paths) const;
+	std::vector<TCHAR> GetPathList(bool source) const;
 	size_t CountStringSize(bool source) const;
 
 private:
@@ -57,3 +57,13 @@ private:
 	bool m_bOneToOneMapping; /**< Same amount of sources and destinations? */
 	bool m_isCanceled; /**< Did user cancel the operation? */
 };
+
+/**
+ * @brief Did the user cancel the operation?
+ * @return true if the operation was canceled by the user.
+ */
+inline bool ShellFileOperations::IsCanceled() const
+{
+	return m_isCanceled;
+}
+

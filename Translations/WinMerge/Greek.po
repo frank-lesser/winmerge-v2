@@ -419,6 +419,15 @@ msgstr ""
 msgid "Show &Right Only Different Items"
 msgstr ""
 
+msgid "Show L&eft Only Missing Items"
+msgstr ""
+
+msgid "Show Mi&ddle Only Missing Items"
+msgstr ""
+
+msgid "Show Rig&ht Only Missing Items"
+msgstr ""
+
 #, c-format
 msgid "Show Hidd&en Items"
 msgstr "Εμφάνιση Κρυ&φών Στοιχείων"
@@ -1441,6 +1450,21 @@ msgstr "Επιλεγμένη Διαφορά Λέξεως:"
 msgid "Defaults"
 msgstr "&Αρχικές Ρυθμίσεις"
 
+msgid "&Use folder compare colors"
+msgstr ""
+
+msgid "Items equal:"
+msgstr ""
+
+msgid "Items different:"
+msgstr ""
+
+msgid "Items not exists all:"
+msgstr ""
+
+msgid "Items filtered:"
+msgstr ""
+
 #, c-format
 msgid "System"
 msgstr "Σύστημα"
@@ -2424,6 +2448,9 @@ msgstr ""
 msgid "Syntax"
 msgstr ""
 
+msgid "Folder Compare"
+msgstr ""
+
 #, c-format
 msgid "Differences"
 msgstr "Διαφορές"
@@ -2451,10 +2478,6 @@ msgstr "Προς τα δεξιά:"
 #, c-format
 msgid "Version %1"
 msgstr "Έκδοση %1"
-
-#, c-format
-msgid "Unicode"
-msgstr ""
 
 #, c-format
 msgid "X64"

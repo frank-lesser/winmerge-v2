@@ -137,6 +137,7 @@ BEGIN_MESSAGE_MAP(CMergeEditView, CCrystalEditViewEx)
 	ON_UPDATE_COMMAND_UI(ID_PREVDIFFRO, OnUpdatePrevdiffRO)
 	ON_WM_LBUTTONDBLCLK()
 	ON_WM_LBUTTONUP()
+	ON_WM_RBUTTONDOWN()
 	ON_COMMAND(ID_ALL_LEFT, OnAllLeft)
 	ON_UPDATE_COMMAND_UI(ID_ALL_LEFT, OnUpdateAllLeft)
 	ON_COMMAND(ID_ALL_RIGHT, OnAllRight)
@@ -354,7 +355,7 @@ void CMergeEditView::GetFullySelectedDiffs(int & firstDiff, int & lastDiff, int 
 		if (ptStart != ptEnd)
 		{
 			VERIFY(pd->m_diffList.GetDiff(firstDiff, di));
-			if (lastLineIsNotInDiff && (firstLineIsNotInDiff || di.dbegin == firstLine))
+			if (lastLineIsNotInDiff && (firstLineIsNotInDiff || (di.dbegin == firstLine && ptStart.x == 0)))
 			{
 				firstWordDiff = -1;
 				return;
@@ -940,6 +941,23 @@ void CMergeEditView::SelectDiff(int nDiff, bool bScroll /*= true*/, bool bSelect
 
 	// notify either side, as it will notify the other one
 	pd->ForEachView (0, [&](auto& pView) { if (pView->m_bDetailView) pView->OnDisplayDiff(nDiff); });
+}
+
+void CMergeEditView::DeselectDiffIfCursorNotInCurrentDiff()
+{
+	CMergeDoc *pd = GetDocument();
+	// If we have a selected diff, deselect it
+	int nCurrentDiff = pd->GetCurrentDiff();
+	if (nCurrentDiff != -1)
+	{
+		CPoint pos = GetCursorPos();
+		if (!IsLineInCurrentDiff(pos.y))
+		{
+			pd->SetCurrentDiff(-1);
+			Invalidate();
+			pd->UpdateAllViews(this);
+		}
+	}
 }
 
 /**
@@ -1748,21 +1766,20 @@ void CMergeEditView::OnLButtonDblClk(UINT nFlags, CPoint point)
  */
 void CMergeEditView::OnLButtonUp(UINT nFlags, CPoint point)
 {
-	CMergeDoc *pd = GetDocument();
 	CCrystalEditViewEx::OnLButtonUp(nFlags, point);
+	DeselectDiffIfCursorNotInCurrentDiff();
+}
 
-	// If we have a selected diff, deselect it
-	int nCurrentDiff = pd->GetCurrentDiff();
-	if (nCurrentDiff != -1)
-	{
-		CPoint pos = GetCursorPos();
-		if (!IsLineInCurrentDiff(pos.y))
-		{
-			pd->SetCurrentDiff(-1);
-			Invalidate();
-			pd->UpdateAllViews(this);
-		}
-	}
+/**
+ * @brief Called when mouse right button is pressed.
+ *
+ * If right button is pressed outside diffs, current diff
+ * is deselected.
+ */
+void CMergeEditView::OnRButtonDown(UINT nFlags, CPoint point)
+{
+	CCrystalEditViewEx::OnRButtonDown(nFlags, point);
+	DeselectDiffIfCursorNotInCurrentDiff();
 }
 
 void CMergeEditView::OnX2Y(int srcPane, int dstPane)
@@ -1787,9 +1804,9 @@ void CMergeEditView::OnX2Y(int srcPane, int dstPane)
 
 	if (IsSelection())
 	{
-		int firstDiff, lastDiff, firstWordDiff, lastWordDiff;
 		if (!m_bColumnSelection)
 		{
+			int firstDiff, lastDiff, firstWordDiff, lastWordDiff;
 			GetFullySelectedDiffs(firstDiff, lastDiff, firstWordDiff, lastWordDiff);
 			if (firstDiff != -1 && lastDiff != -1)
 			{
@@ -2320,16 +2337,6 @@ void CMergeEditView::OnRefresh()
 }
 
 /**
- * @brief Enable/Disable automatic rescanning
- */
-bool CMergeEditView::EnableRescan(bool bEnable)
-{
-	bool bOldValue = m_bAutomaticRescan;
-	m_bAutomaticRescan = bEnable;
-	return bOldValue;
-}
-
-/**
  * @brief Handle some keys when in merging mode
  */
 bool CMergeEditView::MergeModeKeyDown(MSG* pMsg)
@@ -2615,8 +2622,7 @@ void CMergeEditView::OnUpdateStatusRO(CCmdUI* pCmdUI)
 HMENU CMergeEditView::createScriptsSubmenu(HMENU hMenu)
 {
 	// get scripts list
-	std::vector<String> functionNamesList;
-	FileTransform::GetFreeFunctionsInScripts(functionNamesList, L"EDITOR_SCRIPT");
+	std::vector<String> functionNamesList = FileTransform::GetFreeFunctionsInScripts(L"EDITOR_SCRIPT");
 
 	// empty the menu
 	size_t i = GetMenuItemCount(hMenu);
@@ -3462,7 +3468,7 @@ void CMergeEditView::OnOpenFileWithEditor()
 		return;
 
 	int nRealLine = ComputeRealLine(GetCursorPos().y) + 1;
-	theApp.OpenFileToExternalEditor(sFileName.c_str(), nRealLine);
+	theApp.OpenFileToExternalEditor(sFileName, nRealLine);
 }
 
 /**
@@ -3751,15 +3757,6 @@ void CMergeEditView::SetWordWrapping( bool bWordWrap )
 void CMergeEditView::OnViewSwapPanes()
 {
 	GetDocument()->SwapFiles();
-}
-
-/**
- * @brief Check if cursor is inside difference.
- * @return true if cursor is inside difference.
- */
-bool CMergeEditView::IsCursorInDiff() const
-{
-	return m_bCurrentLineIsDiff;
 }
 
 /**

@@ -517,15 +517,6 @@ int CMergeApp::DoMessageBox(LPCTSTR lpszPrompt, UINT nType, UINT nIDPrompt)
 	return static_cast<int>(dlgMessage.DoModal());
 }
 
-/** 
- * @brief Set flag so that application will broadcast notification at next
- * idle time (via WM_TIMER id=IDLE_TIMER)
- */
-void CMergeApp::SetNeedIdleTimer()
-{
-	m_bNeedIdleTimer = true; 
-}
-
 bool CMergeApp::IsReallyIdle() const
 {
 	bool idle = true;
@@ -1119,52 +1110,53 @@ bool CMergeApp::LoadAndOpenProjectFile(const String& sProject, const String& sRe
 	if (!LoadProjectFile(sProject, project))
 		return false;
 	
-	PathContext tFiles;
-	bool bLeftReadOnly = false;
-	bool bMiddleReadOnly = false;
-	bool bRightReadOnly = false;
-	bool bRecursive = false;
-	project.GetPaths(tFiles, bRecursive);
-	for (int i = 0; i < tFiles.size(); ++i)
+	bool rtn = true;
+	for (auto& projItem : project.Items())
 	{
-		if (!paths::IsPathAbsolute(tFiles[i]))
-			tFiles[i] = paths::ConcatPath(paths::GetParentPath(sProject), tFiles[i]);
-	}
-	bLeftReadOnly = project.GetLeftReadOnly();
-	bMiddleReadOnly = project.GetMiddleReadOnly();
-	bRightReadOnly = project.GetRightReadOnly();
-	if (project.HasFilter())
-	{
-		String filter = project.GetFilter();
-		filter = strutils::trim_ws(filter);
-		m_pGlobalFileFilter->SetFilter(filter);
-	}
-	if (project.HasSubfolders())
-		bRecursive = project.GetSubfolders() > 0;
+		PathContext tFiles;
+		bool bRecursive = false;
+		projItem.GetPaths(tFiles, bRecursive);
+		for (int i = 0; i < tFiles.GetSize(); ++i)
+		{
+			if (!paths::IsPathAbsolute(tFiles[i]))
+				tFiles[i] = paths::ConcatPath(paths::GetParentPath(sProject), tFiles[i]);
+		}
+		bool bLeftReadOnly = projItem.GetLeftReadOnly();
+		bool bMiddleReadOnly = projItem.GetMiddleReadOnly();
+		bool bRightReadOnly = projItem.GetRightReadOnly();
+		if (projItem.HasFilter())
+		{
+			String filter = projItem.GetFilter();
+			filter = strutils::trim_ws(filter);
+			m_pGlobalFileFilter->SetFilter(filter);
+		}
+		if (projItem.HasSubfolders())
+			bRecursive = projItem.GetSubfolders() > 0;
 
-	DWORD dwFlags[3] = {
-		static_cast<DWORD>(tFiles.GetPath(0).empty() ? FFILEOPEN_NONE : FFILEOPEN_PROJECT),
-		static_cast<DWORD>(tFiles.GetPath(1).empty() ? FFILEOPEN_NONE : FFILEOPEN_PROJECT),
-		static_cast<DWORD>(tFiles.GetPath(2).empty() ? FFILEOPEN_NONE : FFILEOPEN_PROJECT)
-	};
-	if (bLeftReadOnly)
-		dwFlags[0] |= FFILEOPEN_READONLY;
-	if (tFiles.GetSize() == 2)
-	{
-		if (bRightReadOnly)
-			dwFlags[1] |= FFILEOPEN_READONLY;
-	}
-	else
-	{
-		if (bMiddleReadOnly)
-			dwFlags[1] |= FFILEOPEN_READONLY;
-		if (bRightReadOnly)
-			dwFlags[2] |= FFILEOPEN_READONLY;
-	}
+		DWORD dwFlags[3] = {
+			static_cast<DWORD>(tFiles.GetPath(0).empty() ? FFILEOPEN_NONE : FFILEOPEN_PROJECT),
+			static_cast<DWORD>(tFiles.GetPath(1).empty() ? FFILEOPEN_NONE : FFILEOPEN_PROJECT),
+			static_cast<DWORD>(tFiles.GetPath(2).empty() ? FFILEOPEN_NONE : FFILEOPEN_PROJECT)
+		};
+		if (bLeftReadOnly)
+			dwFlags[0] |= FFILEOPEN_READONLY;
+		if (tFiles.GetSize() == 2)
+		{
+			if (bRightReadOnly)
+				dwFlags[1] |= FFILEOPEN_READONLY;
+		}
+		else
+		{
+			if (bMiddleReadOnly)
+				dwFlags[1] |= FFILEOPEN_READONLY;
+			if (bRightReadOnly)
+				dwFlags[2] |= FFILEOPEN_READONLY;
+		}
 
-	GetOptionsMgr()->SaveOption(OPT_CMP_INCLUDE_SUBDIRS, bRecursive);
-	
-	bool rtn = GetMainFrame()->DoFileOpen(&tFiles, dwFlags, nullptr, sReportFile, bRecursive);
+		GetOptionsMgr()->SaveOption(OPT_CMP_INCLUDE_SUBDIRS, bRecursive);
+
+		rtn &= GetMainFrame()->DoFileOpen(&tFiles, dwFlags, nullptr, sReportFile, bRecursive);
+	}
 
 	AddToRecentProjectsMRU(sProject.c_str());
 	return rtn;
