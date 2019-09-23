@@ -1,4 +1,4 @@
-﻿# This file is part from WinMerge <http://winmerge.org/>
+﻿# This file is part from WinMerge <https://winmerge.org/>
 # Released under the "GNU General Public License"
 #
 # Translators:
@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WinMerge\n"
-"Report-Msgid-Bugs-To: http://bugs.winmerge.org/\n"
+"Report-Msgid-Bugs-To: https://bugs.winmerge.org/\n"
 "POT-Creation-Date: 2018-11-22 04:53+0000\n"
 "PO-Revision-Date: 2018-11-26 06:55+0900\n"
 "Last-Translator: pgert <pgert at yahoo.se>\n"
@@ -291,10 +291,6 @@ msgid "&Automatic Unpacking"
 msgstr "Automatisk Uppackning"
 
 #, c-format
-msgid "&Edit with Unpacker..."
-msgstr "Redigera med Uppackare ..."
-
-#, c-format
 msgid "&Reload plugins"
 msgstr "Återladda InsticksProgram"
 
@@ -518,6 +514,10 @@ msgstr "Anpassa Kolumner ..."
 #, c-format
 msgid "Generate &Report..."
 msgstr "Skapa Rapport ..."
+
+#, c-format
+msgid "&Edit with Unpacker..."
+msgstr "Redigera med Uppackare ..."
 
 #, c-format
 msgid "&Save\tCtrl+S"
@@ -1997,10 +1997,6 @@ msgid "Different"
 msgstr "Olika"
 
 #, c-format
-msgid "Text:"
-msgstr "Text:"
-
-#, c-format
 msgid "Binary:"
 msgstr "Binär:"
 
@@ -2195,6 +2191,9 @@ msgstr "InsticksProgram"
 #, c-format
 msgid "&Enable plugins"
 msgstr "Möjliggör InsticksProgram"
+
+msgid "File filters:"
+msgstr ""
 
 #, c-format
 msgid "Shell Integration"

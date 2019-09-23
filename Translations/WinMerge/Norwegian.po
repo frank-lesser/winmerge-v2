@@ -1,4 +1,4 @@
-﻿# This file is part from WinMerge <http://winmerge.org/>
+﻿# This file is part from WinMerge <https://winmerge.org/>
 # Released under the "GNU General Public License"
 #
 # Translators:
@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WinMerge\n"
-"Report-Msgid-Bugs-To: http://bugs.winmerge.org/\n"
+"Report-Msgid-Bugs-To: https://bugs.winmerge.org/\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
 "Last-Translator: FreewareTips <http://home.c2i.net/freewaretips/>\n"
@@ -289,10 +289,6 @@ msgid "&Automatic Unpacking"
 msgstr "&Automatisk utpakking"
 
 #, c-format
-msgid "&Edit with Unpacker..."
-msgstr ""
-
-#, c-format
 msgid "&Reload plugins"
 msgstr "&Gjeninnlast programtillegg"
 
@@ -516,6 +512,10 @@ msgstr "&Tilpass kolonner..."
 #, c-format
 msgid "Generate &Report..."
 msgstr "Generer &rapport..."
+
+#, c-format
+msgid "&Edit with Unpacker..."
+msgstr ""
 
 #, c-format
 msgid "&Save\tCtrl+S"
@@ -1989,10 +1989,6 @@ msgid "Different"
 msgstr "Forskjellig"
 
 #, c-format
-msgid "Text:"
-msgstr "Tekst:"
-
-#, c-format
 msgid "Binary:"
 msgstr "Binær:"
 
@@ -2187,6 +2183,9 @@ msgstr "Programtillegg"
 #, c-format
 msgid "&Enable plugins"
 msgstr "&Aktiver programtillegg"
+
+msgid "File filters:"
+msgstr ""
 
 #, c-format
 msgid "Shell Integration"

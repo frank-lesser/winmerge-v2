@@ -1,4 +1,4 @@
-﻿# This file is part from WinMerge <http://winmerge.org/>
+﻿# This file is part from WinMerge <https://winmerge.org/>
 # Released under the "GNU General Public License"
 #
 # Translators:
@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WinMerge\n"
-"Report-Msgid-Bugs-To: http://bugs.winmerge.org/\n"
+"Report-Msgid-Bugs-To: https://bugs.winmerge.org/\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
@@ -288,10 +288,6 @@ msgid "&Automatic Unpacking"
 msgstr "Desempaquetament &automàtic"
 
 #, c-format
-msgid "&Edit with Unpacker..."
-msgstr ""
-
-#, c-format
 msgid "&Reload plugins"
 msgstr "&Recarrega els connectors"
 
@@ -515,6 +511,10 @@ msgstr "&Personalitza les columnes..."
 #, c-format
 msgid "Generate &Report..."
 msgstr "Gene&ra un informe..."
+
+#, c-format
+msgid "&Edit with Unpacker..."
+msgstr ""
 
 #, c-format
 msgid "&Save\tCtrl+S"
@@ -1984,10 +1984,6 @@ msgid "Different"
 msgstr "Diferents"
 
 #, c-format
-msgid "Text:"
-msgstr ""
-
-#, c-format
 msgid "Binary:"
 msgstr "Binaris:"
 
@@ -2181,6 +2177,9 @@ msgstr ""
 
 #, c-format
 msgid "&Enable plugins"
+msgstr ""
+
+msgid "File filters:"
 msgstr ""
 
 #, c-format

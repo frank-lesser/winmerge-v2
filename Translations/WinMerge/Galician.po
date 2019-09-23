@@ -1,4 +1,4 @@
-﻿# This file is part from WinMerge <http://winmerge.org/>
+﻿# This file is part from WinMerge <https://winmerge.org/>
 # Released under the "GNU General Public License"
 #
 # Translators:
@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WinMerge\n"
-"Report-Msgid-Bugs-To: http://bugs.winmerge.org/\n"
+"Report-Msgid-Bugs-To: https://bugs.winmerge.org/\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: 2009-02-15 03:22+0100\n"
 "Last-Translator: Medulio <medulio@ciberirmandade.org>\n"
@@ -289,10 +289,6 @@ msgid "&Automatic Unpacking"
 msgstr "&Desempaquetado automático"
 
 #, c-format
-msgid "&Edit with Unpacker..."
-msgstr ""
-
-#, c-format
 msgid "&Reload plugins"
 msgstr "&Recargar plugins"
 
@@ -516,6 +512,10 @@ msgstr "Personalizar &columnas..."
 #, c-format
 msgid "Generate &Report..."
 msgstr "Xera&r informe..."
+
+#, c-format
+msgid "&Edit with Unpacker..."
+msgstr ""
 
 #, c-format
 msgid "&Save\tCtrl+S"
@@ -1990,10 +1990,6 @@ msgid "Different"
 msgstr "Diferente"
 
 #, c-format
-msgid "Text:"
-msgstr "Texto:"
-
-#, c-format
 msgid "Binary:"
 msgstr "Binario:"
 
@@ -2188,6 +2184,9 @@ msgstr "Plugins"
 #, c-format
 msgid "&Enable plugins"
 msgstr "&Activar plugins"
+
+msgid "File filters:"
+msgstr ""
 
 #, c-format
 msgid "Shell Integration"

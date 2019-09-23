@@ -1,4 +1,4 @@
-﻿# This file is part from WinMerge <http://winmerge.org/>
+﻿# This file is part from WinMerge <https://winmerge.org/>
 # Released under the "GNU General Public License"
 #
 # Maintainer:
@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WinMerge\n"
-"Report-Msgid-Bugs-To: http://bugs.winmerge.org/\n"
+"Report-Msgid-Bugs-To: https://bugs.winmerge.org/\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: 2018-10-18 22:26+0200\n"
 "Last-Translator: Tim Gerundt <tim at gerundt.de>\n"
@@ -289,10 +289,6 @@ msgid "&Automatic Unpacking"
 msgstr "&Automatisch entpacken"
 
 #, c-format
-msgid "&Edit with Unpacker..."
-msgstr ""
-
-#, c-format
 msgid "&Reload plugins"
 msgstr "Plugins &neu laden"
 
@@ -516,6 +512,10 @@ msgstr "&Spalten anpassen..."
 #, c-format
 msgid "Generate &Report..."
 msgstr "&Bericht generieren..."
+
+#, c-format
+msgid "&Edit with Unpacker..."
+msgstr ""
 
 #, c-format
 msgid "&Save\tCtrl+S"
@@ -1995,10 +1995,6 @@ msgid "Different"
 msgstr "Unterschiedlich"
 
 #, c-format
-msgid "Text:"
-msgstr "Text:"
-
-#, c-format
 msgid "Binary:"
 msgstr "Binär:"
 
@@ -2193,6 +2189,9 @@ msgstr "Plugins"
 #, c-format
 msgid "&Enable plugins"
 msgstr "&Plugins aktivieren"
+
+msgid "File filters:"
+msgstr ""
 
 #, c-format
 msgid "Shell Integration"

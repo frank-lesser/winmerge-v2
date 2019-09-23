@@ -1,4 +1,4 @@
-﻿# This file is part from WinMerge <http://winmerge.org/>
+﻿# This file is part from WinMerge <https://winmerge.org/>
 # Released under the "GNU General Public License"
 #
 # Translators:
@@ -10,9 +10,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WinMerge\n"
-"Report-Msgid-Bugs-To: http://bugs.winmerge.org/\n"
-"POT-Creation-Date: 2019-06-26 06:38+0000\n"
-"PO-Revision-Date: 2019-06-27 09:09+0200\n"
+"Report-Msgid-Bugs-To: https://bugs.winmerge.org/\n"
+"POT-Creation-Date: 2019-07-28 15:48+0000\n"
+"PO-Revision-Date: 2019-07-28 15:48+0000\n"
 "Last-Translator: Tichij <tichij@mail.com>\n"
 "Language-Team: Lithuanian <winmerge-translate@lists.sourceforge.net>\n"
 "Language: lt\n"
@@ -228,9 +228,6 @@ msgstr "Rankinis išpakavi&mas"
 msgid "&Automatic Unpacking"
 msgstr "&Automatinis išpakavimas"
 
-msgid "&Edit with Unpacker..."
-msgstr "R&edaguoti su išpakavimu..."
-
 msgid "&Reload plugins"
 msgstr "&Iš naujo įkelti papildinius"
 
@@ -401,6 +398,9 @@ msgstr "&Parinkti stulpelius..."
 
 msgid "Generate &Report..."
 msgstr "Ku&rti ataskaitą..."
+
+msgid "&Edit with Unpacker..."
+msgstr "R&edaguoti su išpakavimu..."
 
 msgid "&Save\tCtrl+S"
 msgstr "Iš&saugoti\tCtrl+S"
@@ -1534,9 +1534,6 @@ msgstr "Failai:"
 msgid "Different"
 msgstr "Yra skirtingi"
 
-msgid "Text:"
-msgstr "Tekstiniai:"
-
 msgid "Binary:"
 msgstr "Binariniai:"
 
@@ -1683,6 +1680,9 @@ msgstr "Papildiniai"
 
 msgid "&Enable plugins"
 msgstr "Įjungti &papildinius"
+
+msgid "File filters:"
+msgstr ""
 
 msgid "Shell Integration"
 msgstr "Integr. Windows aplinkoje"

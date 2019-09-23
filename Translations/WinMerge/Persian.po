@@ -1,4 +1,4 @@
-﻿# This file is part from WinMerge <http://winmerge.org/>
+﻿# This file is part from WinMerge <https://winmerge.org/>
 # Released under the "GNU General Public License"
 #
 # Translators:
@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WinMerge\n"
-"Report-Msgid-Bugs-To: http://bugs.winmerge.org/\n"
+"Report-Msgid-Bugs-To: https://bugs.winmerge.org/\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: 2013-08-15 19:11+0330\n"
 "Last-Translator: Abolfazl Rostamzadeh Khorasani <a.rostamzadeh@yahoo.com>\n"
@@ -290,10 +290,6 @@ msgid "&Automatic Unpacking"
 msgstr "&A بازکردن بسته بطور خودکار "
 
 #, c-format
-msgid "&Edit with Unpacker..."
-msgstr ""
-
-#, c-format
 msgid "&Reload plugins"
 msgstr "&R بارگذاري دوباره افزايه ها "
 
@@ -517,6 +513,10 @@ msgstr "&C سفارشي کردن ستونها ... "
 #, c-format
 msgid "Generate &Report..."
 msgstr "&R توليد گزارش ... "
+
+#, c-format
+msgid "&Edit with Unpacker..."
+msgstr ""
 
 #, c-format
 msgid "&Save\tCtrl+S"
@@ -1998,10 +1998,6 @@ msgid "Different"
 msgstr " متمايز"
 
 #, c-format
-msgid "Text:"
-msgstr " متن : "
-
-#, c-format
 msgid "Binary:"
 msgstr " دودويي "
 
@@ -2196,6 +2192,9 @@ msgstr " افزايه ها"
 #, c-format
 msgid "&Enable plugins"
 msgstr "&E فعال سازي افزايه ها "
+
+msgid "File filters:"
+msgstr ""
 
 #, c-format
 msgid "Shell Integration"

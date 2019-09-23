@@ -1,4 +1,4 @@
-﻿# This file is part from WinMerge <http://winmerge.org/>
+﻿# This file is part from WinMerge <https://winmerge.org/>
 # Released under the "GNU General Public License"
 #
 # Translators:
@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WinMerge\n"
-"Report-Msgid-Bugs-To: http://bugs.winmerge.org/\n"
+"Report-Msgid-Bugs-To: https://bugs.winmerge.org/\n"
 "POT-Creation-Date: 2009-02-10 22:14+0000\n"
 "PO-Revision-Date: 2013-02-03 22:14+0000\n"
 "Last-Translator: Xabier Aramendi (Azpidatziak) <azpidatziak at gmail.com>\n"
@@ -292,10 +292,6 @@ msgid "&Automatic Unpacking"
 msgstr "Be&rezgaitasunezko Despaketatzea"
 
 #, c-format
-msgid "&Edit with Unpacker..."
-msgstr ""
-
-#, c-format
 msgid "&Reload plugins"
 msgstr "B&irgertatu pluginak"
 
@@ -519,6 +515,10 @@ msgstr "&Antolatu Zutabeak..."
 #, c-format
 msgid "Generate &Report..."
 msgstr "Sortu &Jakinarazpena..."
+
+#, c-format
+msgid "&Edit with Unpacker..."
+msgstr ""
 
 #, c-format
 msgid "&Save\tCtrl+S"
@@ -1992,10 +1992,6 @@ msgid "Different"
 msgstr "Ezberdin"
 
 #, c-format
-msgid "Text:"
-msgstr "Idazkia:"
-
-#, c-format
 msgid "Binary:"
 msgstr "Binarioa:"
 
@@ -2190,6 +2186,9 @@ msgstr "Pluginak"
 #, c-format
 msgid "&Enable plugins"
 msgstr "Gaitu &pluginak"
+
+msgid "File filters:"
+msgstr ""
 
 #, c-format
 msgid "Shell Integration"

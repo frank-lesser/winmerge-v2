@@ -1,4 +1,4 @@
-﻿# This file is part from WinMerge <http://winmerge.org/>
+﻿# This file is part from WinMerge <https://winmerge.org/>
 # Released under the "GNU General Public License"
 #
 # Translators:
@@ -286,10 +286,6 @@ msgid "&Automatic Unpacking"
 msgstr "ස්වයංක්‍රීය"
 
 #, c-format
-msgid "&Edit with Unpacker..."
-msgstr ""
-
-#, c-format
 msgid "&Reload plugins"
 msgstr "උපකාරක නැවත යෙදීම"
 
@@ -513,6 +509,10 @@ msgstr "&Customize Columns..."
 #, c-format
 msgid "Generate &Report..."
 msgstr "වාර්තා ජනනය..."
+
+#, c-format
+msgid "&Edit with Unpacker..."
+msgstr ""
 
 #, c-format
 msgid "&Save\tCtrl+S"
@@ -1984,10 +1984,6 @@ msgid "Different"
 msgstr "වෙනස්"
 
 #, c-format
-msgid "Text:"
-msgstr "වගන්තිය:"
-
-#, c-format
 msgid "Binary:"
 msgstr "ද්වීමය:"
 
@@ -2182,6 +2178,9 @@ msgstr "උපකාරක"
 #, c-format
 msgid "&Enable plugins"
 msgstr "&උපකාරක බලය වැඩිකිරීම"
+
+msgid "File filters:"
+msgstr ""
 
 #, c-format
 msgid "Shell Integration"

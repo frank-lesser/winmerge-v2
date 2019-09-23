@@ -1,4 +1,4 @@
-﻿# This file is part from WinMerge <http://winmerge.org/>
+﻿# This file is part from WinMerge <https://winmerge.org/>
 # Released under the "GNU General Public License"
 #
 # Translators:
@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WinMerge\n"
-"Report-Msgid-Bugs-To: http://bugs.winmerge.org/\n"
+"Report-Msgid-Bugs-To: https://bugs.winmerge.org/\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
 "Last-Translator: MaysWind <i@mayswind.net>\n"
@@ -291,10 +291,6 @@ msgid "&Automatic Unpacking"
 msgstr "自动解包(&A)"
 
 #, c-format
-msgid "&Edit with Unpacker..."
-msgstr "使用解包器编辑(&E)..."
-
-#, c-format
 msgid "&Reload plugins"
 msgstr "重新加载插件(&R)"
 
@@ -518,6 +514,10 @@ msgstr "选择列(&C)..."
 #, c-format
 msgid "Generate &Report..."
 msgstr "生成报告(&R)..."
+
+#, c-format
+msgid "&Edit with Unpacker..."
+msgstr "使用解包器编辑(&E)..."
 
 #, c-format
 msgid "&Save\tCtrl+S"
@@ -1987,10 +1987,6 @@ msgid "Different"
 msgstr "不同"
 
 #, c-format
-msgid "Text:"
-msgstr "文本:"
-
-#, c-format
 msgid "Binary:"
 msgstr "二进制:"
 
@@ -2185,6 +2181,9 @@ msgstr "插件"
 #, c-format
 msgid "&Enable plugins"
 msgstr "启用插件(&E)"
+
+msgid "File filters:"
+msgstr ""
 
 #, c-format
 msgid "Shell Integration"

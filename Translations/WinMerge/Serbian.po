@@ -1,4 +1,4 @@
-﻿# This file is part from WinMerge <http://winmerge.org/>
+﻿# This file is part from WinMerge <https://winmerge.org/>
 # Released under the "GNU General Public License"
 #
 # Translators:
@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WinMerge\n"
-"Report-Msgid-Bugs-To: http://bugs.winmerge.org/\n"
+"Report-Msgid-Bugs-To: https://bugs.winmerge.org/\n"
 "POT-Creation-Date: 2010-06-17 17:00+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Иван Старчевић <ivanstar61@gmail.com> и Ozzii\n"
@@ -288,10 +288,6 @@ msgid "&Automatic Unpacking"
 msgstr "Распакуј &аутоматски"
 
 #, c-format
-msgid "&Edit with Unpacker..."
-msgstr ""
-
-#, c-format
 msgid "&Reload plugins"
 msgstr "Поново &учитај додатке"
 
@@ -515,6 +511,10 @@ msgstr "Подеси &стубце..."
 #, c-format
 msgid "Generate &Report..."
 msgstr "Нап&рави извештај..."
+
+#, c-format
+msgid "&Edit with Unpacker..."
+msgstr ""
 
 #, c-format
 msgid "&Save\tCtrl+S"
@@ -1972,10 +1972,6 @@ msgid "Different"
 msgstr "Разлика"
 
 #, c-format
-msgid "Text:"
-msgstr "Текст"
-
-#, c-format
 msgid "Binary:"
 msgstr "Бинарни"
 
@@ -2170,6 +2166,9 @@ msgstr "Додаци"
 #, c-format
 msgid "&Enable plugins"
 msgstr "Омогући додатк&е"
+
+msgid "File filters:"
+msgstr ""
 
 #, c-format
 msgid "Shell Integration"

@@ -1,5 +1,2 @@
-mkdir Build\Docs 2> NUL
-
-cd Docs\Users\Manual\build
-call build_htmlhelp.bat
-cd ..\..\..\..
+call Docs\Manual\build_htmlhelp_en.bat
+call Docs\Manual\build_htmlhelp_jp.bat

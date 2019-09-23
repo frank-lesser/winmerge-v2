@@ -349,10 +349,7 @@ int CMergeDoc::Rescan(bool &bBinary, IDENTLEVEL &identical,
 
 		String temp = m_tempFiles[nBuffer].GetPath();
 		if (temp.empty())
-		{
-			temp = m_tempFiles[nBuffer].CreateFromFile(m_filePaths.GetPath(nBuffer),
-				tnames[nBuffer]);
-		}
+			temp = m_tempFiles[nBuffer].Create(tnames[nBuffer]);
 		if (temp.empty())
 			return RESCAN_TEMP_ERR;
 	}
@@ -831,7 +828,8 @@ void CMergeDoc::CopyMultipleList(int srcPane, int dstPane, int firstDiff, int la
 	}
 	else
 	{
-		if (!WordListCopy(srcPane, dstPane, lastDiff, firstWordDiff, lastWordDiff, nullptr, bGroupWithPrevious, true))
+		if (!WordListCopy(srcPane, dstPane, lastDiff, 
+			(firstDiff == lastDiff) ? firstWordDiff : 0, lastWordDiff, nullptr, bGroupWithPrevious, true))
 			return; // sync failure
 	}
 
@@ -2839,12 +2837,9 @@ void CMergeDoc::MoveOnLoad(int nPane, int nLineIndex)
 			m_pView[0][nPane]->SelectDiff(nDiff, true, false);
 			nLineIndex = m_pView[0][nPane]->GetCursorPos().y;
 		}
-		else
-		{
-			nLineIndex = 0;
-		}
 	}
-	m_pView[0][nPane]->GotoLine(nLineIndex, false, nPane);
+	if (nLineIndex != -1)
+		m_pView[0][nPane]->GotoLine(nLineIndex, false, nPane);
 }
 
 void CMergeDoc::ChangeFile(int nBuffer, const String& path)

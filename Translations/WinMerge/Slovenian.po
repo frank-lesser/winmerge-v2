@@ -1,4 +1,4 @@
-﻿# This file is part from WinMerge <http://winmerge.org/>
+﻿# This file is part from WinMerge <https://winmerge.org/>
 # Released under the "GNU General Public License"
 #
 # Translators:
@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WinMerge\n"
-"Report-Msgid-Bugs-To: http://bugs.winmerge.org/\n"
+"Report-Msgid-Bugs-To: https://bugs.winmerge.org/\n"
 "POT-Creation-Date: 2011-08-19 21:57+0000\n"
 "PO-Revision-Date: 2013-01-19 20:15+0100\n"
 "Last-Translator: Filip Komar <filip.komar@gmail.com>\n"
@@ -27,7 +27,7 @@ msgstr ""
 #. LANGUAGE, SUBLANGUAGE
 #, c-format
 msgid "LANG_ENGLISH, SUBLANG_ENGLISH_US"
-msgstr "LANG_SLOVENIAN, SUBLANG_SLOVENIAN"
+msgstr "LANG_SLOVENIAN, SUBLANG_DEFAULT"
 
 #, c-format
 msgid "C&opy to Right"
@@ -290,10 +290,6 @@ msgid "&Automatic Unpacking"
 msgstr "&Samodejno pretvarjanje"
 
 #, c-format
-msgid "&Edit with Unpacker..."
-msgstr ""
-
-#, c-format
 msgid "&Reload plugins"
 msgstr "&Ponovno naloži razširitve"
 
@@ -517,6 +513,10 @@ msgstr "&Prilagodi stolpce ..."
 #, c-format
 msgid "Generate &Report..."
 msgstr "Izdelaj &poročilo ..."
+
+#, c-format
+msgid "&Edit with Unpacker..."
+msgstr ""
 
 #, c-format
 msgid "&Save\tCtrl+S"
@@ -1992,10 +1992,6 @@ msgid "Different"
 msgstr "Razlika"
 
 #, c-format
-msgid "Text:"
-msgstr "Besedilo:"
-
-#, c-format
 msgid "Binary:"
 msgstr "Binarno:"
 
@@ -2190,6 +2186,9 @@ msgstr "Razširitve"
 #, c-format
 msgid "&Enable plugins"
 msgstr "&Omogoči razširitve"
+
+msgid "File filters:"
+msgstr ""
 
 #, c-format
 msgid "Shell Integration"

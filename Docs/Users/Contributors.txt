@@ -33,6 +33,7 @@ Localization:
   Sld <sld|mail.bg>
   tigertron <ivg_18@yahoo.com>
   Yanko Yankov <yankonik70 at hotmail.com>
+  Стоян <stoyan от гмаил>
 
 * Catalan:
   Jordi Vilar <jvilar@users.sourceforge.net>
@@ -94,6 +95,7 @@ Localization:
   Antonio Angelo <antonio.angelo@gmail.com>
   Michele Merega <michele.merega@ifminfomaster.com>
   Michele Locati <michele@locati.it>
+  bovirus
 
 * Korean:
   Sukjoon <bbcool@gmail.com>
@@ -122,6 +124,7 @@ Localization:
 * Portuguese (Portugal):
   Nelson Simão
   Lippe35
+  Hugo Carvalho <hugokarvalho@hotmail.com>
 
 * Romanian:
   Cristian Arghiroiu <cristi.arghiroiu@gmail.com>

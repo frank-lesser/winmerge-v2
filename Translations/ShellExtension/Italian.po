@@ -1,4 +1,4 @@
-# This file is part from WinMerge <http://winmerge.org/>
+# This file is part from WinMerge <https://winmerge.org/>
 # Released under the "GNU General Public License"
 #
 # ID line follows -- this is updated by SVN
@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WinMerge Shell Extension\n"
-"Report-Msgid-Bugs-To: http://bugs.winmerge.org/\n"
+"Report-Msgid-Bugs-To: https://bugs.winmerge.org/\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Basepath: ../../ShellExtension/Languages\n"
 "Language: it\n"
-"X-Generator: Poedit 2.1.1\n"
+"X-Generator: Poedit 2.2.3\n"
 
 #. AFX_TARG
 #: ShellExtensionTemplate.rc:25
@@ -40,7 +40,7 @@ msgstr "65001"
 #: ShellExtensionTemplate.rc:42
 #, c-format
 msgid "ShellExtension"
-msgstr "ShellExtension"
+msgstr "Estensione shell"
 
 #: ShellExtensionTemplate.rc:43
 #, c-format
@@ -75,7 +75,9 @@ msgstr "Confronta con"
 #: ShellExtensionTemplate.rc:49
 #, c-format
 msgid "Save this path. Select another path to compare with this path."
-msgstr "Salva questo percorso. Seleziona un altro da confrontare con questo."
+msgstr ""
+"Salva questo percorso.\n"
+"Seleziona un altro da confrontare con questo."
 
 #: ShellExtensionTemplate.rc:50
 #, c-format

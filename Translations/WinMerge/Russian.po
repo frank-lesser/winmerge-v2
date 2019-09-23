@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WinMerge\n"
-"Report-Msgid-Bugs-To: http://bugs.winmerge.org/\n"
+"Report-Msgid-Bugs-To: https://bugs.winmerge.org/\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: 2012-09-13 20:55+0200\n"
 "Last-Translator: Dmitriy Rublev <kaktebyavirubit at gmail.com>\n"
@@ -291,10 +291,6 @@ msgid "&Automatic Unpacking"
 msgstr "Автоматическая распаковка"
 
 #, c-format
-msgid "&Edit with Unpacker..."
-msgstr "Редактировать распаковщиком..."
-
-#, c-format
 msgid "&Reload plugins"
 msgstr "&Перезагрузить плагины"
 
@@ -518,6 +514,10 @@ msgstr "&Настроить колонки..."
 #, c-format
 msgid "Generate &Report..."
 msgstr "Создать &отчет..."
+
+#, c-format
+msgid "&Edit with Unpacker..."
+msgstr "Редактировать распаковщиком..."
 
 #, c-format
 msgid "&Save\tCtrl+S"
@@ -1991,10 +1991,6 @@ msgid "Different"
 msgstr "Отличаются"
 
 #, c-format
-msgid "Text:"
-msgstr "Текст:"
-
-#, c-format
 msgid "Binary:"
 msgstr "Двоичный:"
 
@@ -2189,6 +2185,9 @@ msgstr "Плагины"
 #, c-format
 msgid "&Enable plugins"
 msgstr "&Включить плагины"
+
+msgid "File filters:"
+msgstr ""
 
 #, c-format
 msgid "Shell Integration"

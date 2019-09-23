@@ -1,4 +1,4 @@
-﻿# This file is part from WinMerge <http://winmerge.org/>
+﻿# This file is part from WinMerge <https://winmerge.org/>
 # Released under the "GNU General Public License"
 #
 # Translators:
@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WinMerge\n"
-"Report-Msgid-Bugs-To: http://bugs.winmerge.org/\n"
+"Report-Msgid-Bugs-To: https://bugs.winmerge.org/\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: 2011-01-24 21:42+0100\n"
 "Last-Translator: \n"
@@ -289,10 +289,6 @@ msgid "&Automatic Unpacking"
 msgstr "&Automatikus kicsomagolás"
 
 #, c-format
-msgid "&Edit with Unpacker..."
-msgstr ""
-
-#, c-format
 msgid "&Reload plugins"
 msgstr "&Bővítmények betöltése"
 
@@ -516,6 +512,10 @@ msgstr "&Oszlopok testreszabása..."
 #, c-format
 msgid "Generate &Report..."
 msgstr "&Jelentés generálása..."
+
+#, c-format
+msgid "&Edit with Unpacker..."
+msgstr ""
 
 #, c-format
 msgid "&Save\tCtrl+S"
@@ -1985,10 +1985,6 @@ msgid "Different"
 msgstr "Különböző"
 
 #, c-format
-msgid "Text:"
-msgstr "Szöveg:"
-
-#, c-format
 msgid "Binary:"
 msgstr "Bináris:"
 
@@ -2183,6 +2179,9 @@ msgstr "Bővítmények"
 #, c-format
 msgid "&Enable plugins"
 msgstr "Bővítmény&ek bekapcsolása"
+
+msgid "File filters:"
+msgstr ""
 
 #, c-format
 msgid "Shell Integration"

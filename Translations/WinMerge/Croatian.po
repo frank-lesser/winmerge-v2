@@ -1,4 +1,4 @@
-﻿# This file is part from WinMerge <http://winmerge.org/>
+﻿# This file is part from WinMerge <https://winmerge.org/>
 # Released under the "GNU General Public License"
 #
 # Translators:
@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WinMerge\n"
-"Report-Msgid-Bugs-To: http://bugs.winmerge.org/\n"
+"Report-Msgid-Bugs-To: https://bugs.winmerge.org/\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: 2009-02-13 09:15+0100\n"
 "Last-Translator: Hasan Osmanagić <hasan.osmanagic@public.carnet.hr>\n"
@@ -289,10 +289,6 @@ msgid "&Automatic Unpacking"
 msgstr "&Automatsko raspakiravanje"
 
 #, c-format
-msgid "&Edit with Unpacker..."
-msgstr ""
-
-#, c-format
 msgid "&Reload plugins"
 msgstr "&Učitaj dodatke ponovo"
 
@@ -516,6 +512,10 @@ msgstr "&Prilagodba kolona..."
 #, c-format
 msgid "Generate &Report..."
 msgstr "Pohrani &izvještaj..."
+
+#, c-format
+msgid "&Edit with Unpacker..."
+msgstr ""
 
 #, c-format
 msgid "&Save\tCtrl+S"
@@ -1989,10 +1989,6 @@ msgid "Different"
 msgstr "Razlika"
 
 #, c-format
-msgid "Text:"
-msgstr "Tekst"
-
-#, c-format
 msgid "Binary:"
 msgstr "Binarno:"
 
@@ -2187,6 +2183,9 @@ msgstr "Dodaci"
 #, c-format
 msgid "&Enable plugins"
 msgstr "&Omogući dodatke"
+
+msgid "File filters:"
+msgstr ""
 
 #, c-format
 msgid "Shell Integration"
