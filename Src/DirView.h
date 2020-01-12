@@ -176,6 +176,7 @@ private:
 	//{{AFX_VIRTUAL(CDirView)
 public:
 	virtual void OnInitialUpdate();
+	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
 protected:
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	virtual BOOL OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult);
@@ -198,9 +199,9 @@ protected:
 	CSortHeaderCtrl m_ctlSortHeader;
 	CImageList m_imageList;
 	CImageList m_imageState;
-	CListCtrl *m_pList;
+	CListCtrl* m_pList;
 	std::unique_ptr<IListCtrl> m_pIList;
-	bool m_bEscCloses; /**< Cached value for option for ESC closing window */
+	int m_nEscCloses; /**< Cached value for option for ESC closing window */
 	bool m_bExpandSubdirs;
 	CFont m_font; /**< User-selected font */
 	UINT m_nHiddenItems; /**< Count of items we have hidden */

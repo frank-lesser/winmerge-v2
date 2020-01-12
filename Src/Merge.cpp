@@ -302,6 +302,8 @@ BOOL CMergeApp::InitInstance()
 	if (m_pMarkers != nullptr)
 		m_pMarkers->LoadFromRegistry();
 
+	CCrystalTextView::SetRenderingModeDefault(static_cast<CCrystalTextView::RENDERING_MODE>(GetOptionsMgr()->GetInt(OPT_RENDERING_MODE)));
+
 	if (m_pLineFilters != nullptr)
 		m_pLineFilters->Initialize(GetOptionsMgr());
 
@@ -1119,7 +1121,16 @@ bool CMergeApp::LoadAndOpenProjectFile(const String& sProject, const String& sRe
 		for (int i = 0; i < tFiles.GetSize(); ++i)
 		{
 			if (!paths::IsPathAbsolute(tFiles[i]))
-				tFiles[i] = paths::ConcatPath(paths::GetParentPath(sProject), tFiles[i]);
+			{
+				String sProjectDir = paths::GetParentPath(sProject);
+				if (tFiles[i].substr(0, 1) == _T("\\"))
+				{
+					if (sProjectDir.length() > 1 && sProjectDir[1] == ':')
+						tFiles[i] = paths::ConcatPath(sProjectDir.substr(0, 2), tFiles[i]);
+				}
+				else
+					tFiles[i] = paths::ConcatPath(sProjectDir, tFiles[i]);
+			}
 		}
 		bool bLeftReadOnly = projItem.GetLeftReadOnly();
 		bool bMiddleReadOnly = projItem.GetMiddleReadOnly();
@@ -1305,7 +1316,11 @@ UINT CMergeApp::GetProfileInt(LPCTSTR lpszSection, LPCTSTR lpszEntry, int nDefau
 	COptionsMgr *pOptions = GetOptionsMgr();
 	String name = strutils::format(_T("%s/%s"), lpszSection, lpszEntry);
 	if (!pOptions->Get(name).IsInt())
-		pOptions->InitOption(name, nDefault);
+	{
+		varprop::VariantValue defaultValue;
+		defaultValue.SetInt(CWinApp::GetProfileInt(lpszSection, lpszEntry, nDefault));
+		pOptions->AddOption(name, defaultValue);
+	}
 	return pOptions->GetInt(name);
 }
 
@@ -1323,7 +1338,11 @@ CString CMergeApp::GetProfileString(LPCTSTR lpszSection, LPCTSTR lpszEntry, LPCT
 	COptionsMgr *pOptions = GetOptionsMgr();
 	String name = strutils::format(_T("%s/%s"), lpszSection, lpszEntry);
 	if (!pOptions->Get(name).IsString())
-		pOptions->InitOption(name, lpszDefault ? lpszDefault : _T(""));
+	{
+		varprop::VariantValue defaultValue;
+		defaultValue.SetString(CWinApp::GetProfileString(lpszSection, lpszEntry, lpszDefault));
+		pOptions->AddOption(name, defaultValue);
+	}
 	return pOptions->GetString(name).c_str();
 }
 

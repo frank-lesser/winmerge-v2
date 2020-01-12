@@ -78,6 +78,7 @@ void Init(COptionsMgr *pOptions)
 	pOptions->InitOption(OPT_VIEW_FILEMARGIN, false);
 	pOptions->InitOption(OPT_DIFF_CONTEXT, (int)-1);
 	pOptions->InitOption(OPT_SPLIT_HORIZONTALLY, false);
+	pOptions->InitOption(OPT_RENDERING_MODE, -1);
 
 	pOptions->InitOption(OPT_WORDDIFF_HIGHLIGHT, true);
 	pOptions->InitOption(OPT_BREAK_SEPARATORS, _T(".,:;?[](){}<>`'!\"#$%&^~\\|@+-*/"));
@@ -112,7 +113,7 @@ void Init(COptionsMgr *pOptions)
 	pOptions->InitOption(OPT_BREAK_ON_WORDS, false);
 	pOptions->InitOption(OPT_BREAK_TYPE, 1);
 
-	pOptions->InitOption(OPT_CLOSE_WITH_ESC, true);
+	pOptions->InitOption(OPT_CLOSE_WITH_ESC, 1);
 	pOptions->InitOption(OPT_CLOSE_WITH_OK, false);
 	pOptions->InitOption(OPT_IGNORE_SMALL_FILETIME, false);
 	pOptions->InitOption(OPT_ASK_MULTIWINDOW_CLOSE, false);

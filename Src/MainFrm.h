@@ -85,6 +85,7 @@ public:
 	LOGFONT m_lfDiff; /**< MergeView user-selected font */
 	LOGFONT m_lfDir; /**< DirView user-selected font */
 	static const TCHAR szClassName[];
+
 // Operations
 public:
 	HMENU NewDirViewMenu();
@@ -120,6 +121,7 @@ public:
 	void UpdateDocTitle();
 	void ReloadMenu();
 	DropHandler *GetDropHandler() const { return m_pDropHandler; }
+	const CTypedPtrArray<CPtrArray, CMDIChildWnd*>* GetChildArray() const { return &m_arrChild; }
 
 // Overrides
 	virtual void GetMessageString(UINT nID, CString& rMessage) const;
@@ -136,20 +138,18 @@ public:
 protected:
 	virtual ~CMainFrame();
 
-
 // Public implementation data
 public:
 	bool m_bFirstTime; /**< If first time frame activated, get  pos from reg */
 
 // Implementation data
 protected:
-
-
 	// control bar embedded members
 	CStatusBar  m_wndStatusBar;
 	CReBar m_wndReBar;
 	CToolBar m_wndToolBar;
 	CMDITabBar m_wndTabBar;
+	CTypedPtrArray<CPtrArray, CMDIChildWnd*> m_arrChild;
 
 	// Tweak MDI client window behavior
 	class CMDIClient : public CWnd
@@ -161,11 +161,10 @@ protected:
 			{
 			case WM_MDICREATE:
 			case WM_MDIACTIVATE:
-			case WM_MDINEXT:
 				// To reduce flicker in maximized state, disable drawing while messing with MDI child frames
 				BOOL bMaximized;
-				if (SendMessage(WM_MDIGETACTIVE, 0, reinterpret_cast<LPARAM>(&bMaximized))
-					&& bMaximized && SetTimer(m_nRedrawTimer, USER_TIMER_MINIMUM, nullptr))
+				if ((message == WM_MDICREATE || (SendMessage(WM_MDIGETACTIVE, 0, reinterpret_cast<LPARAM>(&bMaximized))
+					&& bMaximized)) && SetTimer(m_nRedrawTimer, USER_TIMER_MINIMUM, nullptr))
 				{
 					SetRedraw(FALSE);
 				}
@@ -298,7 +297,12 @@ protected:
 	afx_msg void OnMRUs(UINT nID);
 	afx_msg void OnUpdateNoMRUs(CCmdUI* pCmdUI);
 	afx_msg void OnDestroy();
+	afx_msg void OnAccelQuit();
 	//}}AFX_MSG
+	afx_msg LRESULT OnChildFrameAdded(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnChildFrameRemoved(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnChildFrameActivate(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnChildFrameActivated(WPARAM wParam, LPARAM lParam);
 	DECLARE_MESSAGE_MAP()
 
 private:

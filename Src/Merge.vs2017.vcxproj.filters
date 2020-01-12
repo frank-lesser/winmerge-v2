@@ -874,8 +874,17 @@
     <ClCompile Include="..\Externals\crystaledit\editlib\icu.cpp">
       <Filter>EditLib\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Externals\crystaledit\editlib\ccrystalrenderergdi.cpp">
+      <Filter>EditLib\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Externals\crystaledit\editlib\ccrystalrendererdirectwrite.cpp">
+      <Filter>EditLib\Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="DirSelectFilesDlg.cpp">
       <Filter>MFCGui\Dialogs\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowsManagerDialog.cpp">
+      <Filter>MFCGui\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1580,6 +1589,18 @@
     </ClInclude>
     <ClInclude Include="DirSelectFilesDlg.h">
       <Filter>MFCGui\Dialogs\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Externals\crystaledit\editlib\ccrystalrenderergdi.h">
+      <Filter>EditLib\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Externals\crystaledit\editlib\ccrystalrenderer.h">
+      <Filter>EditLib\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Externals\crystaledit\editlib\ccrystalrendererdirectwrite.h">
+      <Filter>EditLib\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowsManagerDialog.h">
+      <Filter>MFCGui\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

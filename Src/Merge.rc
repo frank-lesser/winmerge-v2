@@ -405,8 +405,8 @@ BEGIN
         END
         MENUITEM SEPARATOR
         MENUITEM "&Print...",                   ID_FILE_PRINT
-        MENUITEM "Page Set&up",                 ID_FILE_PAGE_SETUP
-        MENUITEM "Print Previe&w",              ID_FILE_PRINT_PREVIEW
+        MENUITEM "Page Set&up...",              ID_FILE_PAGE_SETUP
+        MENUITEM "Print Previe&w...",           ID_FILE_PRINT_PREVIEW
         MENUITEM SEPARATOR
         POPUP "&Read-only"
         BEGIN
@@ -565,13 +565,13 @@ BEGIN
         MENUITEM "Copy from Left\tAlt+Shift+Right", ID_COPY_FROM_LEFT
         MENUITEM "Copy from Right\tAlt+Shift+Left", ID_COPY_FROM_RIGHT
         MENUITEM SEPARATOR
-        MENUITEM "C&opy to Right and Advance\tAlt+Ctrl+Right", ID_L2RNEXT
-        MENUITEM "Copy &to Left and Advance\tAlt+Ctrl+Left", ID_R2LNEXT
+        MENUITEM "C&opy to Right and Advance\tCtrl+Alt+Right", ID_L2RNEXT
+        MENUITEM "Copy &to Left and Advance\tCtrl+Alt+Left", ID_R2LNEXT
         MENUITEM SEPARATOR
         MENUITEM "Copy &All to Right",          ID_ALL_RIGHT
         MENUITEM "Cop&y All to Left",           ID_ALL_LEFT
         MENUITEM SEPARATOR
-        MENUITEM "A&uto Merge\tAlt+Ctrl+M",     ID_AUTO_MERGE
+        MENUITEM "A&uto Merge\tCtrl+Alt+M",     ID_AUTO_MERGE
         MENUITEM SEPARATOR
         MENUITEM "Add &Synchronization Point\tAlt+S", ID_ADD_SYNCPOINT
         MENUITEM "Clear Sync&hronization Points", ID_CLEAR_SYNCPOINTS
@@ -637,14 +637,14 @@ BEGIN
     POPUP "_ITEM_POPUP_"
     BEGIN
         MENUITEM "Comp&are",                    ID_MERGE_COMPARE
-        MENUITEM "Compare Non-hor&izontally...",   ID_MERGE_COMPARE_NONHORIZONTALLY
+        MENUITEM "Compare Non-hor&izontally...", ID_MERGE_COMPARE_NONHORIZONTALLY
         POPUP "Compare Non-hor&izontally"
         BEGIN
             MENUITEM "First &left item with second left item", ID_MERGE_COMPARE_LEFT1_LEFT2
             MENUITEM "First &right item with second right item", ID_MERGE_COMPARE_RIGHT1_RIGHT2
             MENUITEM "&First left item with second right item", ID_MERGE_COMPARE_LEFT1_RIGHT2
             MENUITEM "&Second left item with first right item", ID_MERGE_COMPARE_LEFT2_RIGHT1
-            MENUITEM "Compare Non-hor&izontally...",   ID_MERGE_COMPARE_NONHORIZONTALLY
+            MENUITEM "Compare Non-hor&izontally...", ID_MERGE_COMPARE_NONHORIZONTALLY
         END
         POPUP "Co&mpare As"
         BEGIN
@@ -852,6 +852,7 @@ BEGIN
     "N",            ID_FILE_NEW,            VIRTKEY, CONTROL, NOINVERT
     "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL, NOINVERT
     "P",            ID_FILE_PRINT,          VIRTKEY, CONTROL, NOINVERT
+    "Q",            ID_ACCEL_QUIT,          VIRTKEY, CONTROL, NOINVERT
     "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL, NOINVERT
     "U",            ID_EDIT_LOWERCASE,      VIRTKEY, CONTROL, NOINVERT
     "U",            ID_EDIT_UPPERCASE,      VIRTKEY, SHIFT, CONTROL, NOINVERT
@@ -976,25 +977,26 @@ FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     CONTROL         "Automatically &scroll to first difference",IDC_SCROLL_CHECK,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,6,240,10
-    CONTROL         "Cl&ose windows with ESC",IDC_ESC_CLOSES_WINDOW,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,18,240,10
+    LTEXT           "Cl&ose windows with ESC:",IDC_STATIC,7,16,200,10
+    COMBOBOX        IDC_ESC_CLOSES_WINDOW,7,27,240,10,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     CONTROL         "&Automatically verify paths in Open-dialog",IDC_VERIFY_OPEN_PATHS,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,30,240,10
-    CONTROL         "All&ow only one instance to run",IDC_SINGLE_INSTANCE,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,42,240,10
-    CONTROL         "As&k when closing multiple windows",IDC_ASK_MULTIWINDOW_CLOSE,
+    CONTROL         "All&ow only one instance to run",IDC_SINGLE_INSTANCE,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,54,240,10
-    CONTROL         "&Preserve file time in file compare",IDC_PRESERVE_FILETIME,
+    CONTROL         "As&k when closing multiple windows",IDC_ASK_MULTIWINDOW_CLOSE,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,66,240,10
-    CONTROL         "Show ""Select Files or Folders"" Dialog on Startup",IDC_STARTUP_FOLDER_SELECT,
+    CONTROL         "&Preserve file time in file compare",IDC_PRESERVE_FILETIME,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,78,240,10
+    CONTROL         "Show ""Select Files or Folders"" Dialog on Startup",IDC_STARTUP_FOLDER_SELECT,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,90,240,10
     CONTROL         "Close ""Select Files or Folders"" Dialog on clicking OK button",IDC_CLOSE_WITH_OK,
-                    "Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,7,90,240,20
-    LTEXT           "O&pen-dialog Auto-Completion:",IDC_STATIC,7,110,240,10
-    COMBOBOX        IDC_AUTO_COMPLETE_SOURCE,7,122,240,41,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "Language:",IDC_STATIC,7,140,80,10
-    COMBOBOX        IDC_LANGUAGE_LIST,7,152,241,41,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "WinMerge allows hiding some common messageboxes. Press the Reset button to make all messageboxes visible again.",IDC_STATIC,7,186,193,40
-    PUSHBUTTON      "Reset",IDC_RESET_ALL_MESSAGE_BOXES,203,205,45,14,NOT WS_TABSTOP
+                    "Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,7,102,240,20
+    LTEXT           "O&pen-dialog Auto-Completion:",IDC_STATIC,7,122,240,10
+    COMBOBOX        IDC_AUTO_COMPLETE_SOURCE,7,134,240,41,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Language:",IDC_STATIC,7,152,80,10
+    COMBOBOX        IDC_LANGUAGE_LIST,7,164,240,41,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "WinMerge allows hiding some common messageboxes. Press the Reset button to make all messageboxes visible again.",IDC_STATIC,7,198,193,40
+    PUSHBUTTON      "Reset",IDC_RESET_ALL_MESSAGE_BOXES,203,217,45,14,NOT WS_TABSTOP
 END
 
 IDD_EDIT_FIND DIALOGEX 30, 73, 293, 96
@@ -1149,7 +1151,8 @@ STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION
 CAPTION "Colors"
 FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
-    CONTROL         "&Use folder compare colors",IDC_USE_DIR_COMPARE_COLORS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,4,15,152,10
+    CONTROL         "&Use folder compare colors",IDC_USE_DIR_COMPARE_COLORS,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,4,15,152,10
     CTEXT           "Background",IDC_STATIC,154,29,50,10
     CTEXT           "Text",IDC_STATIC,207,29,29,10
     RTEXT           "Items equal:",IDC_STATIC,4,49,152,20
@@ -1342,6 +1345,8 @@ BEGIN
     COMBOBOX        IDC_BREAK_TYPE,38,162,183,34,CBS_DROPDOWNLIST | WS_VSCROLL | WS_GROUP | WS_TABSTOP
     LTEXT           "W&ord break characters:",IDC_STATIC,24,180,194,10
     EDITTEXT        IDC_BREAK_CHARS,24,192,198,14,ES_AUTOHSCROLL
+    LTEXT           "&Rendering Mode:",IDC_STATIC,7,220,90,10
+    COMBOBOX        IDC_RENDERING_MODE,100,220,148,34,CBS_DROPDOWNLIST | WS_VSCROLL | WS_GROUP | WS_TABSTOP
 END
 
 IDD_MESSAGE_BOX DIALOGEX 0, 0, 186, 95
@@ -1356,7 +1361,7 @@ CAPTION "Filefilters"
 FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     CONTROL         "",IDC_FILTERFILE_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,7,7,342,100
-    PUSHBUTTON      "Test",IDC_FILTERFILE_TEST_BTN,7,114,50,14
+    PUSHBUTTON      "Test...",IDC_FILTERFILE_TEST_BTN,7,114,50,14
     PUSHBUTTON      "Install...",IDC_FILTERFILE_INSTALL,137,114,50,14
     PUSHBUTTON      "New...",IDC_FILTERFILE_NEWBTN,192,114,50,14
     PUSHBUTTON      "Edit...",IDC_FILTERFILE_EDITBTN,246,114,50,14
@@ -1643,7 +1648,7 @@ STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION
 CAPTION "Test Filter"
 FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
-    LTEXT           "Testing filter ...",IDC_HEADER,7,7,90,10
+    LTEXT           "Testing filter...",IDC_HEADER,7,7,90,10
     LTEXT           "(filter name)",IDC_HEADER_FILTER_NAME,100,6,142,10
     LTEXT           "&Enter text to test:",IDC_PROMPT_LABEL,7,21,90,10
     EDITTEXT        IDC_TEST_TEXT,100,19,142,12,ES_AUTOHSCROLL
@@ -1759,7 +1764,7 @@ BEGIN
     EDITTEXT        IDC_COMPARE_QUICKC_LIMIT,7,108,30,14,ES_AUTOHSCROLL
     LTEXT           "&Binary compare limit (MB):",IDC_STATIC,7,126,200,10
     EDITTEXT        IDC_COMPARE_BINARYC_LIMIT,7,138,30,14,ES_AUTOHSCROLL
-    LTEXT           "&Number of compare threads (a negative value implies addition of the number of available CPU cores):",IDC_STATIC,7,154,230,30
+    LTEXT           "\n&Number of compare threads (a negative value implies addition of the number of available CPU cores):",IDC_STATIC,7,154,230,30
     EDITTEXT        IDC_COMPARE_THREAD_COUNT,7,186,30,14,ES_AUTOHSCROLL
     PUSHBUTTON      "Defaults",IDC_COMPAREFOLDER_DEFAULTS,7,208,70,14
 END
@@ -1819,6 +1824,13 @@ BEGIN
     PUSHBUTTON      "Reset",IDC_RESET,96,48,54,14
     DEFPUSHBUTTON   "&Ok",IDOK,150,48,54,14,WS_GROUP
     PUSHBUTTON      "Cancel",IDCANCEL,204,48,54,14
+END
+
+IDD_DIALOG_WINDOWSMANAGER DIALOGEX 0, 0, 309, 176
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_LIST_FILE,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | LVS_NOCOLUMNHEADER | WS_BORDER | WS_TABSTOP,0,0,309,176
 END
 
 
@@ -1968,6 +1980,11 @@ BEGIN
     0, 0, 100, 0,
     100, 0, 0, 0,
     100, 0, 0, 0
+END
+
+IDD_DIALOG_WINDOWSMANAGER AFX_DIALOG_LAYOUT
+BEGIN
+    0
 END
 
 
@@ -2261,7 +2278,7 @@ BEGIN
     IDS_ERROR_BACKUP        "Error backing up file"
     IDS_BACKUP_FAILED_PROMPT 
                             "Unable to backup original file:\n%1\n\nContinue anyway?"
-    IDS_FILESAVE_FAILED     "Saving file failed.\n%1\n%2\nDo you want to:\n\t-use a different filename (Press Ok)\n\t-abort the current operation (Press Cancel)?"
+    IDS_FILESAVE_FAILED     "Saving file failed.\n%1\n%2\nDo you want to:\n\t- use a different filename (Press Ok)\n\t- abort the current operation (Press Cancel)?"
     IDS_FILEPACK_FAILED_LEFT 
                             "Plugin '%2' cannot pack your changes to the left file back into '%1'.\n\nThe original file will not be changed.\n\nDo you want to save the unpacked version to another file?"
     IDS_FILEPACK_FAILED_RIGHT 
@@ -2436,7 +2453,7 @@ BEGIN
     IDS_COLHDR_LENCODING    "Left Encoding"
     IDS_COLHDR_RENCODING    "Right Encoding"
     IDS_COLHDR_MENCODING    "Middle Encoding"
-    IDS_COLHDR_NIDIFFS      "Ignored Diff."
+    IDS_COLHDR_NIDIFFS      "Ignored Diff"
     IDS_COLHDR_NSDIFFS      "Differences"
     IDS_COLHDR_BINARY       NC_("DirView|ColumnHeader", "Binary")
 END
@@ -2524,9 +2541,9 @@ BEGIN
     IDS_COLDESC_LATTRIBUTES "Left side attributes."
     IDS_COLDESC_RATTRIBUTES "Right side attributes."
     IDS_COLDESC_MATTRIBUTES "Middle side attributes."
-    IDS_COLDESC_LEOL_TYPE   "Left side file EOL type"
-    IDS_COLDESC_REOL_TYPE   "Right side file EOL type"
-    IDS_COLDESC_MEOL_TYPE   "Middle side file EOL type"
+    IDS_COLDESC_LEOL_TYPE   "Left side file EOL type."
+    IDS_COLDESC_REOL_TYPE   "Right side file EOL type."
+    IDS_COLDESC_MEOL_TYPE   "Middle side file EOL type."
 END
 
 // DIRECTORY DIFFING : COLUMN DESCRIPTIONS (2)
@@ -2583,7 +2600,7 @@ END
 STRINGTABLE
 BEGIN
     IDS_SUGGEST_IGNORECODEPAGE 
-                            "Different codepages found in left (cp%d) and right (cp%d) files. \nDisplaying each file in its codepage will give a better display but merging/copying will be dangerous.\nWould you like to treat both files as being in the default Windows codepage (recommended)?"
+                            "Different codepages found in left (cp%d) and right (cp%d) files.\nDisplaying each file in its codepage will give a better display but merging/copying will be dangerous.\nWould you like to treat both files as being in the default Windows codepage (recommended)?"
     IDS_LOSSY_TRANSCODING_BOTH 
                             "Information lost due to encoding errors: both files"
     IDS_LOSSY_TRANSCODING_FIRST 
@@ -2844,6 +2861,31 @@ END
 STRINGTABLE
 BEGIN
     IDC_EXT_EDITOR_PATH     "You can specify the following parameters to the path:\n$file: Path name of the current file\n$linenum: Line number of the current cursor position"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_DIFF_ALGORITHM_DEFAULT   "default"
+    IDS_DIFF_ALGORITHM_MINIMAL   "minimal"
+    IDS_DIFF_ALGORITHM_PATIENCE  "patience"
+    IDS_DIFF_ALGORITHM_HISTOGRAM "histogram"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_RENDERING_MODE_GDI                           "GDI"
+    IDS_RENDERING_MODE_DIRECTWRITE_DEFAULT           "DirectWrite Default"
+    IDS_RENDERING_MODE_DIRECTWRITE_ALIASED           "DirectWrite Aliased"
+    IDS_RENDERING_MODE_DIRECTWRITE_GDI_CLASSIC       "DirectWrite GDI Classic"
+    IDS_RENDERING_MODE_DIRECTWRITE_GDI_NATURAL       "DirectWrite GDI Natural"
+    IDS_RENDERING_MODE_DIRECTWRITE_NATURAL           "DirectWrite Natural"
+    IDS_RENDERING_MODE_DIRECTWRITE_NATURAL_SYMMETRIC "DirectWrite Natural Symmetric"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_CLOSE_WINDOWS_WITH_ESC_1 "MDI child window or main window"
+    IDS_CLOSE_WINDOWS_WITH_ESC_2 "MDI child window only"
 END
 
 #endif    // English (United States) resources

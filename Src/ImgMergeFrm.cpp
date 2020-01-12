@@ -215,7 +215,7 @@ bool CImgMergeFrame::OpenDocs(int nFiles, const FileLocation fileloc[], const bo
 	LPCTSTR lpszWndClass = AfxRegisterWndClass(CS_HREDRAW | CS_VREDRAW,
 			::LoadCursor(nullptr, IDC_ARROW), (HBRUSH)(COLOR_WINDOW+1), nullptr);
 
-	if (!CMDIChildWnd::Create(lpszWndClass, GetTitle(), WS_OVERLAPPEDWINDOW | WS_CHILD, rectDefault, pParent))
+	if (!CMergeFrameCommon::Create(lpszWndClass, GetTitle(), WS_OVERLAPPEDWINDOW | WS_CHILD, rectDefault, pParent))
 		return false;
 
 	int nCmdShow = SW_SHOW;
@@ -304,25 +304,26 @@ void CImgMergeFrame::SetDirDoc(CDirDoc * pDirDoc)
 	m_pDirDoc = pDirDoc;
 }
 
-bool CImgMergeFrame::IsFileChangedOnDisk(int pane) const
+IMergeDoc::FileChange CImgMergeFrame::IsFileChangedOnDisk(int pane) const
 {
 	DiffFileInfo dfi;
-	dfi.Update(m_filePaths[pane]);
+	if (!dfi.Update(m_filePaths[pane]))
+		return FileRemoved;
 	int tolerance = 0;
 	if (GetOptionsMgr()->GetBool(OPT_IGNORE_SMALL_FILETIME))
 		tolerance = SmallTimeDiff; // From MainFrm.h
 	int64_t timeDiff = dfi.mtime - m_fileInfo[pane].mtime;
 	if (timeDiff < 0) timeDiff = -timeDiff;
 	if ((timeDiff > tolerance * Poco::Timestamp::resolution()) || (dfi.size != m_fileInfo[pane].size))
-		return true;
-	return false;
+		return FileChanged;
+	return FileNoChange;
 }
 
 void CImgMergeFrame::CheckFileChanged(void)
 {
 	for (int pane = 0; pane < m_pImgMergeWindow->GetPaneCount(); ++pane)
 	{
-		if (IsFileChangedOnDisk(pane))
+		if (IsFileChangedOnDisk(pane) == FileChanged)
 		{
 			String msg = strutils::format_string1(_("Another application has updated file\n%1\nsince WinMerge scanned it last time.\n\nDo you want to reload the file?"), m_filePaths[pane]);
 			if (AfxMessageBox(msg.c_str(), MB_YESNO | MB_ICONWARNING) == IDYES)
@@ -334,13 +335,6 @@ void CImgMergeFrame::CheckFileChanged(void)
 	}
 }
 
-BOOL CImgMergeFrame::PreCreateWindow(CREATESTRUCT& cs)
-{
-	CMDIChildWnd::PreCreateWindow(cs);
-	cs.dwExStyle &= ~WS_EX_CLIENTEDGE;
-	return TRUE;
-}
-	
 /**
  * @brief Create a status bar to be associated with a heksedit control
  */
@@ -481,7 +475,7 @@ BOOL CImgMergeFrame::OnCreateClient( LPCREATESTRUCT /*lpcs*/,
 int CImgMergeFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 
-	if (CMDIChildWnd::OnCreate(lpCreateStruct) == -1)
+	if (CMergeFrameCommon::OnCreate(lpCreateStruct) == -1)
 		return -1;
 
 	EnableDocking(CBRS_ALIGN_TOP | CBRS_ALIGN_BOTTOM | CBRS_ALIGN_LEFT | CBRS_ALIGN_RIGHT);
@@ -556,9 +550,10 @@ bool CImgMergeFrame::EnsureValidDockState(CDockState& state)
 BOOL CImgMergeFrame::DestroyWindow() 
 {
 	SavePosition();
+	SaveActivePane();
 	SaveOptions();
 	SaveWindowState();
-	return CMDIChildWnd::DestroyWindow();
+	return CMergeFrameCommon::DestroyWindow();
 }
 
 void CImgMergeFrame::LoadOptions()
@@ -603,7 +598,6 @@ void CImgMergeFrame::SavePosition()
 {
 	CRect rc;
 	GetWindowRect(&rc);
-	GetOptionsMgr()->SaveOption(OPT_ACTIVE_PANE, m_pImgMergeWindow->GetActivePane());
 
 	// save the bars layout
 	// save docking positions and sizes
@@ -612,6 +606,11 @@ void CImgMergeFrame::SavePosition()
 	m_pDockState.SaveState(_T("Settings-ImgMergeFrame"));
 	// for the dimensions of the diff pane, use the CSizingControlBar save
 	m_wndLocationBar.SaveState(_T("Settings-ImgMergeFrame"));
+}
+
+void CImgMergeFrame::SaveActivePane()
+{
+	GetOptionsMgr()->SaveOption(OPT_ACTIVE_PANE, m_pImgMergeWindow->GetActivePane());
 }
 
 void CImgMergeFrame::OnMDIActivate(BOOL bActivate, CWnd* pActivateWnd, CWnd* pDeactivateWnd)
@@ -625,7 +624,9 @@ void CImgMergeFrame::OnMDIActivate(BOOL bActivate, CWnd* pActivateWnd, CWnd* pDe
 		// for the dimensions of the diff and location pane, use the CSizingControlBar loader
 		m_wndLocationBar.LoadState(_T("Settings-ImgMergeFrame"));
 	}
-	CMDIChildWnd::OnMDIActivate(bActivate, pActivateWnd, pDeactivateWnd);
+
+	CMergeFrameCommon::OnMDIActivate(bActivate, pActivateWnd, pDeactivateWnd);
+
 	if (bActivate)
 	{
 		GetMainFrame()->PostMessage(WM_USER + 1);
@@ -639,7 +640,7 @@ void CImgMergeFrame::OnClose()
 		return;
 
 	// clean up pointers.
-	CMDIChildWnd::OnClose();
+	CMergeFrameCommon::OnClose();
 
 	GetMainFrame()->ClearStatusbarItemCount();
 }
@@ -1014,7 +1015,7 @@ void CImgMergeFrame::SetTitle(LPCTSTR lpszTitle)
 		else
 			sTitle = strutils::join(&sFileName[0], &sFileName[0] + nBuffers, _T(" - "));
 	}
-	CMDIChildWnd::SetTitle(sTitle.c_str());
+	CMergeFrameCommon::SetTitle(sTitle.c_str());
 	if (m_hWnd != nullptr)
 		SetWindowText(sTitle.c_str());
 }
@@ -1178,6 +1179,7 @@ bool CImgMergeFrame::CloseNow()
 		return false;
 
 	SavePosition(); // Save settings before closing!
+	SaveActivePane();
 	SaveOptions();
 	MDIActivate();
 	MDIDestroy();
@@ -1249,18 +1251,18 @@ BOOL CImgMergeFrame::PreTranslateMessage(MSG* pMsg)
 		}
 
 		// Close window in response to VK_ESCAPE if user has allowed it from options
-		if (pMsg->wParam == VK_ESCAPE && GetOptionsMgr()->GetBool(OPT_CLOSE_WITH_ESC))
+		if (pMsg->wParam == VK_ESCAPE && GetOptionsMgr()->GetInt(OPT_CLOSE_WITH_ESC) != 0)
 		{
 			PostMessage(WM_CLOSE, 0, 0);
 			return true;
 		}
 	}
-	return CMDIChildWnd::PreTranslateMessage(pMsg);
+	return CMergeFrameCommon::PreTranslateMessage(pMsg);
 }
 
 void CImgMergeFrame::OnSize(UINT nType, int cx, int cy) 
 {
-	CMDIChildWnd::OnSize(nType, cx, cy);
+	CMergeFrameCommon::OnSize(nType, cx, cy);
 	UpdateHeaderSizes();
 }
 
@@ -1326,7 +1328,7 @@ void CImgMergeFrame::OnIdleUpdateCmdUI()
 			m_wndStatusBar[pane].SetPaneText(0, text.c_str());
 		}
 	}
-	CMDIChildWnd::OnIdleUpdateCmdUI();
+	CMergeFrameCommon::OnIdleUpdateCmdUI();
 }
 
 /**

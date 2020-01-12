@@ -41,6 +41,16 @@ IMPLEMENT_DYNCREATE (CGhostTextView, CCrystalEditViewEx)
  */
 CGhostTextView::CGhostTextView()
 : m_pGhostTextBuffer(nullptr)
+, m_ptCursorPosPushed{}
+, m_ptSelStartPushed{}
+, m_ptSelEndPushed{}
+, m_ptAnchorPushed{}
+, m_ptDraggedTextBeginPushed{}
+, m_ptDraggedTextEndPushed{}
+, m_ptSavedCaretPosPushed{}
+, m_ptSavedSelStartPushed{}
+, m_ptSavedSelEndPushed{}
+, m_ptLastChangePushed{}
 , m_nTopSubLinePushed(0)
 {
 }
@@ -278,12 +288,12 @@ HGLOBAL CGhostTextView::PrepareDragData ()
  * @param [in] nLineIndex  Index of line in view.
  * @param [in] nLineNumber Line number to display. if -1, it's not displayed.
  */
-void CGhostTextView::DrawMargin (CDC * pdc, const CRect & rect, int nLineIndex, int nLineNumber)
+void CGhostTextView::DrawMargin (const CRect & rect, int nLineIndex, int nLineNumber)
 {
 	int nRealLineNumber;
 	if (nLineIndex < 0 || GetLineFlags(nLineIndex) & LF_GHOST)
 		nRealLineNumber = -1;
 	else
 		nRealLineNumber = ComputeRealLine(nLineIndex) + 1;
-	CCrystalTextView::DrawMargin(pdc, rect, nLineIndex, nRealLineNumber);
+	CCrystalTextView::DrawMargin(rect, nLineIndex, nRealLineNumber);
 }

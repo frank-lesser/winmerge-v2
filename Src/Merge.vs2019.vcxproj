@@ -428,6 +428,10 @@
     <ClCompile Include="..\Externals\crystaledit\editlib\basic.cpp" />
     <ClCompile Include="..\Externals\crystaledit\editlib\batch.cpp" />
     <ClCompile Include="..\Externals\crystaledit\editlib\ccrystaleditview.cpp" />
+    <ClCompile Include="..\Externals\crystaledit\editlib\ccrystalrendererdirectwrite.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\Externals\crystaledit\editlib\ccrystalrenderergdi.cpp" />
     <ClCompile Include="..\Externals\crystaledit\editlib\ccrystaltextbuffer.cpp" />
     <ClCompile Include="..\Externals\crystaledit\editlib\ccrystaltextmarkers.cpp" />
     <ClCompile Include="..\Externals\crystaledit\editlib\ccrystaltextview.cpp" />
@@ -975,6 +979,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName)2.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
+    <ClCompile Include="WindowsManagerDialog.cpp" />
     <ClCompile Include="WMGotoDlg.cpp" />
     <ClCompile Include="diffutils\src\analyze.c">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -1046,6 +1051,9 @@
     <ClInclude Include="..\Externals\boost\boost\config\compiler\visualc.hpp" />
     <ClInclude Include="..\Externals\boost\boost\config\select_compiler_config.hpp" />
     <ClInclude Include="..\Externals\crystaledit\editlib\ccrystaleditview.h" />
+    <ClInclude Include="..\Externals\crystaledit\editlib\ccrystalrenderer.h" />
+    <ClInclude Include="..\Externals\crystaledit\editlib\ccrystalrendererdirectwrite.h" />
+    <ClInclude Include="..\Externals\crystaledit\editlib\ccrystalrenderergdi.h" />
     <ClInclude Include="..\Externals\crystaledit\editlib\ccrystaltextbuffer.h" />
     <ClInclude Include="..\Externals\crystaledit\editlib\ccrystaltextmarkers.h" />
     <ClInclude Include="..\Externals\crystaledit\editlib\ccrystaltextview.h" />
@@ -1271,6 +1279,7 @@
     <ClInclude Include="UniMarkdownFile.h" />
     <ClInclude Include="Common\varprop.h" />
     <ClInclude Include="Common\VersionInfo.h" />
+    <ClInclude Include="WindowsManagerDialog.h" />
     <ClInclude Include="Win_VersionHelper.h" />
     <ClInclude Include="WMGotoDlg.h" />
     <ClInclude Include="diffutils\lib\cmpbuf.h" />

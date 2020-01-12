@@ -72,7 +72,7 @@ public:
 	bool GenerateReport(const String& sFileName) const override;
 	void DoAutoMerge(int dstPane);
 	bool IsModified() const;
-	bool IsFileChangedOnDisk(int pane) const;
+	IMergeDoc::FileChange IsFileChangedOnDisk(int pane) const;
 	void CheckFileChanged(void) override;
 	String GetDescription(int pane) const { return m_strDesc[pane]; }
 	static bool IsLoadable();
@@ -86,7 +86,6 @@ public:
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CImgMergeFrame)
 	public:
-	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
 	virtual BOOL OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext);
 	virtual BOOL DestroyWindow();
 	virtual BOOL PreTranslateMessage(MSG *);
@@ -101,6 +100,7 @@ private:
 	void LoadOptions();
 	void SaveOptions();
 	void SavePosition();
+	void SaveActivePane();
 	virtual ~CImgMergeFrame();
 	void CreateImgWndStatusBar(CStatusBar &, CWnd *);
 // Generated message map functions
