@@ -2,12 +2,7 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-#if !defined(AFX_SAMPLEDOC_H__B1B69ED1_9FCE_11D2_8CA4_0080ADB8683C__INCLUDED_)
-#define AFX_SAMPLEDOC_H__B1B69ED1_9FCE_11D2_8CA4_0080ADB8683C__INCLUDED_
-
-#if _MSC_VER >= 1000
 #pragma once
-#endif // _MSC_VER >= 1000
 
 #include "CCrystalTextBuffer.h"
 #include "SyntaxColors.h"
@@ -21,17 +16,9 @@ protected: // create from serialization only
 
 // Attributes
 public:
-	class CSampleTextBuffer : public CCrystalTextBuffer
-	{
-	private:
-		CSampleDoc *m_pOwnerDoc;
-	public:
-		CSampleTextBuffer(CSampleDoc *pDoc) { m_pOwnerDoc = pDoc; };
-		virtual void SetModified(bool bModified = true)
-			{ m_pOwnerDoc->SetModifiedFlag(bModified); };
-	};
-
-	CSampleTextBuffer m_xTextBuffer;
+	virtual BOOL IsModified() { return m_xTextBuffer.IsModified(); };
+	virtual void SetModified(BOOL bModified) { m_xTextBuffer.SetModified(bModified); };
+	CCrystalTextBuffer m_xTextBuffer;
 	LOGFONT m_lf;
 	SyntaxColors *m_pSyntaxColors;
 	CCrystalTextMarkers *m_pMarkers;
@@ -57,6 +44,12 @@ public:
 	virtual void AssertValid() const;
 	virtual void Dump(CDumpContext& dc) const;
 #endif
+	template <class Func>
+	void ForEachView(Func func)
+	{
+		for (POSITION pos = GetFirstViewPosition(); pos != nullptr; )
+			func(static_cast<CSampleView*>(GetNextView(pos)));
+	}
 
 protected:
 
@@ -73,5 +66,3 @@ protected:
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Developer Studio will insert additional declarations immediately before the previous line.
-
-#endif // !defined(AFX_SAMPLEDOC_H__B1B69ED1_9FCE_11D2_8CA4_0080ADB8683C__INCLUDED_)

@@ -133,6 +133,10 @@ msgid "&Zoom"
 msgstr "Nagyítás"
 
 #, c-format
+msgid "25%"
+msgstr ""
+
+#, c-format
 msgid "Zoom &In\tCtrl++"
 msgstr "Nagyítás\tCtrl++"
 
@@ -169,8 +173,17 @@ msgstr "&Áthelyezés"
 msgid "&Adjust Offset"
 msgstr ""
 
+msgid "&Vertical Wipe"
+msgstr ""
+
+msgid "&Horizontal Wipe"
+msgstr ""
+
 #, c-format
 msgid "&Set Background Color"
+msgstr ""
+
+msgid "&Vector Image Scaling"
 msgstr ""
 
 #, c-format
@@ -1405,6 +1418,9 @@ msgstr "Eltávolítás"
 msgid "Colors"
 msgstr "Színek"
 
+msgid "Color Scheme:"
+msgstr ""
+
 #, c-format
 msgid "Background"
 msgstr "Háttér"
@@ -1453,10 +1469,6 @@ msgstr "Szó eltérés:"
 msgid "Selected Word Diff:"
 msgstr "Kijelölt szó eltérés:"
 
-#, c-format
-msgid "Defaults"
-msgstr "Alapértékek"
-
 msgid "&Use folder compare colors"
 msgstr ""
 
@@ -1470,6 +1482,10 @@ msgid "Items not exists all:"
 msgstr ""
 
 msgid "Items filtered:"
+msgstr ""
+
+#, c-format
+msgid "Margin:"
 msgstr ""
 
 #, c-format
@@ -1555,6 +1571,10 @@ msgstr "&Parancssor mellékelése"
 #, c-format
 msgid "Open to e&xternal editor"
 msgstr "Megnyitás a &Belső Szerkesztővel"
+
+#, c-format
+msgid "Defaults"
+msgstr "Alapértékek"
 
 #, c-format
 msgid "Display Columns"
@@ -1793,7 +1813,7 @@ msgid "Sa&ve changes"
 msgstr ""
 
 #, c-format
-msgid "Disca&rd changes"
+msgid "Discard c&hanges"
 msgstr ""
 
 #, c-format
@@ -2108,10 +2128,6 @@ msgid "Selection:"
 msgstr "Kijelölés:"
 
 #, c-format
-msgid "Margin:"
-msgstr ""
-
-#, c-format
 msgid "Backup Files"
 msgstr "Visszaállítási fájlok"
 
@@ -2281,6 +2297,9 @@ msgstr ""
 msgid "Image File &Patterns:"
 msgstr ""
 
+msgid "&Enable image compare in folder compare"
+msgstr ""
+
 #, c-format
 msgid "&Hex View"
 msgstr ""
@@ -2414,6 +2433,9 @@ msgstr "&Ne jelenjen meg többet ez a kérdés."
 
 #, c-format
 msgid "To make this messagebox visible again, press the Reset button on the General page of the Options dialog."
+msgstr ""
+
+msgid "Color Schemes"
 msgstr ""
 
 #, c-format
@@ -2736,6 +2758,9 @@ msgstr "Hiba a konfliktusfájl értelmezésekor."
 #, c-format
 msgid "The file\n%1\nis not a conflict file."
 msgstr "A fájl\n%1\nnem egy konfliktus fájl."
+
+msgid "You are about to compare very large files.\nShowing the contents of the files requires a very large amount of memory.\nDo you want to show only the comparison results, not the contents of the files?\n\n"
+msgstr ""
 
 #, c-format
 msgid "Save As"
@@ -3225,6 +3250,12 @@ msgstr ""
 msgid "Text files are different"
 msgstr "A szövegfájlok különböznek"
 
+msgid "Image files are identical"
+msgstr ""
+
+msgid "Image files are different"
+msgstr ""
+
 #, c-format
 msgid "Elapsed time: %ld ms"
 msgstr "Eltelt idő: %ld ms"
@@ -3535,13 +3566,11 @@ msgstr ""
 msgid "Patch file successfully written."
 msgstr "A Patch fájl sikeresen elkészült."
 
-#, c-format
-msgid "1. item is not found or is directory!"
-msgstr "Az 1. elem nem található vagy az egy könyvtár!"
+msgid "1. item is not found!"
+msgstr ""
 
-#, c-format
-msgid "2. item is not found or is directory!"
-msgstr "A 2. elem nem található vagy az egy könyvtár!"
+msgid "2. item is not found!"
+msgstr ""
 
 #, c-format
 msgid "The patch file already exists. Do you want to overwrite it?"
@@ -3651,6 +3680,10 @@ msgstr "Bináris"
 
 #, c-format
 msgid "None"
+msgstr ""
+
+#, c-format
+msgid "Marker Color %d"
 msgstr ""
 
 #, c-format
@@ -3897,5 +3930,89 @@ msgid "MDI child window or main window"
 msgstr ""
 
 msgid "MDI child window only"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Diff"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Highlight"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Blink"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Block Size"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Block Alpha"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "CD Threshold"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Ins/Del Detection"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "None"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Vertical"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Horizontal"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Overlay"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Alpha"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "XOR"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Alpha Blend"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Alpha Animation"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Zoom"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Page:"
+msgstr ""
+
+#, c-format
+msgid "Pt:(%d, %d) RGBA : (%d, %d, %d, %d) "
+msgstr ""
+
+#, c-format
+msgid "Dist:%g "
+msgstr ""
+
+#, c-format
+msgid "Dist:%g,%g "
+msgstr ""
+
+#, c-format
+msgid "Page:%d/%d Zoom:%d%% %dx%dpx %dbpp"
 msgstr ""
 

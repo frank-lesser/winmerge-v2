@@ -2,21 +2,7 @@
 //    WinMerge:  an interactive diff/merge utility
 //    Copyright (C) 1997-2000  Thingamahoochie Software
 //    Author: Dean Grimm
-//
-//    This program is free software; you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation; either version 2 of the License, or
-//    (at your option) any later version.
-//
-//    This program is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//    GNU General Public License for more details.
-//
-//    You should have received a copy of the GNU General Public License
-//    along with this program; if not, write to the Free Software
-//    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-//
+//    SPDX-License-Identifier: GPL-2.0-or-later
 /////////////////////////////////////////////////////////////////////////////
 /**
  * @file  DirView.cpp
@@ -60,6 +46,7 @@
 #include "FileOrFolderSelect.h"
 #include "IntToIntMap.h"
 #include "PatchTool.h"
+#include "SyntaxColors.h"
 #include <numeric>
 #include <functional>
 
@@ -103,10 +90,6 @@ IMPLEMENT_DYNCREATE(CDirView, CListView)
 CDirView::CDirView()
 		: m_pList(nullptr)
 		, m_nHiddenItems(0)
-		, m_bNeedSearchFirstDiffItem(true)
-		, m_bNeedSearchLastDiffItem(true)
-		, m_firstDiffItem(-1)
-		, m_lastDiffItem(-1)
 		, m_pCmpProgressBar(nullptr)
 		, m_compareStart(0)
 		, m_bTreeMode(false)
@@ -396,6 +379,9 @@ void CDirView::OnInitialUpdate()
 		CWnd::SetFont(&m_font, TRUE);
 	}
 
+	if (m_bUseColors)
+		m_pList->SetBkColor(m_cachedColors.clrDirMargin);
+
 	// Replace standard header with sort header
 	HWND hWnd = ListView_GetHeader(m_pList->m_hWnd);
 	if (hWnd != nullptr)
@@ -417,7 +403,8 @@ void CDirView::OnInitialUpdate()
 		IDI_COMPARE_ERROR,
 		IDI_FOLDERUP, IDI_FOLDERUP_DISABLE,
 		IDI_COMPARE_ABORTED,
-		IDI_NOTEQUALTEXTFILE, IDI_EQUALTEXTFILE
+		IDI_NOTEQUALTEXTFILE, IDI_EQUALTEXTFILE,
+		IDI_NOTEQUALIMAGE, IDI_EQUALIMAGE, 
 	};
 	for (auto id : icon_ids)
 		VERIFY(-1 != m_imageList.Add((HICON)LoadImage(AfxGetInstanceHandle(), MAKEINTRESOURCE(id), IMAGE_ICON, iconCX, iconCY, 0)));
@@ -559,6 +546,8 @@ void CDirView::RedisplayChildren(DIFFITEM *diffpos, int level, UINT &index, int 
 			}
 		}
 	}
+	m_firstDiffItem.reset();
+	m_lastDiffItem.reset();
 }
 
 /**
@@ -595,9 +584,6 @@ void CDirView::Redisplay()
 		GetParentFrame()->SetLastCompareResult(alldiffs);
 	SortColumnsAppropriately();
 	SetRedraw(TRUE);
-
-	m_bNeedSearchLastDiffItem = true;
-	m_bNeedSearchFirstDiffItem = true;
 }
 
 /**
@@ -916,6 +902,8 @@ void CDirView::DoDirAction(DirActions::method_type func, const String& status_me
 		ConfirmAndPerformActions(actionScript);
 	} catch (ContentsChangedException& e) {
 		AfxMessageBox(e.m_msg.c_str(), MB_ICONWARNING);
+	} catch (FileOperationException& e) {
+		AfxMessageBox(e.m_msg.c_str(), MB_ICONWARNING);
 	}
 }
 
@@ -998,9 +986,12 @@ void CDirView::PerformActionList(FileActionScript & actionScript)
 	actionScript.SetParentWindow(GetMainFrame()->GetSafeHwnd());
 
 	theApp.AddOperation();
-	if (actionScript.Run())
+	bool succeeded = actionScript.Run();
+	if (succeeded)
 		UpdateAfterFileScript(actionScript);
 	theApp.RemoveOperation();
+	if (!succeeded && !actionScript.IsCanceled())
+		throw FileOperationException(_T("File operation failed"));
 }
 
 /**
@@ -1108,8 +1099,8 @@ void CDirView::SortColumnsAppropriately()
 	CompareState cs(&GetDiffContext(), m_pColItems.get(), sortCol, bSortAscending, m_bTreeMode);
 	GetListCtrl().SortItems(cs.CompareFunc, reinterpret_cast<DWORD_PTR>(&cs));
 
-	m_bNeedSearchLastDiffItem = true;
-	m_bNeedSearchFirstDiffItem = true;
+	m_firstDiffItem.reset();
+	m_lastDiffItem.reset();
 }
 
 /// Do any last minute work as view closes
@@ -1625,6 +1616,7 @@ void CDirView::DeleteItem(int sel, bool removeDIFFITEM)
 	if (removeDIFFITEM)
 	{
 		DIFFITEM *diffpos = GetItemKey(sel);
+		m_pList->DeleteItem(sel);
 		if (diffpos != (DIFFITEM *)SPECIAL_ITEM_POS)
 		{
 			if (diffpos->HasChildren())
@@ -1633,7 +1625,13 @@ void CDirView::DeleteItem(int sel, bool removeDIFFITEM)
 			delete diffpos;
 		}
 	}
-	m_pList->DeleteItem(sel);
+	else
+	{
+		m_pList->DeleteItem(sel);
+	}
+
+	m_firstDiffItem.reset();
+	m_lastDiffItem.reset();
 }
 
 void CDirView::DeleteAllDisplayItems()
@@ -1641,6 +1639,9 @@ void CDirView::DeleteAllDisplayItems()
 	// item data are just positions (diffposes)
 	// that is, they contain no memory needing to be freed
 	m_pList->DeleteAllItems();
+
+	m_firstDiffItem.reset();
+	m_lastDiffItem.reset();
 }
 
 /**
@@ -2056,28 +2057,24 @@ int CDirView::GetFocusedItem()
 
 int CDirView::GetFirstDifferentItem()
 {
-	if (!m_bNeedSearchFirstDiffItem)
-		return m_firstDiffItem;
-
-	DirItemIterator it =
-		std::find_if(Begin(), End(), MakeDirActions(&DirActions::IsItemNavigableDiff));
-	m_firstDiffItem = it.m_sel;
-	m_bNeedSearchFirstDiffItem = false;
-
-	return m_firstDiffItem;
+	if (!m_firstDiffItem.has_value())
+	{
+		DirItemIterator it =
+			std::find_if(Begin(), End(), MakeDirActions(&DirActions::IsItemNavigableDiff));
+		m_firstDiffItem = it.m_sel;
+	}
+	return m_firstDiffItem.value();
 }
 
 int CDirView::GetLastDifferentItem()
 {
-	if (!m_bNeedSearchLastDiffItem)
-		return m_lastDiffItem;
-
-	DirItemIterator it =
-		std::find_if(RevBegin(), RevEnd(), MakeDirActions(&DirActions::IsItemNavigableDiff));
-	m_lastDiffItem = it.m_sel;
-	m_bNeedSearchLastDiffItem = false;
-
-	return m_lastDiffItem;
+	if (!m_lastDiffItem.has_value())
+	{
+		DirItemIterator it =
+			std::find_if(RevBegin(), RevEnd(), MakeDirActions(&DirActions::IsItemNavigableDiff));
+		m_lastDiffItem = it.m_sel;
+	}
+	return m_lastDiffItem.value();
 }
 
 /**
@@ -2570,6 +2567,7 @@ std::vector<String> CDirView::GetCurrentColRegKeys()
 struct FileCmpReport: public IFileCmpReport
 {
 	explicit FileCmpReport(CDirView *pDirView) : m_pDirView(pDirView) {}
+	~FileCmpReport() override {}
 	bool operator()(REPORT_TYPE nReportType, IListCtrl *pList, int nIndex, const String &sDestDir, String &sLinkPath) override
 	{
 		const CDiffContext& ctxt = m_pDirView->GetDiffContext();
@@ -2695,12 +2693,6 @@ void CDirView::OnToolsGeneratePatch()
 		{
 			LangMessageBox(IDS_CANNOT_CREATE_BINARYPATCH, MB_ICONWARNING |
 				MB_DONT_DISPLAY_AGAIN, IDS_CANNOT_CREATE_BINARYPATCH);
-			bValidFiles = false;
-		}
-		else if (item.diffcode.isDirectory())
-		{
-			LangMessageBox(IDS_CANNOT_CREATE_DIRPATCH, MB_ICONWARNING |
-				MB_DONT_DISPLAY_AGAIN, IDS_CANNOT_CREATE_DIRPATCH);
 			bValidFiles = false;
 		}
 
@@ -2902,6 +2894,8 @@ void CDirView::RefreshOptions()
 	m_bExpandSubdirs = GetOptionsMgr()->GetBool(OPT_DIRVIEW_EXPAND_SUBDIRS);
 	Options::DirColors::Load(GetOptionsMgr(), m_cachedColors);
 	m_bUseColors = GetOptionsMgr()->GetBool(OPT_DIRCLR_USE_COLORS);
+	m_pList->SetBkColor(m_bUseColors ? m_cachedColors.clrDirMargin : GetSysColor(COLOR_WINDOW));
+	Invalidate();
 }
 
 /**
@@ -3135,8 +3129,8 @@ afx_msg void CDirView::OnEndLabelEdit(NMHDR* pNMHDR, LRESULT* pResult)
 		if (!sText.IsEmpty())
 		{
 			try {
-				DirItemIterator dirBegin = SelBegin();
-				*pResult = DoItemRename(dirBegin, GetDiffContext(), String(sText));
+				DirItemIterator it(m_pIList.get(), reinterpret_cast<NMLVDISPINFO *>(pNMHDR)->item.iItem);
+				*pResult = DoItemRename(it, GetDiffContext(), String(sText));
 			} catch (ContentsChangedException& e) {
 				AfxMessageBox(e.m_msg.c_str(), MB_ICONWARNING);
 			}
@@ -3821,8 +3815,8 @@ void CDirView::GetColors (int nRow, int nCol, COLORREF& clrBk, COLORREF& clrText
 
 	if (di.isEmpty())
 	{
-		clrText = ::GetSysColor (COLOR_WINDOWTEXT);
-		clrBk = ::GetSysColor (COLOR_WINDOW);
+		clrText = theApp.GetMainSyntaxColors()->GetColor(COLORINDEX_NORMALTEXT);
+		clrBk = theApp.GetMainSyntaxColors()->GetColor(COLORINDEX_BKGND);
 	}
 	else if (di.diffcode.isResultFiltered())
 	{
@@ -3846,8 +3840,8 @@ void CDirView::GetColors (int nRow, int nCol, COLORREF& clrBk, COLORREF& clrText
 	}
 	else
 	{
-		clrText = ::GetSysColor (COLOR_WINDOWTEXT);
-		clrBk = ::GetSysColor (COLOR_WINDOW);
+		clrText = theApp.GetMainSyntaxColors()->GetColor(COLORINDEX_NORMALTEXT);
+		clrBk = theApp.GetMainSyntaxColors()->GetColor(COLORINDEX_BKGND);
 	}
 }
 
@@ -4074,9 +4068,6 @@ void CDirView::ReflectGetdispinfo(NMLVDISPINFO *pParam)
 	{
 		pParam->item.iImage = GetColImage(di);
 	}
-
-	m_bNeedSearchLastDiffItem = true;
-	m_bNeedSearchFirstDiffItem = true;
 }
 
 /**

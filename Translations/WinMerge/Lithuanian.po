@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WinMerge\n"
 "Report-Msgid-Bugs-To: https://bugs.winmerge.org/\n"
-"POT-Creation-Date: 2019-11-12 11:12+0000\n"
-"PO-Revision-Date: 2019-12-10 12:10+0300\n"
+"POT-Creation-Date: 2020-04-30 20:47+0000\n"
+"PO-Revision-Date: 2020-05-04 08:35+0300\n"
 "Last-Translator: Tichij <tichij@mail.com>\n"
 "Language-Team: Lithuanian <winmerge-translate@lists.sourceforge.net>\n"
 "Language: lt\n"
@@ -23,7 +23,7 @@ msgstr ""
 "X-Poedit-Language: Lithuanian\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Basepath: ../../Src/\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 2.3\n"
 
 #. LANGUAGE, SUBLANGUAGE
 msgid "LANG_ENGLISH, SUBLANG_ENGLISH_US"
@@ -99,16 +99,20 @@ msgid "&Horizontal"
 msgstr "&Horizontaliai"
 
 msgid "&Previous Page"
-msgstr "&Praeitas puslapis"
+msgstr "&Praeitas psl."
 
 msgid "&Next Page"
-msgstr "&Kitas puslapis"
+msgstr "&Kitas psl."
 
 msgid "&Active Pane"
 msgstr "&Aktyvus polangis"
 
 msgid "&Zoom"
 msgstr "&Keisti mastelį"
+
+#, c-format
+msgid "25%"
+msgstr "25%"
 
 msgid "Zoom &In\tCtrl++"
 msgstr "Did&inti\tCtrl++"
@@ -124,10 +128,10 @@ msgid "&Overlay"
 msgstr "&Perdengimas"
 
 msgid "&Alpha Blend"
-msgstr "&Alfa sluoksnių suliejimas"
+msgstr "&Alfa sl. suliejimas"
 
 msgid "Alpha &Blend Animation"
-msgstr "Alfa sluoksnių &suliejimo animacija"
+msgstr "Alfa sl. &suliejimo animacija"
 
 msgid "Dragging &Mode"
 msgstr "Vilki&mo režimas"
@@ -138,8 +142,17 @@ msgstr "&Perkelti"
 msgid "&Adjust Offset"
 msgstr "&Reguliuoti poslinkį"
 
+msgid "&Vertical Wipe"
+msgstr "&Vertikalus trinimas"
+
+msgid "&Horizontal Wipe"
+msgstr "&Horizontalus trinimas"
+
 msgid "&Set Background Color"
 msgstr "Nu&statyti fono spalvą"
+
+msgid "&Vector Image Scaling"
+msgstr "&Vektorinių vaizdų mąstelio keitimas"
 
 msgid "&File"
 msgstr "&Failas"
@@ -1091,6 +1104,9 @@ msgstr "Pašalinti"
 msgid "Colors"
 msgstr "Spalvų"
 
+msgid "Color Scheme:"
+msgstr "Spalvų schema:"
+
 msgid "Background"
 msgstr "Fono"
 
@@ -1127,9 +1143,6 @@ msgstr "Žodžio skirtumas:"
 msgid "Selected Word Diff:"
 msgstr "Pažym. žodžio skirtumas:"
 
-msgid "Defaults"
-msgstr "Numat. reikšmės"
-
 msgid "&Use folder compare colors"
 msgstr "Na&udoti katalogų lyginimo spalvas"
 
@@ -1144,6 +1157,9 @@ msgstr "Elementų visai nėra:"
 
 msgid "Items filtered:"
 msgstr "Elementai filtruoti:"
+
+msgid "Margin:"
+msgstr "Paraštė:"
 
 msgid "System"
 msgstr "Sistemos"
@@ -1207,6 +1223,9 @@ msgstr "Įterpti koman&dinę eilutę"
 
 msgid "Open to e&xternal editor"
 msgstr "Atverti &išoriniame redaktoriuje"
+
+msgid "Defaults"
+msgstr "Numat. reikšmės"
 
 msgid "Display Columns"
 msgstr "Rodyti stulpelius"
@@ -1388,8 +1407,8 @@ msgstr "Vidurinis failas"
 msgid "Sa&ve changes"
 msgstr "Iš&saugoti pakeitimus"
 
-msgid "Disca&rd changes"
-msgstr "&Atmesti pakeitimus"
+msgid "Discard c&hanges"
+msgstr "Atmesti &pakeitimus"
 
 msgid "Right side file"
 msgstr "Dešinysis failas"
@@ -1398,7 +1417,7 @@ msgid "S&ave changes"
 msgstr "Išs&augoti pakeitimus"
 
 msgid "Dis&card changes"
-msgstr "A&tmesti pakeitimus"
+msgstr "At&mesti pakeitimus"
 
 msgid "Disca&rd All"
 msgstr "Atmes&ti viską"
@@ -1625,9 +1644,6 @@ msgstr "Paprastas tekstas:"
 msgid "Selection:"
 msgstr "Pažymėtas fragmentas:"
 
-msgid "Margin:"
-msgstr "Paraštė:"
-
 msgid "Backup Files"
 msgstr "Rezervinių failų kurimo"
 
@@ -1762,6 +1778,9 @@ msgstr "Paveikslėlių"
 msgid "Image File &Patterns:"
 msgstr "&Paveikslėlių failų šablonai:"
 
+msgid "&Enable image compare in folder compare"
+msgstr "Lyginti pav&eikslėlius lyginant katalogus"
+
 msgid "&Hex View"
 msgstr "Žiūrėti &Hex režimu"
 
@@ -1868,6 +1887,9 @@ msgstr "Daugiau neklausti šio &klausimo."
 
 msgid "To make this messagebox visible again, press the Reset button on the General page of the Options dialog."
 msgstr "Kad šis pranešimas vėl būtų matomas, paspauskite Nuostatų ekrano dalyje „Bendros“ esantį mygtuką „Atkurti“."
+
+msgid "Color Schemes"
+msgstr "Schemų"
 
 msgid "Syntax"
 msgstr "Sintaksės"
@@ -2105,6 +2127,9 @@ msgstr "Nepavyko išnagrinėti konfliktų failo."
 #, c-format
 msgid "The file\n%1\nis not a conflict file."
 msgstr "Failas\n%1\nnėra konfliktų failas."
+
+msgid "You are about to compare very large files.\nShowing the contents of the files requires a very large amount of memory.\nDo you want to show only the comparison results, not the contents of the files?\n\n"
+msgstr "Ruošiatės lyginti labai didelius failus.\nTokių failų turinio parodymas reikalauja labai daug atminties.\nGal norite matyti tik palyginimo rezultatus, o ne failų turinį?\n\n"
 
 msgid "Save As"
 msgstr "Išsaugoti kaip"
@@ -2464,6 +2489,12 @@ msgstr "(Kairysis ir vidurinis yra vienodi)"
 msgid "Text files are different"
 msgstr "Tekstiniai failai yra skirtingi"
 
+msgid "Image files are identical"
+msgstr "Paveikslėliai yra vienodi"
+
+msgid "Image files are different"
+msgstr "Paveikslėliai skiriasi"
+
 #, c-format
 msgid "Elapsed time: %ld ms"
 msgstr "Praėjęs laikas: %ld ms"
@@ -2632,10 +2663,10 @@ msgid "Do you want to move to the previous file?"
 msgstr "Ar norite pereiti prie praeito failo?"
 
 msgid "Do you want to move to the next page?"
-msgstr "Ar norite pereiti prie kito lapo?"
+msgstr "Ar norite pereiti prie kito puslapio?"
 
 msgid "Do you want to move to the previous page?"
-msgstr "Ar norite pereiti prie praeito lapo?"
+msgstr "Ar norite pereiti prie praeito puslapio?"
 
 #, c-format
 msgid "Different codepages found in left (cp%d) and right (cp%d) files.\nDisplaying each file in its codepage will give a better display but merging/copying will be dangerous.\nWould you like to treat both files as being in the default Windows codepage (recommended)?"
@@ -2695,11 +2726,11 @@ msgstr "Skirtumų polangis"
 msgid "Patch file successfully written."
 msgstr "Pataisų failas sėkmingai įrašytas."
 
-msgid "1. item is not found or is directory!"
-msgstr "1. elementas nerastas arba tai katalogas!"
+msgid "1. item is not found!"
+msgstr "1. elementas nerastas!"
 
-msgid "2. item is not found or is directory!"
-msgstr "2. elementas nerastas arba tai katalogas!"
+msgid "2. item is not found!"
+msgstr "2. elementas nerastas!"
 
 msgid "The patch file already exists. Do you want to overwrite it?"
 msgstr "Pataisų failas jau yra. Užrašyti ant viršaus?"
@@ -2773,6 +2804,10 @@ msgstr "Binarinių"
 
 msgid "None"
 msgstr "Nėra"
+
+#, c-format
+msgid "Marker Color %d"
+msgstr "Žymeklio spalva %d"
 
 msgid "Type"
 msgstr "Tipas"
@@ -2880,7 +2915,7 @@ msgid "G&oto Line %1"
 msgstr "E&iti į %1 eilutę"
 
 msgid "Disabled"
-msgstr "Išjungtas"
+msgstr "Išjungta"
 
 msgid "From file system"
 msgstr "Iš sistemos"
@@ -2968,8 +3003,92 @@ msgid "DirectWrite Natural Symmetric"
 msgstr ""
 
 msgid "MDI child window or main window"
-msgstr ""
+msgstr "MDI antrinį arba pagrindinį langą"
 
 msgid "MDI child window only"
-msgstr ""
+msgstr "Tik MDI antrinį langą"
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Diff"
+msgstr "Skirtumai"
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Highlight"
+msgstr "Paryškinti"
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Blink"
+msgstr "Mirksi"
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Block Size"
+msgstr "Bloko dydis"
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Block Alpha"
+msgstr "Bloko alfa"
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "CD Threshold"
+msgstr "CD slenkstis"
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Ins/Del Detection"
+msgstr "Skirtumų aptikimas"
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "None"
+msgstr "Nėra"
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Vertical"
+msgstr "Vertikaliai"
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Horizontal"
+msgstr "Horizontaliai"
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Overlay"
+msgstr "Perdengimas"
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Alpha"
+msgstr "Alfa"
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "XOR"
+msgstr "XOR"
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Alpha Blend"
+msgstr "Alfa sl. suliejimas"
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Alpha Animation"
+msgstr "Alfa sl. animacija"
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Zoom"
+msgstr "Mastelis"
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Page:"
+msgstr "Psl.:"
+
+#, c-format
+msgid "Pt:(%d, %d) RGBA : (%d, %d, %d, %d) "
+msgstr "Tšk.:(%d, %d) RGBA : (%d, %d, %d, %d) "
+
+#, c-format
+msgid "Dist:%g "
+msgstr "Dist.:%g "
+
+#, c-format
+msgid "Dist:%g,%g "
+msgstr "Dist.:%g,%g "
+
+#, c-format
+msgid "Page:%d/%d Zoom:%d%% %dx%dpx %dbpp"
+msgstr "Psl.:%d/%d Mastelis:%d%% %dx%dpx %dbpp"
 

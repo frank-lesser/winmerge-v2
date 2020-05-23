@@ -3,8 +3,6 @@
  *
  * @brief Implementation for SyntaxColors class.
  */
-// ID line follows -- this is updated by SVN
-// $Id: SyntaxColors.cpp 6727 2009-05-10 08:25:18Z kimmov $
 
 #include "StdAfx.h"
 #include <vector>
@@ -15,8 +13,6 @@
  */
 SyntaxColors::SyntaxColors()
 {
-	m_colors.resize(COLORINDEX_COUNT);
-	m_bolds.resize(COLORINDEX_COUNT);
 	SetDefaults();
 }
 
@@ -25,11 +21,9 @@ SyntaxColors::SyntaxColors()
  * @param [in] pColors Instance to copy.
  */
 SyntaxColors::SyntaxColors(const SyntaxColors *pColors)
+	: m_colors{pColors->m_colors}
+	, m_bolds{pColors->m_bolds}
 {
-	m_colors.resize(COLORINDEX_COUNT);
-	m_bolds.resize(COLORINDEX_COUNT);
-	m_colors = pColors->m_colors;
-	m_bolds = pColors->m_bolds;
 }
 
 /**
@@ -38,8 +32,6 @@ SyntaxColors::SyntaxColors(const SyntaxColors *pColors)
  */
 void SyntaxColors::Clone(const SyntaxColors *pColors)
 {
-	m_colors.resize(COLORINDEX_COUNT);
-	m_bolds.resize(COLORINDEX_COUNT);
 	m_colors = pColors->m_colors;
 	m_bolds = pColors->m_bolds;
 }

@@ -1,21 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////
 //    WinMerge:  an interactive diff/merge utility
 //    Copyright (C) 1997  Dean P. Grimm
-//
-//    This program is free software; you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation; either version 2 of the License, or
-//    (at your option) any later version.
-//
-//    This program is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//    GNU General Public License for more details.
-//
-//    You should have received a copy of the GNU General Public License
-//    along with this program; if not, write to the Free Software
-//    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-//
+//    SPDX-License-Identifier: GPL-2.0-or-later
 /////////////////////////////////////////////////////////////////////////////
 /** 
  * @file  DirDoc.h
@@ -28,6 +14,7 @@
 #include <memory>
 #include "DiffThread.h"
 #include "PluginManager.h"
+#include "FileFilterHelper.h"
 #include "DirCmpReport.h"
 
 class CDirView;
@@ -37,6 +24,7 @@ class DirDocFilterGlobal;
 class DirDocFilterByExtension;
 class CTempPathContext;
 struct FileActionItem;
+struct FileLocation;
 
 /////////////////////////////////////////////////////////////////////////////
 // CDirDoc document
@@ -123,9 +111,12 @@ public:
 	bool MoveableToPrevDiff();
 	void MoveToNextDiff(IMergeDoc *pMergeDoc);
 	void MoveToPrevDiff(IMergeDoc *pMergeDoc);
+	
+	bool CompareFilesIfFilesAreLarge(int nFiles, const FileLocation ifileloc[]);
 
 protected:
-	void LoadLineFilterList();
+	void InitDiffContext(CDiffContext *pCtxt);
+	void LoadLineFilterList(CDiffContext *pCtxt);
 
 	// Generated message map functions
 	//{{AFX_MSG(CDirDoc)
@@ -143,6 +134,7 @@ private:
 	String m_strDesc[3]; /**< Left/middle/right side desription text */
 	String m_sReportFile;
 	PluginManager m_pluginman;
+	FileFilterHelper m_imgfileFilter;
 	bool m_bMarkedRescan; /**< If `true` next rescan scans only marked items */
 	bool m_bGeneratingReport;
 	std::unique_ptr<DirCmpReport> m_pReport;

@@ -1,7 +1,6 @@
 
 **/.vs
 **/ipch
-
 **/BuildTmp
 **/Build
 **/obj64
@@ -12,6 +11,9 @@
 **/Release
 **/x64Debug
 **/Debug
+**/Unicode Debug
+**/Unicode Release
+winmerge-cppcheck-build-dir/
 
 *.exe
 *.dll
@@ -23,6 +25,20 @@
 *.ilk
 *.aps
 *.tlb
+*.vspx
+*.vsp
+*.psess
+*.cppcheck
+*.un~
+*.*~
+*.obj
+*.res
+*.tlog
+*.pch
+*.idb
+*.log
+*.diagsession
+*.asm
 
 Testing/Data/ShellFileOpTest/File1.txt
 Translations/WinMerge/MergeLang.lastbuild
@@ -30,11 +46,7 @@ Translations/WinMerge/MergeLang.lastbuild
 /ShellExtension/ShellExtension.h
 /ShellExtension/ShellExtension_i.c
 /ShellExtension/ShellExtension_p.c
-*.vspx
 Translations/WinMerge/TranslationsStatus.html
 Translations/WinMerge/TranslationsStatus.wiki
 Translations/WinMerge/TranslationsStatus.xml
-winmerge-cppcheck-build-dir/
-*.vsp
-*.psess
-*.cppcheck
+Docs/Manual/Tools/ReadMe_ENG.html

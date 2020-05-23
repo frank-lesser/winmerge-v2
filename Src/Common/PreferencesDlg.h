@@ -14,7 +14,8 @@
 #include "PropCompare.h"
 #include "PropEditor.h"
 #include "PropRegistry.h"
-#include "PropColors.h"
+#include "PropColorSchemes.h"
+#include "PropMergeColors.h"
 #include "PropTextColors.h"
 #include "PropSyntaxColors.h"
 #include "PropMarkerColors.h"
@@ -44,8 +45,6 @@ public:
 		UINT nMenuID = 0, CWnd* pParent = nullptr);   // standard constructor
 	virtual ~CPreferencesDlg();
 
-	void SetSyntaxColors(SyntaxColors *pColors);
-
 protected:
 // Dialog Data
 	//{{AFX_DATA(CPreferencesDlg)
@@ -59,6 +58,7 @@ protected:
 	PropEditor m_pageEditor;
 	PropRegistry m_pageSystem;
 	PropCodepage m_pageCodepage;
+	PropColorSchemes m_pageColorSchemes;
 	PropMergeColors m_pageMergeColors;
 	PropTextColors m_pageTextColors;
 	PropSyntaxColors m_pageSyntaxColors;
@@ -71,7 +71,6 @@ protected:
 	PropCompareBinary m_pageCompareBinary;
 	PropCompareImage m_pageCompareImage;
 
-	SyntaxColors *m_pSyntaxColors;
 
 	CMapPtrToPtr m_mapPP2HTI;
 
@@ -92,6 +91,7 @@ protected:
 	afx_msg void OnHelpButton();
 	afx_msg void OnImportButton();
 	afx_msg void OnExportButton();
+	afx_msg LRESULT OnColorSchemeChanged(WPARAM wParam, LPARAM lParam);
 	afx_msg void OnSelchangedPages(NMHDR* pNMHDR, LRESULT* pResult);
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
@@ -108,5 +108,5 @@ protected:
 
 private:
 	COptionsMgr *m_pOptionsMgr;
-
+	SyntaxColors *m_pSyntaxColors;
 };

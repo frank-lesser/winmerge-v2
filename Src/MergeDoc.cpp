@@ -2,21 +2,7 @@
 //    WinMerge:  an interactive diff/merge utility
 //    Copyright (C) 1997-2000  Thingamahoochie Software
 //    Author: Dean Grimm
-//
-//    This program is free software; you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation; either version 2 of the License, or
-//    (at your option) any later version.
-//
-//    This program is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//    GNU General Public License for more details.
-//
-//    You should have received a copy of the GNU General Public License
-//    along with this program; if not, write to the Free Software
-//    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-//
+//    SPDX-License-Identifier: GPL-2.0-or-later
 /////////////////////////////////////////////////////////////////////////////
 /** 
  * @file  MergeDoc.cpp
@@ -537,16 +523,23 @@ void CMergeDoc::CheckFileChanged(void)
 		m_pRescanFileInfo[nBuffer]->Update((LPCTSTR)m_filePaths[nBuffer].c_str());
 	}
 
+	bool bDoReload = false;
 	for (nBuffer = 0; nBuffer < m_nBuffers; nBuffer++)
 	{
 		if (FileChange[nBuffer] == FileChanged)
 		{
 			String msg = strutils::format_string1(_("Another application has updated file\n%1\nsince WinMerge scanned it last time.\n\nDo you want to reload the file?"), m_filePaths[nBuffer]);
 			if (ShowMessageBox(msg, MB_YESNO | MB_ICONWARNING | MB_DONT_ASK_AGAIN, IDS_FILECHANGED_RESCAN) == IDYES)
-			{
-				OnFileReload();
-			}
+				bDoReload = true;
 			break;
+		}
+	}
+	if (bDoReload)
+	{
+		for (nBuffer = 0; nBuffer < m_nBuffers; nBuffer++)
+		{
+			if (FileChange[nBuffer] == FileChanged)
+				ChangeFile(nBuffer, m_filePaths[nBuffer]);
 		}
 	}
 }
@@ -573,6 +566,7 @@ void CMergeDoc::FlagTrivialLines(void)
 				// Make the call to stringdiffs, which does all the hard & tedious computations
 				std::vector<strdiff::wdiff> worddiffs = strdiff::ComputeWordDiffs(m_nBuffers, str,
 					!diffOptions.bIgnoreCase,
+					!diffOptions.bIgnoreEol,
 					diffOptions.nIgnoreWhitespace,
 					GetBreakType(), // whitespace only or include punctuation
 					GetByteColoringOption());
@@ -2701,10 +2695,18 @@ bool CMergeDoc::OpenDocs(int nFiles, const FileLocation ifileloc[],
 			// All lines will differ, that is not very interesting and probably not wanted.
 			// Propose to turn off the option 'sensitive to EOL'
 			String s = theApp.LoadString(IDS_SUGGEST_IGNOREEOL);
-			if (ShowMessageBox(s, MB_YESNO | MB_ICONWARNING | MB_DONT_ASK_AGAIN | MB_IGNORE_IF_SILENCED, IDS_SUGGEST_IGNOREEOL) == IDYES)
+			if (ShowMessageBox(s, MB_YESNO | MB_ICONWARNING | MB_DONT_ASK_AGAIN, IDS_SUGGEST_IGNOREEOL) == IDYES)
 			{
 				diffOptions.bIgnoreEol = true;
 				m_diffWrapper.SetOptions(&diffOptions);
+
+				CMessageBoxDialog dlg(nullptr, s.c_str(), _T(""), 0, IDS_SUGGEST_IGNOREEOL);
+				const int nFormerResult = dlg.GetFormerResult();
+				if (nFormerResult != -1)
+				{
+					// "Don't ask this question again" checkbox is checked
+					GetOptionsMgr()->SaveOption(OPT_CMP_IGNORE_EOL, true);
+				}
 			}
 		}
 	}
@@ -3135,12 +3137,16 @@ void CMergeDoc::OnCtxtOpenWithUnpacker()
 
 void CMergeDoc::OnBnClickedFileEncoding()
 {
+	if (m_pEncodingErrorBar == nullptr || m_pView[0][0] == nullptr)
+		return;
 	m_pView[0][0]->GetParentFrame()->ShowControlBar(m_pEncodingErrorBar.get(), FALSE, FALSE);
 	DoFileEncodingDialog();
 }
 
 void CMergeDoc::OnBnClickedPlugin()
 {
+	if (m_pEncodingErrorBar == nullptr || m_pView[0][0] == nullptr)
+		return;
 	m_pView[0][0]->GetParentFrame()->ShowControlBar(m_pEncodingErrorBar.get(), FALSE, FALSE);
 	OpenWithUnpackerDialog();
 }
@@ -3152,6 +3158,8 @@ void CMergeDoc::OnBnClickedHexView()
 
 void CMergeDoc::OnOK()
 {
+	if (m_pEncodingErrorBar == nullptr || m_pView[0][0] == nullptr)
+		return;
 	m_pView[0][0]->GetParentFrame()->ShowControlBar(m_pEncodingErrorBar.get(), FALSE, FALSE);
 }
 
@@ -3243,7 +3251,6 @@ bool CMergeDoc::GenerateReport(const String& sFileName) const
 		_T("table {margin: 0; border: 1px solid #a0a0a0; box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);}\n")
 		_T("td,th {word-break: break-all; font-size: %dpt;padding: 0 3px;}\n")
 		_T("tr { vertical-align: top; }\n")
-		_T(".ln {text-align: right; word-break: normal; background-color: lightgrey;}\n")
 		_T(".title {color: white; background-color: blue; vertical-align: top; padding: 4px 4px; background: linear-gradient(mediumblue, darkblue);}\n")
 		_T("%s")
 		_T("-->\n")

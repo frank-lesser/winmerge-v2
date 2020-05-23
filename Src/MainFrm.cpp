@@ -2,21 +2,7 @@
 //    WinMerge:  an interactive diff/merge utility
 //    Copyright (C) 1997-2000  Thingamahoochie Software
 //    Author: Dean Grimm
-//
-//    This program is free software; you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation; either version 2 of the License, or
-//    (at your option) any later version.
-//
-//    This program is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//    GNU General Public License for more details.
-//
-//    You should have received a copy of the GNU General Public License
-//    along with this program; if not, write to the Free Software
-//    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-//
+//    SPDX-License-Identifier: GPL-2.0-or-later
 /////////////////////////////////////////////////////////////////////////////
 /** 
  * @file  MainFrm.cpp
@@ -462,9 +448,9 @@ HMENU CMainFrame::NewMenu(int view, int ID)
 
 	if (view == MENU_IMGMERGEVIEW)
 	{
-		BCMenu *pMenu = new BCMenu;
-		pMenu->LoadMenu(MAKEINTRESOURCE(IDR_POPUP_IMGMERGEVIEW));
-		m_pMenus[view]->InsertMenu(4, MF_BYPOSITION | MF_POPUP, (UINT_PTR)pMenu->GetSubMenu(0)->m_hMenu, const_cast<TCHAR *>(LoadResString(IDS_IMAGE_MENU).c_str())); 
+		m_pImageMenu.reset(new BCMenu);
+		m_pImageMenu->LoadMenu(MAKEINTRESOURCE(IDR_POPUP_IMGMERGEVIEW));
+		m_pMenus[view]->InsertMenu(4, MF_BYPOSITION | MF_POPUP, (UINT_PTR)m_pImageMenu->GetSubMenu(0)->m_hMenu, const_cast<TCHAR *>(LoadResString(IDS_IMAGE_MENU).c_str())); 
 	}
 
 	// Load bitmaps to menuitems
@@ -613,13 +599,15 @@ bool CMainFrame::ShowAutoMergeDoc(CDirDoc * pDirDoc,
 	const DWORD dwFlags[], const String strDesc[], const String& sReportFile /*= _T("")*/,
 	const PackingInfo * infoUnpacker /*= nullptr*/)
 {
-	int pane;
+	if (sReportFile.empty() && pDirDoc->CompareFilesIfFilesAreLarge(nFiles, ifileloc))
+		return false;
+
 	FileFilterHelper filterImg, filterBin;
 	filterImg.UseMask(true);
 	filterImg.SetMask(GetOptionsMgr()->GetString(OPT_CMP_IMG_FILEPATTERNS));
 	filterBin.UseMask(true);
 	filterBin.SetMask(GetOptionsMgr()->GetString(OPT_CMP_BIN_FILEPATTERNS));
-	for (pane = 0; pane < nFiles; ++pane)
+	for (int pane = 0; pane < nFiles; ++pane)
 	{
 		if (filterImg.includeFile(ifileloc[pane].filepath) && CImgMergeFrame::IsLoadable())
 			return ShowImgMergeDoc(pDirDoc, nFiles, ifileloc, dwFlags, strDesc, sReportFile, infoUnpacker);
@@ -874,9 +862,15 @@ static bool AddToRecentDocs(const PathContext& paths, const unsigned flags[], bo
 		params += _T("/r ");
 	if (!filter.empty())
 		params += _T("/f \"") + filter + _T("\" ");
-	return JumpList::AddToRecentDocs(_T(""), params, title, params, 0);
-}
 
+	Concurrent::CreateTask([params, title](){
+			CoInitialize(nullptr);
+			JumpList::AddToRecentDocs(_T(""), params, title, params, 0);
+			CoUninitialize();
+			return 0;
+		});
+	return true;
+}
 /**
  * @brief Begin a diff: open dirdoc if it is directories, else open a mergedoc for editing.
  * @param [in] pszLeft Left-side path.
@@ -1129,6 +1123,8 @@ void CMainFrame::UpdateResources()
 		pDoc->UpdateResources();
 	for (auto pDoc : GetAllOpenDocs())
 		pDoc->UpdateResources();
+	for (auto pFrame: GetAllImgMergeFrames())
+		pFrame->UpdateResources();
 }
 
 /**
@@ -1229,17 +1225,10 @@ void CMainFrame::OnClose()
 	theApp.WriteProfileInt(_T("Settings"), _T("MainBottom"),wp.rcNormalPosition.bottom);
 	theApp.WriteProfileInt(_T("Settings"), _T("MainMax"), (wp.showCmd == SW_MAXIMIZE));
 
-	// Close Non-Document/View frame with confirmation
-	CMDIChildWnd *pChild = static_cast<CMDIChildWnd *>(CWnd::FromHandle(m_hWndMDIClient)->GetWindow(GW_CHILD));
-	while (pChild != nullptr)
+	for (auto pFrame: GetAllImgMergeFrames())
 	{
-		CMDIChildWnd *pNextChild = static_cast<CMDIChildWnd *>(pChild->GetWindow(GW_HWNDNEXT));
-		if (GetFrameType(pChild) == FRAME_IMGFILE)
-		{
-			if (!static_cast<CImgMergeFrame *>(pChild)->CloseNow())
-				return;
-		}
-		pChild = pNextChild;
+		if (!pFrame->CloseNow())
+			return;
 	}
 
 	CMDIFrameWnd::OnClose();
@@ -1300,6 +1289,21 @@ DirDocList &CMainFrame::GetAllDirDocs()
 HexMergeDocList &CMainFrame::GetAllHexMergeDocs()
 {
 	return static_cast<HexMergeDocList &>(GetDocList(theApp.m_pHexMergeTemplate));
+}
+
+std::list<CImgMergeFrame *> CMainFrame::GetAllImgMergeFrames()
+{
+	std::list<CImgMergeFrame *> list;
+	// Close Non-Document/View frame with confirmation
+	CMDIChildWnd *pChild = static_cast<CMDIChildWnd *>(CWnd::FromHandle(m_hWndMDIClient)->GetWindow(GW_CHILD));
+	while (pChild != nullptr)
+	{
+		CMDIChildWnd *pNextChild = static_cast<CMDIChildWnd *>(pChild->GetWindow(GW_HWNDNEXT));
+		if (GetFrameType(pChild) == FRAME_IMGFILE)
+			list.push_back(static_cast<CImgMergeFrame *>(pChild));
+		pChild = pNextChild;
+	}
+	return list;
 }
 
 /**

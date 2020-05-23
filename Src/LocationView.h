@@ -26,8 +26,14 @@ enum DISPLAY_MOVED_BLOCKS
  */
 struct MovedLine
 {
-	CPoint ptLeft;
-	CPoint ptRight;
+	int apparent0;
+	int apparent1;
+	int blockHeight;
+	CPoint ptLeftUpper;
+	CPoint ptLeftLower;
+	CPoint ptRightUpper;
+	CPoint ptRightLower;
+	bool currentDiff;
 };
 
 typedef CList<MovedLine, MovedLine&> MOVEDLINE_LIST;
@@ -92,6 +98,7 @@ protected:
 	void CalculateBlocks();
 	void CalculateBlocksPixel(int nBlockStart, int nBlockEnd, int nBlockLength,
 			int &nBeginY, int &nEndY);
+	COLORREF GetBackgroundColor();
 	void DrawBackground(CDC* pDC);
 
 private:

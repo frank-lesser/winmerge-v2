@@ -1,19 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////
-//    License (GPLv2+):
-//    This program is free software; you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation; either version 2 of the License, or (at
-//    your option) any later version.
-//    
-//    This program is distributed in the hope that it will be useful, but
-//    WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//    GNU General Public License for more details.
-//
-//    You should have received a copy of the GNU General Public License
-//    along with this program; if not, write to the Free Software
-//    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-/////////////////////////////////////////////////////////////////////////////
+// SPDX-License-Identifier: GPL-2.0-or-later
 /** 
  * @file  PatchDlg.cpp
  *
@@ -122,8 +107,8 @@ void CPatchDlg::OnOK()
 	}
 	if (selectCount == 1)
 	{
-		bool file1Ok = (paths::DoesPathExist(m_file1) == paths::IS_EXISTING_FILE);
-		bool file2Ok = (paths::DoesPathExist(m_file2) == paths::IS_EXISTING_FILE);
+		bool file1Ok = (paths::DoesPathExist(m_file1) != paths::DOES_NOT_EXIST);
+		bool file2Ok = (paths::DoesPathExist(m_file2) != paths::DOES_NOT_EXIST);
 
 		if (!file1Ok || !file2Ok)
 		{
@@ -276,7 +261,7 @@ void CPatchDlg::OnDiffBrowseFile1()
 	String folder;
 
 	folder = m_file1;
-	if (SelectFile(GetSafeHwnd(), s, true, folder.c_str()))
+	if (SelectFileOrFolder(GetSafeHwnd(), s, folder.c_str()))
 		m_ctlFile1.SetWindowText(s.c_str());
 }
 
@@ -289,7 +274,7 @@ void CPatchDlg::OnDiffBrowseFile2()
 	String folder;
 
 	folder = m_file2;
-	if (SelectFile(GetSafeHwnd(), s, true, folder.c_str()))
+	if (SelectFileOrFolder(GetSafeHwnd(), s, folder.c_str()))
 		m_ctlFile2.SetWindowText(s.c_str());
 }
 

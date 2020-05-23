@@ -9,6 +9,7 @@
 #include "OptionsDef.h"
 #include "OptionsMgr.h"
 #include "RegOptionsMgr.h"
+#include "OptionsCustomColors.h"
 #include "OptionsDiffOptions.h"
 #include "OptionsDiffColors.h"
 #include "OptionsDirColors.h"
@@ -37,9 +38,6 @@ namespace Options
  */
 void Init(COptionsMgr *pOptions)
 {
-	// Copy some values from HKLM to HKCU
-	CopyHKLMValues();
-
 	static_cast<CRegOptionsMgr *>(pOptions)->SetRegRootKey(_T("Thingamahoochie\\WinMerge\\"));
 
 	LANGID LangId = GetUserDefaultLangID();
@@ -79,9 +77,10 @@ void Init(COptionsMgr *pOptions)
 	pOptions->InitOption(OPT_DIFF_CONTEXT, (int)-1);
 	pOptions->InitOption(OPT_SPLIT_HORIZONTALLY, false);
 	pOptions->InitOption(OPT_RENDERING_MODE, -1);
+	pOptions->InitOption(OPT_FILE_SIZE_THRESHOLD, 64*1024*1024);
 
 	pOptions->InitOption(OPT_WORDDIFF_HIGHLIGHT, true);
-	pOptions->InitOption(OPT_BREAK_SEPARATORS, _T(".,:;?[](){}<>`'!\"#$%&^~\\|@+-*/"));
+	pOptions->InitOption(OPT_BREAK_SEPARATORS, _T(".,:;?[](){}<=>`'!\"#$%&^~\\|@+-*/"));
 
 	pOptions->InitOption(OPT_BACKUP_FOLDERCMP, false);
 	pOptions->InitOption(OPT_BACKUP_FILECMP, true);
@@ -131,6 +130,7 @@ void Init(COptionsMgr *pOptions)
 	pOptions->InitOption(OPT_CMP_IGNORE_REPARSE_POINTS, false);
 	pOptions->InitOption(OPT_CMP_IGNORE_CODEPAGE, true);
 	pOptions->InitOption(OPT_CMP_INCLUDE_SUBDIRS, true);
+	pOptions->InitOption(OPT_CMP_ENABLE_IMGCMP_IN_DIRCMP, false);
 
 	pOptions->InitOption(OPT_CMP_BIN_FILEPATTERNS, _T("*.bin;*.frx"));
 
@@ -146,6 +146,7 @@ void Init(COptionsMgr *pOptions)
 	pOptions->InitOption(OPT_CMP_IMG_DIFFCOLORALPHA, 70);
 	pOptions->InitOption(OPT_CMP_IMG_THRESHOLD, 0);
 	pOptions->InitOption(OPT_CMP_IMG_INSERTIONDELETIONDETECTION_MODE, 0);
+	pOptions->InitOption(OPT_CMP_IMG_VECTOR_IMAGE_ZOOM_RATIO, 1000);
 
 	pOptions->InitOption(OPT_PROJECTS_PATH, _T(""));
 	pOptions->InitOption(OPT_USE_SYSTEM_TEMP_PATH, true);
@@ -197,12 +198,13 @@ void Init(COptionsMgr *pOptions)
 
 	pOptions->InitOption(OPT_MRU_MAX, 9);
 
+	pOptions->InitOption(OPT_COLOR_SCHEME, _T("Default"));
+
+	Options::CustomColors::SetDefaults(pOptions);
 	Options::DiffOptions::SetDefaults(pOptions);
 	Options::DiffColors::SetDefaults(pOptions);
 	Options::DirColors::SetDefaults(pOptions);
 	Options::Font::SetDefaults(pOptions);
-}
-
 }
 
 /**
@@ -211,7 +213,7 @@ void Init(COptionsMgr *pOptions)
  * few of those values for "user" values. E.g. enabling ShellExtension
  * initially for user is done by this function.
  */
-static void CopyHKLMValues()
+void CopyHKLMValues()
 {
 	HKEY LMKey;
 	HKEY CUKey;
@@ -234,6 +236,8 @@ static void CopyHKLMValues()
 		}
 		RegCloseKey(LMKey);
 	}
+}
+
 }
 
 /**

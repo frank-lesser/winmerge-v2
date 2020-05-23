@@ -138,6 +138,10 @@ msgid "&Zoom"
 msgstr "&Zoom"
 
 #, c-format
+msgid "25%"
+msgstr ""
+
+#, c-format
 msgid "Zoom &In\tCtrl++"
 msgstr "Zoom a&vant\tCtrl++"
 
@@ -174,9 +178,18 @@ msgstr "Dé&placer"
 msgid "&Adjust Offset"
 msgstr "&Ajuster Offset"
 
+msgid "&Vertical Wipe"
+msgstr ""
+
+msgid "&Horizontal Wipe"
+msgstr ""
+
 #, c-format
 msgid "&Set Background Color"
 msgstr "Définir la couleur du fond"
+
+msgid "&Vector Image Scaling"
+msgstr ""
 
 #, c-format
 msgid "&File"
@@ -1416,6 +1429,9 @@ msgstr "Supprimer"
 msgid "Colors"
 msgstr "Couleurs"
 
+msgid "Color Scheme:"
+msgstr ""
+
 #, c-format
 msgid "Background"
 msgstr "Fond"
@@ -1464,10 +1480,6 @@ msgstr "Mot différent :"
 msgid "Selected Word Diff:"
 msgstr "Mot différent sélectionné :"
 
-#, c-format
-msgid "Defaults"
-msgstr "Défauts"
-
 msgid "&Use folder compare colors"
 msgstr ""
 
@@ -1482,6 +1494,10 @@ msgstr ""
 
 msgid "Items filtered:"
 msgstr ""
+
+#, c-format
+msgid "Margin:"
+msgstr "Marge :"
 
 #, c-format
 msgid "System"
@@ -1566,6 +1582,10 @@ msgstr "Inclure la ligne de co&mmande"
 #, c-format
 msgid "Open to e&xternal editor"
 msgstr "Ouvrir avec l'éditeur e&xterne"
+
+#, c-format
+msgid "Defaults"
+msgstr "Défauts"
 
 #, c-format
 msgid "Display Columns"
@@ -1804,7 +1824,7 @@ msgid "Sa&ve changes"
 msgstr "Enregistrer les modifications"
 
 #, c-format
-msgid "Disca&rd changes"
+msgid "Discard c&hanges"
 msgstr "Annule&r les modifications"
 
 #, c-format
@@ -2129,10 +2149,6 @@ msgid "Selection:"
 msgstr "Sélection :"
 
 #, c-format
-msgid "Margin:"
-msgstr "Marge :"
-
-#, c-format
 msgid "Backup Files"
 msgstr "Fichiers d'archive"
 
@@ -2309,6 +2325,9 @@ msgstr "Image"
 #, c-format
 msgid "Image File &Patterns:"
 msgstr "Modèles de fichiers image :"
+
+msgid "&Enable image compare in folder compare"
+msgstr ""
 
 #, c-format
 msgid "&Hex View"
@@ -2509,6 +2528,9 @@ msgid ""
 msgstr ""
 "Pour que cette boîte de message soit à nouveau visible, appuyez sur le "
 "bouton Réinitialiser de la page Général de la boîte de dialogue Options."
+
+msgid "Color Schemes"
+msgstr ""
 
 #, c-format
 msgid "Syntax"
@@ -2871,6 +2893,9 @@ msgstr ""
 "Le fichier\n"
 "%1\n"
 "n'est pas un fichier en conflit."
+
+msgid "You are about to compare very large files.\nShowing the contents of the files requires a very large amount of memory.\nDo you want to show only the comparison results, not the contents of the files?\n\n"
+msgstr ""
 
 #, c-format
 msgid "Save As"
@@ -3394,6 +3419,12 @@ msgstr "(Gauche et Milieu sont identique)"
 msgid "Text files are different"
 msgstr "Les fichiers de texte sont différents"
 
+msgid "Image files are identical"
+msgstr ""
+
+msgid "Image files are different"
+msgstr ""
+
 #, c-format
 msgid "Elapsed time: %ld ms"
 msgstr "Temps écoulé: %ld ms"
@@ -3742,13 +3773,11 @@ msgstr "Détail des différences"
 msgid "Patch file successfully written."
 msgstr "Fichier de retouche écrit avec succès."
 
-#, c-format
-msgid "1. item is not found or is directory!"
-msgstr "1. élément non trouvé ou il s'agit d'un répertoire !"
+msgid "1. item is not found!"
+msgstr ""
 
-#, c-format
-msgid "2. item is not found or is directory!"
-msgstr "2. élément non trouvé ou il s'agit d'un répertoire !"
+msgid "2. item is not found!"
+msgstr ""
 
 #, c-format
 msgid "The patch file already exists. Do you want to overwrite it?"
@@ -3862,6 +3891,10 @@ msgstr "Binaire"
 #, c-format
 msgid "None"
 msgstr "Aucun"
+
+#, c-format
+msgid "Marker Color %d"
+msgstr ""
 
 #, c-format
 msgid "Type"
@@ -4190,5 +4223,89 @@ msgid "MDI child window or main window"
 msgstr ""
 
 msgid "MDI child window only"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Diff"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Highlight"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Blink"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Block Size"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Block Alpha"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "CD Threshold"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Ins/Del Detection"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "None"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Vertical"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Horizontal"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Overlay"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Alpha"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "XOR"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Alpha Blend"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Alpha Animation"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Zoom"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Page:"
+msgstr ""
+
+#, c-format
+msgid "Pt:(%d, %d) RGBA : (%d, %d, %d, %d) "
+msgstr ""
+
+#, c-format
+msgid "Dist:%g "
+msgstr ""
+
+#, c-format
+msgid "Dist:%g,%g "
+msgstr ""
+
+#, c-format
+msgid "Page:%d/%d Zoom:%d%% %dx%dpx %dbpp"
 msgstr ""
 

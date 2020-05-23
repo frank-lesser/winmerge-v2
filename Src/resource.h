@@ -58,6 +58,7 @@
 #define IDD_EDIT_MARKER                 245
 #define IDD_PROPPAGE_COLORS_DIR         246
 #define IDD_SELECT_FILES_OR_FOLDERS     247
+#define IDD_PROPPAGE_COLOR_SCHEMES      248
 #define IDD_DIALOG_WINDOWSMANAGER       251
 #define IDI_ROTATE2                     302
 #define IDR_LOGO                        307
@@ -177,6 +178,7 @@
 #define IDC_WWW                         1019
 #define IDC_IGNCASE_CHECK               1020
 #define IDC_COMPANY                     1021
+#define IDC_DEVELOPERS                  1022
 #define IDC_VER_SYS                     1024
 #define IDC_HILITE_CHECK                1025
 #define IDC_IGNOREREGEXP                1026
@@ -323,7 +325,6 @@
 #define IDC_SCOLOR_NUMBERS              1184
 #define IDC_SCOLOR_OPERATORS            1185
 #define IDC_SCOLOR_STRINGS              1186
-#define IDC_SCOLORS_BDEFAULTS           1187
 #define IDC_SCOLOR_PREPROCESSOR         1188
 #define IDC_SCOLOR_USER1                1189
 #define IDC_SCOLOR_USER2                1190
@@ -507,6 +508,8 @@
 #define IDC_FIRST                       1388
 #define IDC_SECOND                      1389
 #define IDC_THIRD                       1390
+#define IDC_COLOR_SCHEMES               1391
+#define IDC_DIR_MARGIN_COLOR            1392
 #define IDC_EDIT_WHOLE_WORD             8603
 #define IDC_EDIT_MATCH_CASE             8604
 #define IDC_EDIT_FINDTEXT               8605
@@ -590,6 +593,7 @@
 #define IDS_OPTIONSPG_IMAGECOMPARE      9057
 #define IDS_OPTIONSPG_BINARYCOMPARE     9058
 #define IDS_OPTIONSPG_DIRCOLORS         9059
+#define IDS_OPTIONSPG_COLOR_SCHEMES     9060
 #define IDS_TO                          16000
 #define IDS_FROM_LEFT                   16001
 #define IDS_TO_LEFT                     16002
@@ -833,6 +837,8 @@
 #define IDS_LEFTONLY_DIFF               17862
 #define IDS_MIDDLEONLY_DIFF             17863
 #define IDS_RIGHTONLY_DIFF              17864
+#define IDS_IMAGE_FILES_SAME            17865
+#define IDS_IMAGE_FILES_DIFF            17866
 #define IDS_ELAPSED_TIME                17881
 #define IDS_STATUS_SELITEM1             17882
 #define IDS_STATUS_SELITEMS             17883
@@ -937,7 +943,6 @@
 #define IDS_TEXT_REPORT_FILES           18540
 #define IDS_HTML_REPORT_FILES           18541
 #define IDS_XML_REPORT_FILES            18542
-#define ID_EDIT_MARK                    21406 // editcmd.h
 #define IDS_EOL_DOS                     30400
 #define IDS_EOL_MAC                     30401
 #define IDS_EOL_UNIX                    30402
@@ -947,6 +952,7 @@
 #define IDS_EOL_CR                      30406
 #define IDS_EOL_CRLF                    30407
 #define IDS_EOL_NONE                    30408
+#define IDS_MARKER_COLOR_FMT            30409
 #define IDS_PLUGINSLIST_NAME            30432
 #define IDS_PLUGINSLIST_TYPE            30433
 #define IDS_PLUGINSLIST_DESC            30434
@@ -995,7 +1001,6 @@
 #define ID_VIEW_LOCATION_BAR            32820
 #define ID_VIEW_DIR_STATISTICS          32821
 #define ID_VIEW_LINEDIFFS               32823
-#define ID_VIEW_WORDWRAP                32824
 #define ID_VIEW_LINENUMBERS             32825
 #define ID_VIEW_TAB_BAR                 32826
 #define ID_VIEW_TREEMODE                32827
@@ -1118,7 +1123,6 @@
 #define ID_EDIT_GOTO_NEXT_BOOKMARK      33146
 #define ID_EDIT_GOTO_PREV_BOOKMARK      33147
 #define ID_EDIT_CLEAR_ALL_BOOKMARKS     33148
-#define ID_VIEW_FILEMARGIN              33150
 #define ID_VIEW_CHANGESCHEME            33151
 #define ID_COLORSCHEME_FIRST            33152
 #define IDS_COLORSCHEME_PLAIN           33152 // = ID_COLORSCHEME_FIRST
@@ -1180,8 +1184,6 @@
 #define ID_VIEW_DIFFCONTEXT_7           33223
 #define ID_VIEW_DIFFCONTEXT_9           33224
 #define ID_VIEW_DIFFCONTEXT_TOGGLE      33225
-#define ID_EDIT_LOWERCASE               33226
-#define ID_EDIT_UPPERCASE               33227
 #define ID_VIEW_SPLITVERTICALLY         33228
 #define IDS_FRHED_NOTINSTALLED          33229
 #define ID_ADD_SYNCPOINT                33230
@@ -1236,22 +1238,24 @@
 #define ID_IMG_DRAGGINGMODE_NONE        33385
 #define ID_IMG_DRAGGINGMODE_MOVE        33386
 #define ID_IMG_DRAGGINGMODE_ADJUST_OFFSET 33387
-#define IDC_COMPAREIMAGE_PATTERNS       33388
-#define IDC_COMPAREIMAGE_DEFAULTS       33389
-#define IDC_PLUGIN_SETTINGS             33390
-#define IDC_COMPAREBINARY_PATTERNS      33391
-#define IDC_COMPAREBINARY_VIEWSETTINGS  33392
-#define IDC_COMPAREBINARY_BINARYMODE    33394
-#define IDC_COMPAREBINARY_CHARACTERSET  33395
-#define IDC_COMPAREBINARY_DEFAULTS      33398
-#define ID_HELP_RELEASENOTES            33399
-#define ID_HELP_TRANSLATIONS            33400
-#define IDS_COMPMETHOD_FULL_CONTENTS    33401
-#define IDS_COMPMETHOD_QUICK_CONTENTS   33402
-#define IDS_COMPMETHOD_BINARY_CONTENTS  33403
-#define IDS_COMPMETHOD_MODDATE          33494
-#define IDS_COMPMETHOD_DATESIZE         33495
-#define IDS_COMPMETHOD_SIZE             33496
+#define ID_IMG_DRAGGINGMODE_VERTICAL_WIPE 33388
+#define ID_IMG_DRAGGINGMODE_HORIZONTAL_WIPE 33389
+#define IDC_COMPAREIMAGE_PATTERNS       33390
+#define IDC_COMPAREIMAGE_DEFAULTS       33391
+#define IDC_PLUGIN_SETTINGS             33392
+#define IDC_COMPAREBINARY_PATTERNS      33394
+#define IDC_COMPAREBINARY_VIEWSETTINGS  33395
+#define IDC_COMPAREBINARY_BINARYMODE    33398
+#define IDC_COMPAREBINARY_CHARACTERSET  33399
+#define IDC_COMPAREBINARY_DEFAULTS      33400
+#define ID_HELP_RELEASENOTES            33401
+#define ID_HELP_TRANSLATIONS            33402
+#define IDS_COMPMETHOD_FULL_CONTENTS    33490
+#define IDS_COMPMETHOD_QUICK_CONTENTS   33491
+#define IDS_COMPMETHOD_BINARY_CONTENTS  33492
+#define IDS_COMPMETHOD_MODDATE          33493
+#define IDS_COMPMETHOD_DATESIZE         33494
+#define IDS_COMPMETHOD_SIZE             33495
 #define IDS_UNPACK_AUTO                 33497
 #define IDS_NO_PREDIFFER                33501
 #define IDS_SUGGESTED_PLUGINS           33502
@@ -1290,6 +1294,36 @@
 #define IDS_RENDERING_MODE_DIRECTWRITE_NATURAL_SYMMETRIC 33716
 #define IDS_CLOSE_WINDOWS_WITH_ESC_1    33717
 #define IDS_CLOSE_WINDOWS_WITH_ESC_2    33718
+#define ID_IMG_VECTORIMAGESCALING_25    33719
+#define ID_IMG_VECTORIMAGESCALING_50    33720
+#define ID_IMG_VECTORIMAGESCALING_100   33721
+#define ID_IMG_VECTORIMAGESCALING_200   33722
+#define ID_IMG_VECTORIMAGESCALING_400   33723
+#define ID_IMG_VECTORIMAGESCALING_800   33724
+#define IDC_ENABLE_IMGCMP_IN_DIRCMP 33725
+#define IDS_DIFF_GROUP                  34131
+#define IDS_DIFF_HIGHLIGHT              34132
+#define IDS_DIFF_BLINK                  34133
+#define IDS_DIFF_BLOCKSIZE              34134
+#define IDS_DIFF_BLOCKALPHA             34135
+#define IDS_DIFF_CDTHRESHOLD            34136
+#define IDS_DIFF_INSERTION_DELETION_DETECTION 34137
+#define IDS_DIFF_INSERTION_DELETION_DETECTION_NONE 34138
+#define IDS_DIFF_INSERTION_DELETION_DETECTION_VERTICAL 34139
+#define IDS_DIFF_INSERTION_DELETION_DETECTION_HORIZONTAL 34140
+#define IDS_OVERLAY_GROUP               34141
+#define IDS_OVERLAY_ALPHA               34142
+#define IDS_OVERLAY_MODE_NONE           34143
+#define IDS_OVERLAY_MODE_XOR            34144
+#define IDS_OVERLAY_MODE_ALPHA          34145
+#define IDS_OVERLAY_MODE_ALPHA_ANIMATION 34146
+#define IDS_ZOOM                        34147
+#define IDS_PAGE                        34148
+#define IDS_IMGCMP_STATUS_PT_RGBA_FMT   34149
+#define IDS_IMGCMP_STATUS_DIST1_FMT     34150
+#define IDS_IMGCMP_STATUS_DIST2_FMT     34151
+#define IDS_IMGCMP_STATUS_PAGE_ZOOM_SIZE_BPP_FMT 34152
+#define IDS_COMPARE_LARGE_FILES         34153
 
 // Next default values for new objects
 // 
@@ -1297,7 +1331,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
 #define _APS_NEXT_RESOURCE_VALUE        253
-#define _APS_NEXT_COMMAND_VALUE         33719
+#define _APS_NEXT_COMMAND_VALUE         34154
 #define _APS_NEXT_CONTROL_VALUE         8831
 #define _APS_NEXT_SYMED_VALUE           116
 #endif

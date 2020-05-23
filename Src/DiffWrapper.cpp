@@ -1,19 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////
-//    License (GPLv2+):
-//    This program is free software; you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation; either version 2 of the License, or (at
-//    your option) any later version.
-//    
-//    This program is distributed in the hope that it will be useful, but
-//    WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//    GNU General Public License for more details.
-//
-//    You should have received a copy of the GNU General Public License
-//    along with this program; if not, write to the Free Software
-//    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-/////////////////////////////////////////////////////////////////////////////
+// SPDX-License-Identifier: GPL-2.0-or-later
 /** 
  * @file  DiffWrapper.cpp
  *
@@ -968,10 +953,10 @@ String CDiffWrapper::FormatSwitchString() const
 		switches = _T(" ");
 		break;
 	case DIFF_OUTPUT_CONTEXT:
-		switches = _T(" C");
+		switches = (m_options.m_contextLines > 0) ? _T(" -C ") : _T(" -c");
 		break;
 	case DIFF_OUTPUT_UNIFIED:
-		switches = _T(" U");
+		switches = (m_options.m_contextLines > 0) ? _T(" -U ") : _T(" -u");
 		break;
 #if 0
 	case DIFF_OUTPUT_ED:
@@ -992,7 +977,8 @@ String CDiffWrapper::FormatSwitchString() const
 #endif
 	}
 
-	if (m_options.m_contextLines > 0)
+	if ((m_options.m_outputStyle == DIFF_OUTPUT_CONTEXT || m_options.m_outputStyle == DIFF_OUTPUT_UNIFIED) &&
+		m_options.m_contextLines > 0)
 	{
 		TCHAR tmpNum[5] = {0};
 		_itot_s(m_options.m_contextLines, tmpNum, 10);
@@ -1000,16 +986,16 @@ String CDiffWrapper::FormatSwitchString() const
 	}
 
 	if (ignore_all_space_flag > 0)
-		switches += _T("w");
+		switches += _T(" -w");
 
 	if (ignore_blank_lines_flag > 0)
-		switches += _T("B");
+		switches += _T(" -B");
 
 	if (ignore_case_flag > 0)
-		switches += _T("i");
+		switches += _T(" -i");
 
 	if (ignore_space_change_flag > 0)
-		switches += _T("b");
+		switches += _T(" -b");
 
 	return switches;
 }
@@ -1534,13 +1520,13 @@ void CDiffWrapper::WritePatchFile(struct change * script, file_data * inf)
 
 	if (strcmp(inf[0].name, "NUL") == 0)
 	{
-		free((void *)inf[0].name);
-		inf[0].name = _strdup("/dev/null");
+		free((void *)inf_patch[0].name);
+		inf_patch[0].name = _strdup("/dev/null");
 	}
 	if (strcmp(inf[1].name, "NUL") == 0)
 	{
-		free((void *)inf[1].name);
-		inf[1].name = _strdup("/dev/null");
+		free((void *)inf_patch[1].name);
+		inf_patch[1].name = _strdup("/dev/null");
 	}
 
 	// Output patchfile

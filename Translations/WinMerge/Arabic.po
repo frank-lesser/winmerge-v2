@@ -108,6 +108,10 @@ msgstr "ال&جزء النشط"
 msgid "&Zoom"
 msgstr "&تغيير الحجم"
 
+#, c-format
+msgid "25%"
+msgstr ""
+
 msgid "Zoom &In\tCtrl++"
 msgstr "ت&كبير\tCtrl++"
 
@@ -136,8 +140,17 @@ msgstr "&تحريك"
 msgid "&Adjust Offset"
 msgstr "ت&عديل مقدار الإزاحة"
 
+msgid "&Vertical Wipe"
+msgstr ""
+
+msgid "&Horizontal Wipe"
+msgstr ""
+
 msgid "&Set Background Color"
 msgstr "&تغيير لون الخلفية"
+
+msgid "&Vector Image Scaling"
+msgstr ""
 
 msgid "&File"
 msgstr "&ملف"
@@ -1095,6 +1108,9 @@ msgstr "حذف"
 msgid "Colors"
 msgstr "ألوان"
 
+msgid "Color Scheme:"
+msgstr ""
+
 msgid "Background"
 msgstr "الخلفية"
 
@@ -1131,9 +1147,6 @@ msgstr "الاختلافات على مستوى الكلمة:"
 msgid "Selected Word Diff:"
 msgstr "المقارنة على مستوى الكلمة المحددة:"
 
-msgid "Defaults"
-msgstr "الإعدادات الافتراضية"
-
 msgid "&Use folder compare colors"
 msgstr "استخدم الألوان في مقارنة المجلدات"
 
@@ -1148,6 +1161,9 @@ msgstr "العناصر غير مكتملة:"
 
 msgid "Items filtered:"
 msgstr "العناصر التي تمت حصرها بالمرشح:"
+
+msgid "Margin:"
+msgstr "الهامش:"
 
 msgid "System"
 msgstr "النظام"
@@ -1211,6 +1227,9 @@ msgstr "دمج سطر الأوامر"
 
 msgid "Open to e&xternal editor"
 msgstr "فتح في المحرر الخارجي"
+
+msgid "Defaults"
+msgstr "الإعدادات الافتراضية"
 
 msgid "Display Columns"
 msgstr "عرض الأعمدة"
@@ -1392,7 +1411,7 @@ msgstr "الملف في الجزء الأوسط"
 msgid "Sa&ve changes"
 msgstr "حفظ التغييرات"
 
-msgid "Disca&rd changes"
+msgid "Discard c&hanges"
 msgstr "تجاهل التغييرات"
 
 msgid "Right side file"
@@ -1637,9 +1656,6 @@ msgstr "نص عادي:"
 msgid "Selection:"
 msgstr "التحديد:"
 
-msgid "Margin:"
-msgstr "الهامش:"
-
 msgid "Backup Files"
 msgstr "ملفات النسخ الاحتياطي"
 
@@ -1774,6 +1790,9 @@ msgstr "صورة"
 
 msgid "Image File &Patterns:"
 msgstr "أ&نماط ملف الصور:"
+
+msgid "&Enable image compare in folder compare"
+msgstr ""
 
 msgid "&Hex View"
 msgstr "ع&رض بصيغة نظام عد ستة عشري"
@@ -1940,6 +1959,9 @@ msgid ""
 msgstr ""
 "لإعادة تفعيل عرض الرسالة مجددا، قم بالضغط على زر إعادة التعيين من صفحة \"عام"
 "\" في قائمة الخيارات."
+
+msgid "Color Schemes"
+msgstr ""
 
 msgid "Syntax"
 msgstr "اللغة"
@@ -2244,6 +2266,9 @@ msgstr ""
 "الملف\n"
 "%1\n"
 "ليس محل تضارب."
+
+msgid "You are about to compare very large files.\nShowing the contents of the files requires a very large amount of memory.\nDo you want to show only the comparison results, not the contents of the files?\n\n"
+msgstr ""
 
 msgid "Save As"
 msgstr "الحفظ باسم"
@@ -2700,6 +2725,12 @@ msgstr "(الجزء الأيسر والجزء الأوسط متطابقان)"
 msgid "Text files are different"
 msgstr "الملفات النصية مختلفة"
 
+msgid "Image files are identical"
+msgstr ""
+
+msgid "Image files are different"
+msgstr ""
+
 #, c-format
 msgid "Elapsed time: %ld ms"
 msgstr "الوقت المنقضي: %ld م.ث"
@@ -2983,11 +3014,11 @@ msgstr "الجزء الخاص بأداة مقارنة الملفات Diff"
 msgid "Patch file successfully written."
 msgstr "ملف التصحيح (Patch) تم كتابتة بنجاح."
 
-msgid "1. item is not found or is directory!"
-msgstr "1. العنصر غير موجود أو أنه مجلد!"
+msgid "1. item is not found!"
+msgstr ""
 
-msgid "2. item is not found or is directory!"
-msgstr "2. العنصر غير موجود أو أنه مجلد!"
+msgid "2. item is not found!"
+msgstr ""
 
 msgid "The patch file already exists. Do you want to overwrite it?"
 msgstr "ملف التصحيح موجود مسبقا. هل تريد الكتابة عليه؟"
@@ -3082,6 +3113,10 @@ msgstr "ثنائي"
 
 msgid "None"
 msgstr "لا يوجد"
+
+#, c-format
+msgid "Marker Color %d"
+msgstr ""
 
 msgid "Type"
 msgstr "النوع"
@@ -3361,5 +3396,89 @@ msgid "MDI child window or main window"
 msgstr ""
 
 msgid "MDI child window only"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Diff"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Highlight"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Blink"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Block Size"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Block Alpha"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "CD Threshold"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Ins/Del Detection"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "None"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Vertical"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Horizontal"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Overlay"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Alpha"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "XOR"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Alpha Blend"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Alpha Animation"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Zoom"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Page:"
+msgstr ""
+
+#, c-format
+msgid "Pt:(%d, %d) RGBA : (%d, %d, %d, %d) "
+msgstr ""
+
+#, c-format
+msgid "Dist:%g "
+msgstr ""
+
+#, c-format
+msgid "Dist:%g,%g "
+msgstr ""
+
+#, c-format
+msgid "Page:%d/%d Zoom:%d%% %dx%dpx %dbpp"
 msgstr ""
 

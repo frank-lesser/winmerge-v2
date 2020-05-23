@@ -2,21 +2,7 @@
 //    WinMerge:  an interactive diff/merge utility
 //    Copyright (C) 1997-2000  Thingamahoochie Software
 //    Author: Dean Grimm
-//
-//    This program is free software; you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation; either version 2 of the License, or
-//    (at your option) any later version.
-//
-//    This program is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//    GNU General Public License for more details.
-//
-//    You should have received a copy of the GNU General Public License
-//    along with this program; if not, write to the Free Software
-//    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-//
+//    SPDX-License-Identifier: GPL-2.0-or-later
 /////////////////////////////////////////////////////////////////////////////
 /** 
  * @file  PropGeneral.h
@@ -51,7 +37,6 @@ PropGeneral::PropGeneral(COptionsMgr *optionsMgr)
 	, m_bPreserveFiletime(false)
 	, m_bShowSelectFolderOnStartup(false)
 	, m_bCloseWithOK(true)
-	, m_pLoadLanguagesThread(nullptr)
 {
 }
 
@@ -83,21 +68,12 @@ BOOL PropGeneral::OnInitDialog()
 
 	m_ctlLangList.SetDroppedWidth(600);
 	m_ctlLangList.EnableWindow(FALSE);
-	m_pLoadLanguagesThread = AfxBeginThread(LoadLanguagesThreadProc, this, 0, 0, CREATE_SUSPENDED);
-	m_pLoadLanguagesThread->m_bAutoDelete = FALSE;
-	m_pLoadLanguagesThread->ResumeThread();
-
+	m_asyncLanguagesLoader = Concurrent::CreateTask([hwnd = m_hWnd] {
+			std::vector<std::pair<LANGID, String>> langs = theApp.m_pLangDlg->GetAvailableLanguages();
+			::PostMessage(hwnd, WM_APP, 0, 0);
+			return langs;
+		});
 	return TRUE;  // return TRUE  unless you set the focus to a control
-}
-
-void PropGeneral::OnDestroy()
-{
-	if (m_pLoadLanguagesThread!=nullptr)
-	{
-		WaitForSingleObject(m_pLoadLanguagesThread->m_hThread, INFINITE);
-		delete m_pLoadLanguagesThread;
-	}
-	OptionsPanel::OnDestroy();
 }
 
 void PropGeneral::DoDataExchange(CDataExchange* pDX)
@@ -122,7 +98,6 @@ BEGIN_MESSAGE_MAP(PropGeneral, CPropertyPage)
 	//{{AFX_MSG_MAP(PropGeneral)
 	ON_BN_CLICKED(IDC_RESET_ALL_MESSAGE_BOXES, OnResetAllMessageBoxes)
 	ON_MESSAGE(WM_APP, OnLoadLanguages)
-	ON_WM_DESTROY()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -173,17 +148,9 @@ void PropGeneral::OnResetAllMessageBoxes()
 	AfxMessageBox(_("All message boxes are now displayed again.").c_str(), MB_ICONINFORMATION);
 }
 
-UINT PropGeneral::LoadLanguagesThreadProc(void *pParam)
-{
-	PropGeneral *pPropGeneral = reinterpret_cast<PropGeneral *>(pParam);
-	pPropGeneral->m_langs = theApp.m_pLangDlg->GetAvailableLanguages();
-	pPropGeneral->PostMessage(WM_APP);
-	return 0;
-}
-
 LRESULT PropGeneral::OnLoadLanguages(WPARAM, LPARAM)
 {
-	for (auto&& i : m_langs)
+	for (auto&& i : m_asyncLanguagesLoader.Get())
 	{
 		m_ctlLangList.AddString(i.second.c_str());
 		m_ctlLangList.SetItemData(m_ctlLangList.GetCount() - 1, i.first);

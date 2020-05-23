@@ -1,7 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////
-//    see Merge.cpp for license (GPLv2+) statement
-//
-/////////////////////////////////////////////////////////////////////////////
+// SPDX-License-Identifier: GPL-2.0-or-later
 /**
  *  @file DirActions.cpp
  *
@@ -37,6 +34,11 @@ ContentsChangedException::ContentsChangedException(const String& failpath)
 	: m_msg(strutils::format_string1(
 	        _("Operation aborted!\n\nFolder contents at disks has changed, path\n%1\nwas not found.\n\nPlease refresh the compare."),
 	        failpath))
+{
+}
+
+FileOperationException::FileOperationException(const String& msg)
+	: m_msg(msg)
 {
 }
 
@@ -312,7 +314,7 @@ DIFFITEM *FindItemFromPaths(const CDiffContext& ctxt, const PathContext& paths)
 	}
 
 	// Filenames must be identical
-	if (std::count(file, file + paths.GetSize(), file[0]) < paths.GetSize())
+	if (std::any_of(file, file + paths.GetSize(), [&](auto& it) { return strutils::compare_nocase(it, file[0]) != 0; }))
 		return 0;
 
 	DIFFITEM *pos = ctxt.GetFirstDiffPosition();
@@ -1038,6 +1040,8 @@ int GetColImage(const DIFFITEM &di)
 				return DIFFIMG_TEXTSAME;
 			else if (di.diffcode.isBin())
 				return DIFFIMG_BINSAME;
+			else if (di.diffcode.isImage())
+				return DIFFIMG_IMAGESAME;
 			else
 				return DIFFIMG_SAME;
 		}
@@ -1053,6 +1057,8 @@ int GetColImage(const DIFFITEM &di)
 				return DIFFIMG_TEXTDIFF;
 			else if (di.diffcode.isBin())
 				return DIFFIMG_BINDIFF;
+			else if (di.diffcode.isImage())
+				return DIFFIMG_IMAGEDIFF;
 			else
 				return DIFFIMG_DIFF;
 		}

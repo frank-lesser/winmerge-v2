@@ -102,6 +102,7 @@ extern const String OPT_USE_SYSTEM_TEMP_PATH OP("Settings/UseSystemTempPath");
 extern const String OPT_CUSTOM_TEMP_PATH OP("Settings/CustomTempPath");
 
 extern const String OPT_SPLIT_HORIZONTALLY OP("Settings/SplitHorizontally");
+extern const String OPT_FILE_SIZE_THRESHOLD OP("Settings/OPT_FILE_SIZE_THRESHOLD");
 
 // Color options
 // The difference color
@@ -178,8 +179,12 @@ extern const String OPT_DIRCLR_ITEM_NOT_EXIST_ALL_TEXT OP("Settings/DirItemNotEx
 extern const String OPT_DIRCLR_ITEM_FILTERED OP("Settings/DirItemFilteredColor");
 // The item filtered text color
 extern const String OPT_DIRCLR_ITEM_FILTERED_TEXT OP("Settings/DirItemFilteredTextColor");
+// The background color
+extern const String OPT_DIRCLR_MARGIN OP("Settings/DirMarginColor");
 // Use dir compare coloring?
 extern const String OPT_DIRCLR_USE_COLORS OP("Settings/UseDirCompareColors");
+
+extern const String OPT_COLOR_SCHEME OP("Settings/ColorScheme");
 
 // Compare options
 extern const String OPT_CMP_IGNORE_WHITESPACE OP("Settings/IgnoreSpace");
@@ -214,6 +219,8 @@ extern const String OPT_CMP_IMG_DIFFBLOCKSIZE OP("Settings/ImageDiffBlockSize");
 extern const String OPT_CMP_IMG_DIFFCOLORALPHA OP("Settings/ImageDiffColorAlpha");
 extern const String OPT_CMP_IMG_THRESHOLD OP("Settings/ImageColorDistanceThreshold");
 extern const String OPT_CMP_IMG_INSERTIONDELETIONDETECTION_MODE OP("Settings/ImageInsertionDeletionDetectionMode");
+extern const String OPT_CMP_IMG_VECTOR_IMAGE_ZOOM_RATIO OP("Settings/ImageVectorImageZoomRatio");
+extern const String OPT_CMP_ENABLE_IMGCMP_IN_DIRCMP OP("Settings/EnableImageCompareInFolderCompare");
 
 // Image Binary options
 extern const String OPT_CMP_BIN_FILEPATTERNS OP("Settings/BinaryFilePatterns");

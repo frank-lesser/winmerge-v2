@@ -1,6 +1,4 @@
 //WinMerge resource script (for English only).
-//
-// $Id: Merge2.rc 6021 2008-10-20 18:07:27Z kimmov $
 
 #include "resource.h"
 #include "afxres.h"
@@ -208,7 +206,7 @@ BEGIN
             VALUE "FileDescription", "WinMerge\0"
             VALUE "FileVersion", STRFILEVER
             VALUE "InternalName", "WinMerge\0"
-            VALUE "LegalCopyright", "(c) 1996-2019 Dean P. Grimm / Thingamahoochie Software\0"
+            VALUE "LegalCopyright", "(c) 1996-2020 Dean P. Grimm / Thingamahoochie Software\0"
             VALUE "OriginalFilename", "WinMergeU.EXE\0"
             VALUE "PrivateBuild", STRPRIVATEBUILD
             VALUE "ProductName", "WinMerge\0"

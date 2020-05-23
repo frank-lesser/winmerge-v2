@@ -1,19 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////
-//    License (GPLv2+):
-//    This program is free software; you can redistribute it and/or modify
-//    it under the terms of the GNU General Public License as published by
-//    the Free Software Foundation; either version 2 of the License, or
-//    (at your option) any later version.
-//
-//    This program is distributed in the hope that it will be useful, but
-//    WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-//    General Public License for more details.
-//
-//    You should have received a copy of the GNU General Public License
-//    along with this program; if not, write to the Free Software
-//    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-/////////////////////////////////////////////////////////////////////////////
+// SPDX-License-Identifier: GPL-2.0-or-later
 /** 
  * @file  AboutDlg.cpp
  *
@@ -86,6 +71,7 @@ void CAboutDlg::Impl::DoDataExchange(CDataExchange* pDX)
 {
 	CTrDialog::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CAboutDlg::Impl)
+	DDX_Text(pDX, IDC_DEVELOPERS, m_p->m_info.developers);
 	DDX_Text(pDX, IDC_COMPANY, m_p->m_info.copyright);
 	DDX_Text(pDX, IDC_VERSION, m_p->m_info.version);
 	//}}AFX_DATA_MAP
@@ -102,8 +88,7 @@ BOOL CAboutDlg::Impl::OnInitDialog()
 
 	m_font.CreatePointFont(10 * 10, _T("Tahoma"));
 
-	SetDlgItemText(static_cast<unsigned>(IDC_STATIC), m_p->m_info.developers);
-	GetDlgItem(IDC_STATIC)->SetFont(&m_font);
+	GetDlgItem(IDC_DEVELOPERS)->SetFont(&m_font);
 	GetDlgItem(IDC_VERSION)->SetFont(&m_font);
 
 	String link;
@@ -132,6 +117,9 @@ void CAboutDlg::Impl::OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct)
 	CRect rc;
 	GetDlgItem(nIDCtl)->GetClientRect(&rc);
 	m_image.Draw(lpDrawItemStruct->hDC, rc, Gdiplus::InterpolationModeBicubic);
+	GetDlgItem(IDC_DEVELOPERS)->Invalidate();
+	GetDlgItem(IDC_VERSION)->Invalidate();
+	GetDlgItem(IDC_COMPANY)->Invalidate();
 }
 /**
  * @brief Show contributors list.

@@ -86,10 +86,10 @@ msgid "&None"
 msgstr "&Няма"
 
 msgid "&Vertical"
-msgstr ""
+msgstr "&Вертикал"
 
 msgid "&Horizontal"
-msgstr ""
+msgstr "&Хоризонтал"
 
 msgid "&Previous Page"
 msgstr "&Предишна страница"
@@ -102,6 +102,10 @@ msgstr "&Текущ панел"
 
 msgid "&Zoom"
 msgstr "Маща&биране"
+
+#, c-format
+msgid "25%"
+msgstr ""
 
 msgid "Zoom &In\tCtrl++"
 msgstr "&Увеличаване\tCtrl++"
@@ -131,8 +135,17 @@ msgstr "&Преместване"
 msgid "&Adjust Offset"
 msgstr "&Корекция на отместването"
 
+msgid "&Vertical Wipe"
+msgstr ""
+
+msgid "&Horizontal Wipe"
+msgstr ""
+
 msgid "&Set Background Color"
 msgstr "&Настройка на фоновия цвят"
+
+msgid "&Vector Image Scaling"
+msgstr ""
 
 msgid "&File"
 msgstr "&Файл"
@@ -318,13 +331,13 @@ msgid "Show &Right Only Different Items"
 msgstr "Показване само на уникалните от&дясно"
 
 msgid "Show L&eft Only Missing Items"
-msgstr ""
+msgstr "Покажи само липсващите от ляво елементи"
 
 msgid "Show Mi&ddle Only Missing Items"
-msgstr ""
+msgstr "Покажи само липсващите в средата елементи"
 
 msgid "Show Rig&ht Only Missing Items"
-msgstr ""
+msgstr "Покажи само липсващите от дясно елементи"
 
 msgid "Show Hidd&en Items"
 msgstr "Показване на &скритите елементи"
@@ -1088,6 +1101,9 @@ msgstr "Премахване"
 msgid "Colors"
 msgstr "Цветове"
 
+msgid "Color Scheme:"
+msgstr ""
+
 msgid "Background"
 msgstr "Фон"
 
@@ -1124,22 +1140,22 @@ msgstr "Различия в думи:"
 msgid "Selected Word Diff:"
 msgstr "В избраните думи:"
 
-msgid "Defaults"
-msgstr "По подразбиране"
-
 msgid "&Use folder compare colors"
 msgstr ""
 
 msgid "Items equal:"
-msgstr ""
+msgstr "Еднакви елементи:"
 
 msgid "Items different:"
-msgstr ""
+msgstr "Различни елементи:"
 
 msgid "Items not exists all:"
 msgstr ""
 
 msgid "Items filtered:"
+msgstr "Филтрирани елементи:"
+
+msgid "Margin:"
 msgstr ""
 
 msgid "System"
@@ -1204,6 +1220,9 @@ msgstr "Включително командния &ред"
 
 msgid "Open to e&xternal editor"
 msgstr "Отваряне с външе&н редактор"
+
+msgid "Defaults"
+msgstr "По подразбиране"
 
 msgid "Display Columns"
 msgstr "Видими колони"
@@ -1385,7 +1404,7 @@ msgstr "Среден файл"
 msgid "Sa&ve changes"
 msgstr "За&пазване на промените"
 
-msgid "Disca&rd changes"
+msgid "Discard c&hanges"
 msgstr "Отк&азване от промените"
 
 msgid "Right side file"
@@ -1630,9 +1649,6 @@ msgstr "Нормален текст:"
 msgid "Selection:"
 msgstr "Избран:"
 
-msgid "Margin:"
-msgstr ""
-
 msgid "Backup Files"
 msgstr "Резервни файлове"
 
@@ -1688,7 +1704,7 @@ msgid "&Enable plugins"
 msgstr "Включване на &добавките"
 
 msgid "File filters:"
-msgstr ""
+msgstr "Филтри за файлове:"
 
 msgid "Shell Integration"
 msgstr "Сливане със системата"
@@ -1740,7 +1756,7 @@ msgid "&Binary compare limit (MB):"
 msgstr "Ограничение на &двоичното сравняване (МБ):"
 
 msgid "\n&Number of compare threads (a negative value implies addition of the number of available CPU cores):"
-msgstr ""
+msgstr "\nБрой на нишки извършващи сравняване (отрицателна стойност  се отнася за CPU ядра) "
 
 msgctxt "Options dialog|Categories"
 msgid "Binary"
@@ -1766,6 +1782,9 @@ msgstr "Изображения"
 
 msgid "Image File &Patterns:"
 msgstr "Файлови &разширения на изображения:"
+
+msgid "&Enable image compare in folder compare"
+msgstr ""
 
 msgid "&Hex View"
 msgstr "&Шестнадесетичен изглед"
@@ -1918,6 +1937,9 @@ msgid ""
 msgstr ""
 "За да видите отново това съобщение, натиснете бутона Отменяне на страницата "
 "„Общи“ в Настройки."
+
+msgid "Color Schemes"
+msgstr ""
 
 msgid "Syntax"
 msgstr "Синтаксис"
@@ -2225,6 +2247,9 @@ msgstr ""
 "Файлът\n"
 "%1\n"
 "не съдържа конфликти."
+
+msgid "You are about to compare very large files.\nShowing the contents of the files requires a very large amount of memory.\nDo you want to show only the comparison results, not the contents of the files?\n\n"
+msgstr ""
 
 msgid "Save As"
 msgstr "Запазване като"
@@ -2621,7 +2646,7 @@ msgstr "От ляво само: %1"
 
 #, c-format
 msgid "Middle only: %1"
-msgstr ""
+msgstr "Само в средата: %1"
 
 #, c-format
 msgid "Right only: %1"
@@ -2678,6 +2703,12 @@ msgstr "(Ляво и среда са еднакви)"
 
 msgid "Text files are different"
 msgstr "Текстовите файлове са различни"
+
+msgid "Image files are identical"
+msgstr ""
+
+msgid "Image files are different"
+msgstr ""
 
 #, c-format
 msgid "Elapsed time: %ld ms"
@@ -2962,11 +2993,11 @@ msgstr "Панел с различия"
 msgid "Patch file successfully written."
 msgstr "Кръпката е успешно запазена."
 
-msgid "1. item is not found or is directory!"
-msgstr "1. обектът не е намерен или е директория!"
+msgid "1. item is not found!"
+msgstr ""
 
-msgid "2. item is not found or is directory!"
-msgstr "2. обекът не е намерен или е директория!"
+msgid "2. item is not found!"
+msgstr ""
 
 msgid "The patch file already exists. Do you want to overwrite it?"
 msgstr "Кръпката вече съществува. Да бъдели презаписана?"
@@ -3061,6 +3092,10 @@ msgstr "Двоичен"
 
 msgid "None"
 msgstr "Няма"
+
+#, c-format
+msgid "Marker Color %d"
+msgstr ""
 
 msgid "Type"
 msgstr "Вид"
@@ -3322,5 +3357,89 @@ msgid "MDI child window or main window"
 msgstr ""
 
 msgid "MDI child window only"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Diff"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Highlight"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Blink"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Block Size"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Block Alpha"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "CD Threshold"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Ins/Del Detection"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "None"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Vertical"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Horizontal"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Overlay"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Alpha"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "XOR"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Alpha Blend"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Alpha Animation"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Zoom"
+msgstr ""
+
+msgctxt "ImgMergeFrame|LocationPane"
+msgid "Page:"
+msgstr ""
+
+#, c-format
+msgid "Pt:(%d, %d) RGBA : (%d, %d, %d, %d) "
+msgstr ""
+
+#, c-format
+msgid "Dist:%g "
+msgstr ""
+
+#, c-format
+msgid "Dist:%g,%g "
+msgstr ""
+
+#, c-format
+msgid "Page:%d/%d Zoom:%d%% %dx%dpx %dbpp"
 msgstr ""
 
