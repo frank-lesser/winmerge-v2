@@ -155,17 +155,17 @@ MoveWordLeft (bool bSelect)
 
   if (m_ptCursorPos.x == 0)
     {
-       MoveLeft (bSelect);
-       return;
+      MoveLeft (bSelect);
+      return;
     }
 
   if (m_ptCursorPos.x > 0)
     {
       const TCHAR *pszChars = GetLineChars(m_ptCursorPos.y);
-      m_iterWord.setText(reinterpret_cast<const UChar *>(pszChars), GetLineLength(m_ptCursorPos.y));
-      int nPos = m_iterWord.preceding(m_ptCursorPos.x);
+      auto pIterWord = ICUBreakIterator::getWordBreakIterator(reinterpret_cast<const UChar *>(pszChars), GetLineLength(m_ptCursorPos.y));
+      int nPos = pIterWord->preceding(m_ptCursorPos.x);
       if (xisspace(pszChars[nPos]))
-        nPos = m_iterWord.preceding(nPos);
+        nPos = pIterWord->preceding(nPos);
       m_ptCursorPos.x = nPos;
     }
 
@@ -195,8 +195,8 @@ MoveWordRight (bool bSelect)
     }
 
   const TCHAR *pszChars = GetLineChars(m_ptCursorPos.y);
-  m_iterWord.setText(reinterpret_cast<const UChar *>(pszChars), nLength);
-  int nPos = m_iterWord.following(m_ptCursorPos.x);
+  auto pIterWord = ICUBreakIterator::getWordBreakIterator(reinterpret_cast<const UChar *>(pszChars), nLength);
+  int nPos = pIterWord->following(m_ptCursorPos.x);
   while (nPos < nLength && xisspace(pszChars[nPos]))
     ++nPos;
   m_ptCursorPos.x = nPos;
@@ -216,28 +216,30 @@ MoveUp (bool bSelect)
   if (m_ptDrawSelStart != m_ptDrawSelEnd && !bSelect)
     m_ptCursorPos = m_ptDrawSelStart;
 
-    //BEGIN SW
-    CPoint  subLinePos;
-    CharPosToPoint( m_ptCursorPos.y, m_ptCursorPos.x, subLinePos );
+  //BEGIN SW
+  CPoint  subLinePos;
+  CharPosToPoint( m_ptCursorPos.y, m_ptCursorPos.x, subLinePos );
 
-    int         nSubLine = GetSubLineIndex( m_ptCursorPos.y ) + subLinePos.y;
+  int         nSubLine = GetSubLineIndex( m_ptCursorPos.y ) + subLinePos.y;
 
-    if( nSubLine > 0 )
+  if( nSubLine > 0 )
     /*ORIGINAL
     if (m_ptCursorPos.y > 0)
     *///END SW
     {
       if (m_nIdealCharPos == -1)
         m_nIdealCharPos = CalculateActualOffset (m_ptCursorPos.y, m_ptCursorPos.x);
-        //BEGIN SW
-        do {
-            nSubLine--;
-        } while (IsEmptySubLineIndex(nSubLine));
-        SubLineCursorPosToTextPos( CPoint( m_nIdealCharPos, nSubLine ), m_ptCursorPos );
-        /*ORIGINAL
-        m_ptCursorPos.y --;
-        m_ptCursorPos.x = ApproxActualOffset(m_ptCursorPos.y, m_nIdealCharPos);
-        *///END SW
+      //BEGIN SW
+      do
+        {
+          nSubLine--;
+        }
+      while (IsEmptySubLineIndex(nSubLine));
+      SubLineCursorPosToTextPos( CPoint( m_nIdealCharPos, nSubLine ), m_ptCursorPos );
+      /*ORIGINAL
+      m_ptCursorPos.y --;
+      m_ptCursorPos.x = ApproxActualOffset(m_ptCursorPos.y, m_nIdealCharPos);
+      *///END SW
       if (m_ptCursorPos.x > GetLineLength (m_ptCursorPos.y))
         m_ptCursorPos.x = GetLineLength (m_ptCursorPos.y);
     }
@@ -255,31 +257,33 @@ MoveDown (bool bSelect)
   if (m_ptDrawSelStart != m_ptDrawSelEnd && !bSelect)
     m_ptCursorPos = m_ptDrawSelEnd;
 
-    //BEGIN SW
-    CPoint	subLinePos;
-    CharPosToPoint( m_ptCursorPos.y, m_ptCursorPos.x, subLinePos );
+  //BEGIN SW
+  CPoint	subLinePos;
+  CharPosToPoint( m_ptCursorPos.y, m_ptCursorPos.x, subLinePos );
 
-    int			nSubLine = GetSubLineIndex( m_ptCursorPos.y ) + subLinePos.y;
+  int			nSubLine = GetSubLineIndex( m_ptCursorPos.y ) + subLinePos.y;
 
-    if( nSubLine < GetSubLineCount() - 1 )
+  if( nSubLine < GetSubLineCount() - 1 )
     /*ORIGINAL
     if (m_ptCursorPos.y < GetLineCount() - 1)
     */
     {
       if (m_nIdealCharPos == -1)
         m_nIdealCharPos = CalculateActualOffset (m_ptCursorPos.y, m_ptCursorPos.x);
-        //BEGIN SW
-        if (GetLineVisible (m_ptCursorPos.y))
-          {
-            do {
+      //BEGIN SW
+      if (GetLineVisible (m_ptCursorPos.y))
+        {
+          do
+            {
               nSubLine++;
-            } while (IsEmptySubLineIndex(nSubLine));
-          }
-        SubLineCursorPosToTextPos( CPoint( m_nIdealCharPos, nSubLine ), m_ptCursorPos );
-        /*ORIGINAL
-        m_ptCursorPos.y ++;
-        m_ptCursorPos.x = ApproxActualOffset(m_ptCursorPos.y, m_nIdealCharPos);
-        *///END SW
+            }
+          while (IsEmptySubLineIndex(nSubLine));
+        }
+      SubLineCursorPosToTextPos( CPoint( m_nIdealCharPos, nSubLine ), m_ptCursorPos );
+      /*ORIGINAL
+      m_ptCursorPos.y ++;
+      m_ptCursorPos.x = ApproxActualOffset(m_ptCursorPos.y, m_nIdealCharPos);
+      *///END SW
       if (m_ptCursorPos.x > GetLineLength (m_ptCursorPos.y))
         m_ptCursorPos.x = GetLineLength (m_ptCursorPos.y);
     }
@@ -497,8 +501,8 @@ WordToRight (CPoint pt)
   int nLength = GetLineLength (pt.y);
   if (pt.x < nLength)
     {
-      m_iterWord.setText(reinterpret_cast<const UChar *>(GetLineChars(pt.y)), nLength);
-      pt.x = m_iterWord.following(pt.x);
+      auto pIterWord = ICUBreakIterator::getWordBreakIterator(reinterpret_cast<const UChar *>(GetLineChars(pt.y)), nLength);
+      pt.x = pIterWord->following(pt.x);
     }
   ASSERT_VALIDTEXTPOS (pt);
   return pt;
@@ -510,9 +514,9 @@ WordToLeft (CPoint pt)
   ASSERT_VALIDTEXTPOS (pt);
   if (pt.x > 0)
     {
-      m_iterWord.setText(reinterpret_cast<const UChar *>(GetLineChars(pt.y)), GetLineLength(pt.y));
-      pt.x = m_iterWord.following(pt.x);
-      pt.x = m_iterWord.preceding(pt.x);
+      auto pIterWord = ICUBreakIterator::getWordBreakIterator(reinterpret_cast<const UChar *>(GetLineChars(pt.y)), GetLineLength(pt.y));
+      pt.x = pIterWord->following(pt.x);
+      pt.x = pIterWord->preceding(pt.x);
     }
   ASSERT_VALIDTEXTPOS (pt);
   return pt;
@@ -591,7 +595,7 @@ OnLButtonDown (UINT nFlags, CPoint point)
           SetCapture ();
           m_nDragSelTimer = SetTimer (CRYSTAL_TIMER_DRAGSEL, 100, nullptr);
           ASSERT (m_nDragSelTimer != 0);
-          m_bColumnSelection = false;
+          m_bRectangularSelection = false;
           m_bWordSelection = false;
           m_bLineSelection = true;
           m_bDragSelection = true;
@@ -644,7 +648,7 @@ OnLButtonDown (UINT nFlags, CPoint point)
           SetCapture ();
           m_nDragSelTimer = SetTimer (CRYSTAL_TIMER_DRAGSEL, 100, nullptr);
           ASSERT (m_nDragSelTimer != 0);
-          m_bColumnSelection = bAlt;
+          m_bRectangularSelection = bAlt;
           m_bWordSelection = bControl;
           m_bLineSelection = false;
           m_bDragSelection = true;
@@ -925,7 +929,7 @@ OnLButtonDblClk (UINT nFlags, CPoint point)
       SetCapture ();
       m_nDragSelTimer = SetTimer (CRYSTAL_TIMER_DRAGSEL, 100, nullptr);
       ASSERT (m_nDragSelTimer != 0);
-      m_bColumnSelection = false;
+      m_bRectangularSelection = false;
       m_bWordSelection = true;
       m_bLineSelection = false;
       m_bDragSelection = true;
@@ -998,11 +1002,11 @@ Copy ()
 
   PrepareSelBounds ();
   CString text;
-  if (!m_bColumnSelection)
+  if (!m_bRectangularSelection)
     GetText (m_ptDrawSelStart, m_ptDrawSelEnd, text);
   else
     GetTextInColumnSelection (text);
-  PutToClipboard (text, text.GetLength(), m_bColumnSelection);
+  PutToClipboard (text, text.GetLength(), m_bRectangularSelection);
 }
 
 
@@ -1034,7 +1038,7 @@ PutToClipboard (LPCTSTR pszText, int cchText, bool bColumnSelection)
             {
               memcpy (pszData, pszText, cbData);
               if (dwSize > cbData)
-                  memset(reinterpret_cast<char *>(pszData) + cbData, 0, dwSize - cbData);
+                memset(reinterpret_cast<char *>(pszData) + cbData, 0, dwSize - cbData);
               GlobalUnlock (hData);
               CLIPFORMAT fmt = GetClipTcharTextFormat();
               bOK = SetClipboardData (fmt, hData) != nullptr;

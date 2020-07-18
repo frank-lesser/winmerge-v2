@@ -539,7 +539,10 @@ void CMergeDoc::CheckFileChanged(void)
 		for (nBuffer = 0; nBuffer < m_nBuffers; nBuffer++)
 		{
 			if (FileChange[nBuffer] == FileChanged)
-				ChangeFile(nBuffer, m_filePaths[nBuffer]);
+			{
+				CPoint pt = GetView(0, nBuffer)->GetCursorPos();
+				ChangeFile(nBuffer, m_filePaths[nBuffer], pt.y);
+			}
 		}
 	}
 }
@@ -728,14 +731,7 @@ void CMergeDoc::ShowRescanError(int nRescanResult, IDENTLEVEL identical)
 	// Files are not binaries, but they are identical
 	if (identical != IDENTLEVEL_NONE)
 	{
-		if (!m_filePaths.GetLeft().empty() && !m_filePaths.GetMiddle().empty() && !m_filePaths.GetRight().empty() && 
-			m_filePaths.GetLeft() == m_filePaths.GetRight() && m_filePaths.GetMiddle() == m_filePaths.GetRight())
-		{
-			// compare file to itself, a custom message so user may hide the message in this case only
-			s = _("The same file is opened in both panels.");
-			ShowMessageBox(s, MB_ICONINFORMATION | MB_DONT_DISPLAY_AGAIN, IDS_FILE_TO_ITSELF);
-		}
-		else if (identical == IDENTLEVEL_ALL)
+		if (theApp.m_bExitIfNoDiff != MergeCmdLineInfo::ExitQuiet)
 		{
 			UINT nFlags = MB_ICONINFORMATION | MB_DONT_DISPLAY_AGAIN;
 
@@ -746,13 +742,26 @@ void CMergeDoc::ShowRescanError(int nRescanResult, IDENTLEVEL identical)
 				// of the "exit no diff".
 				nFlags &= ~MB_DONT_DISPLAY_AGAIN;
 			}
-
-			if (theApp.m_bExitIfNoDiff != MergeCmdLineInfo::ExitQuiet)
+			if ((m_nBuffers == 2 && !m_filePaths.GetLeft().empty() && !m_filePaths.GetRight().empty() &&
+				 strutils::compare_nocase(m_filePaths.GetLeft(), m_filePaths.GetRight()) == 0) ||
+				(m_nBuffers == 3 && !m_filePaths.GetLeft().empty() && !m_filePaths.GetMiddle().empty() && !m_filePaths.GetRight().empty() &&
+				 (strutils::compare_nocase(m_filePaths.GetLeft(), m_filePaths.GetRight()) == 0 ||
+				  strutils::compare_nocase(m_filePaths.GetMiddle(), m_filePaths.GetRight()) == 0 ||
+				  strutils::compare_nocase(m_filePaths.GetLeft(), m_filePaths.GetMiddle()) == 0)))
+			{
+				// compare file to itself, a custom message so user may hide the message in this case only
+				s = _("The same file is opened in both panels.");
+				ShowMessageBox(s, nFlags, IDS_FILE_TO_ITSELF);
+			}
+			else if (identical == IDENTLEVEL_ALL)
 			{
 				s = _("The selected files are identical.");
 				ShowMessageBox(s, nFlags, IDS_FILESSAME);
 			}
+		}
 
+		if (identical == IDENTLEVEL_ALL)
+		{
 			// Exit application if files are identical.
 			if (theApp.m_bExitIfNoDiff == MergeCmdLineInfo::Exit ||
 				theApp.m_bExitIfNoDiff == MergeCmdLineInfo::ExitQuiet)
@@ -2795,7 +2804,7 @@ bool CMergeDoc::OpenDocs(int nFiles, const FileLocation ifileloc[],
 
 		if (syntaxHLEnabled)
 		{
-			CCrystalTextView::TextDefinition *enuType = GetView(0, paneTyped)->GetTextType(sext[paneTyped].c_str());
+			CrystalLineParser::TextDefinition *enuType = CrystalLineParser::GetTextType(sext[paneTyped].c_str());
 			ForEachView([&bTyped, enuType](auto& pView) {
 				if (!bTyped[pView->m_nThisPane])
 					pView->SetTextType(enuType);
@@ -2870,7 +2879,7 @@ void CMergeDoc::MoveOnLoad(int nPane, int nLineIndex)
 	m_pView[0][nPane]->GotoLine(nLineIndex < 0 ? 0 : nLineIndex, false, nPane);
 }
 
-void CMergeDoc::ChangeFile(int nBuffer, const String& path)
+void CMergeDoc::ChangeFile(int nBuffer, const String& path, int nLineIndex)
 {
 	if (!PromptAndSaveIfNeeded(true))
 		return;
@@ -2892,7 +2901,7 @@ void CMergeDoc::ChangeFile(int nBuffer, const String& path)
 	fileloc[nBuffer].encoding = GuessCodepageEncoding(path, GetOptionsMgr()->GetInt(OPT_CP_DETECT));
 	
 	if (OpenDocs(m_nBuffers, fileloc, bRO, strDesc))
-		MoveOnLoad(nBuffer, 0);
+		MoveOnLoad(nBuffer, nLineIndex);
 }
 
 /**
