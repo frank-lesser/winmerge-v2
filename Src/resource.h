@@ -59,7 +59,9 @@
 #define IDD_PROPPAGE_COLORS_DIR         246
 #define IDD_SELECT_FILES_OR_FOLDERS     247
 #define IDD_PROPPAGE_COLOR_SCHEMES      248
+#define IDD_PROPPAGE_COMPARE_TABLE      249
 #define IDD_DIALOG_WINDOWSMANAGER       251
+#define IDD_OPEN_TABLE                  252
 #define IDI_ROTATE2                     302
 #define IDR_LOGO                        307
 #define IDR_SPLASH                      308
@@ -166,10 +168,7 @@
 #define IDC_PATH0_COMBO                 1004
 #define IDC_PATH1_COMBO                 1005
 #define IDC_PATH2_COMBO                 1006
-#define IDC_MESSAGE                     1008
 #define IDC_EXT_COMBO                   1009
-#define IDC_PATH_EDIT                   1010
-#define IDC_BROWSE_BUTTON               1011
 #define IDC_SCROLL_CHECK                1012
 #define IDC_RECURS_CHECK                1015
 #define IDC_VERSION                     1016
@@ -179,7 +178,6 @@
 #define IDC_IGNCASE_CHECK               1020
 #define IDC_COMPANY                     1021
 #define IDC_DEVELOPERS                  1022
-#define IDC_VER_SYS                     1024
 #define IDC_HILITE_CHECK                1025
 #define IDC_IGNOREREGEXP                1026
 #define IDC_ALL_WHITE                   1027
@@ -261,7 +259,6 @@
 #define IDC_OPEN_CONTRIBUTORS           1115
 #define IDC_COMPAREMETHODCOMBO          1116
 #define IDC_USE_RECYCLE_BIN             1117
-#define IDC_COLORDEFAULTS_BTN           1118
 #define IDC_COMPARE_DEFAULTS            1119
 #define IDC_DIFF_DEFAULTS               1122
 #define IDC_MOVED_BLOCKS                1123
@@ -451,7 +448,6 @@
 #define IDC_LFILTER_ADDBTN              1321
 #define IDC_LFILTER_EDITBTN             1322
 #define IDC_LFILTER_REMOVEBTN           1323
-#define IDC_ABOUTBOX_ICON               1325
 #define IDC_ASK_MULTIWINDOW_CLOSE       1326
 #define IDC_COLDLG_LIST                 1327
 #define IDC_PRESERVE_FILETIME           1328
@@ -464,7 +460,6 @@
 #define IDC_BREAK_CHARS                 1335
 #define IDC_WORDDIFF_DELETED_COLOR      1336
 #define IDC_SEL_WORDDIFF_DELETED_COLOR  1337
-#define IDC_COMPAREFOLDER_DEFAULTS      1338
 #define IDC_COMPARE_WALKSUBDIRS         1339
 #define IDC_COMPARE_QUICKC_LIMIT        1340
 #define IDC_REPORT_INCLUDEFILECMPREPORT 1341
@@ -472,7 +467,6 @@
 #define IDC_SWAP01_BUTTON               1343
 #define IDC_SWAP12_BUTTON               1344
 #define IDC_SWAP02_BUTTON               1345
-#define IDC_COLORSCHEME_GITHUBBITBUCKET 1346
 #define IDC_FINDDLG_DONTCLOSE           1347
 #define IDC_PATH_COMPARING              1348
 #define IDC_REGISTER_SHELLEXTENSION     1349
@@ -535,7 +529,6 @@
 #define IDC_PATH0_READONLY              8806
 #define IDC_PATH1_READONLY              8807
 #define IDC_PATH2_READONLY              8808
-#define IDC_MARKER_COLORS_GROUP         8810
 #define IDC_MARKER0_COLOR_LABEL         8811
 #define IDC_MARKER1_COLOR_LABEL         8812
 #define IDC_MARKER2_COLOR_LABEL         8813
@@ -594,6 +587,7 @@
 #define IDS_OPTIONSPG_BINARYCOMPARE     9058
 #define IDS_OPTIONSPG_DIRCOLORS         9059
 #define IDS_OPTIONSPG_COLOR_SCHEMES     9060
+#define IDS_OPTIONSPG_TABLECOMPARE      9061
 #define IDS_TO                          16000
 #define IDS_FROM_LEFT                   16001
 #define IDS_TO_LEFT                     16002
@@ -1039,13 +1033,14 @@
 #define ID_TOOLS_GENERATEREPORT         32868
 #define ID_MERGE_COMPARE                32869
 #define ID_MERGE_COMPARE_TEXT           32870
-#define ID_MERGE_COMPARE_XML            32871
-#define ID_MERGE_COMPARE_HEX            32872
-#define ID_MERGE_COMPARE_IMAGE          32873
-#define ID_MERGE_COMPARE_LEFT1_LEFT2    32874
-#define ID_MERGE_COMPARE_RIGHT1_RIGHT2  32875
-#define ID_MERGE_COMPARE_LEFT1_RIGHT2   32876
-#define ID_MERGE_COMPARE_LEFT2_RIGHT1   32877
+#define ID_MERGE_COMPARE_TABLE          32871
+#define ID_MERGE_COMPARE_XML            32872
+#define ID_MERGE_COMPARE_HEX            32873
+#define ID_MERGE_COMPARE_IMAGE          32874
+#define ID_MERGE_COMPARE_LEFT1_LEFT2    32875
+#define ID_MERGE_COMPARE_RIGHT1_RIGHT2  32876
+#define ID_MERGE_COMPARE_LEFT1_RIGHT2   32877
+#define ID_MERGE_COMPARE_LEFT2_RIGHT1   32878
 #define ID_UNPACK_MANUAL                32880
 #define ID_UNPACK_AUTO                  32881
 #define ID_POPUP_OPEN_WITH_UNPACKER     32882
@@ -1058,7 +1053,6 @@
 #define ID_HELP_CONTENTS                32912
 #define ID_HELP_GETCONFIG               32913
 #define ID_HELP_GNULICENSE              32914
-#define ID_HELP_SEARCH                  32916
 #define ID_PREDIFF_MANUAL               32929
 #define ID_PREDIFF_AUTO                 32930
 #define ID_NO_EDIT_SCRIPTS              32931
@@ -1174,8 +1168,6 @@
 #define ID_PLUGINS_LIST                 33203
 #define ID_PREDIFFER_MANUAL             33204
 #define ID_PREDIFFER_AUTO               33205
-#define ID_VIEW_EXPAND                  33206
-#define ID_VIEW_COLLAPSE                33207
 #define ID_VIEW_DIFFCONTEXT_ALL         33208
 #define ID_VIEW_DIFFCONTEXT_0           33209
 #define ID_VIEW_DIFFCONTEXT_1           33210
@@ -1241,13 +1233,11 @@
 #define ID_IMG_DRAGGINGMODE_VERTICAL_WIPE 33388
 #define ID_IMG_DRAGGINGMODE_HORIZONTAL_WIPE 33389
 #define IDC_COMPAREIMAGE_PATTERNS       33390
-#define IDC_COMPAREIMAGE_DEFAULTS       33391
 #define IDC_PLUGIN_SETTINGS             33392
 #define IDC_COMPAREBINARY_PATTERNS      33394
 #define IDC_COMPAREBINARY_VIEWSETTINGS  33395
 #define IDC_COMPAREBINARY_BINARYMODE    33398
 #define IDC_COMPAREBINARY_CHARACTERSET  33399
-#define IDC_COMPAREBINARY_DEFAULTS      33400
 #define ID_HELP_RELEASENOTES            33401
 #define ID_HELP_TRANSLATIONS            33402
 #define IDS_COMPMETHOD_FULL_CONTENTS    33490
@@ -1280,7 +1270,6 @@
 #define ID_FILE_SHELLMENU               33659
 #define ID_MERGE_COMPARE_NONHORIZONTALLY 33660
 #define ID_ACCEL_QUIT                   33661
-#define ID_OPENCONTAININGFOLDER         33663
 #define IDS_DIFF_ALGORITHM_DEFAULT      33700
 #define IDS_DIFF_ALGORITHM_MINIMAL      33701
 #define IDS_DIFF_ALGORITHM_PATIENCE     33702
@@ -1300,7 +1289,7 @@
 #define ID_IMG_VECTORIMAGESCALING_200   33722
 #define ID_IMG_VECTORIMAGESCALING_400   33723
 #define ID_IMG_VECTORIMAGESCALING_800   33724
-#define IDC_ENABLE_IMGCMP_IN_DIRCMP 33725
+#define IDC_ENABLE_IMGCMP_IN_DIRCMP     33725
 #define IDS_DIFF_GROUP                  34131
 #define IDS_DIFF_HIGHLIGHT              34132
 #define IDS_DIFF_BLINK                  34133
@@ -1324,6 +1313,15 @@
 #define IDS_IMGCMP_STATUS_DIST2_FMT     34151
 #define IDS_IMGCMP_STATUS_PAGE_ZOOM_SIZE_BPP_FMT 34152
 #define IDS_COMPARE_LARGE_FILES         34153
+#define IDC_COMPARETABLE_CSV            34154
+#define IDC_COMPARETABLE_TSV            34155
+#define IDC_COMPARETABLE_DSV            34156
+#define IDC_COMPARETABLE_CSV_PATTERNS   34157
+#define IDC_COMPARETABLE_TSV_PATTERNS   34158
+#define IDC_COMPARETABLE_DSV_PATTERNS   34159
+#define IDC_COMPARETABLE_DSV_DELIM_CHAR 34160
+#define IDC_COMPARETABLE_ALLOWNEWLINE   34161
+#define IDC_COMPARETABLE_QUOTE_CHAR     34162
 
 // Next default values for new objects
 // 
@@ -1331,7 +1329,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
 #define _APS_NEXT_RESOURCE_VALUE        253
-#define _APS_NEXT_COMMAND_VALUE         34154
+#define _APS_NEXT_COMMAND_VALUE         34164
 #define _APS_NEXT_CONTROL_VALUE         8831
 #define _APS_NEXT_SYMED_VALUE           116
 #endif

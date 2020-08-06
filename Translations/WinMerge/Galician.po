@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: WinMerge\n"
 "Report-Msgid-Bugs-To: https://bugs.winmerge.org/\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-05-04 23:47+0200\n"
+"PO-Revision-Date: 2020-08-05 16:55+0200\n"
 "Last-Translator: Luis A. Martínez <luis.martinez.sobrino@gmail.com>\n"
 "Language-Team: Galician-CiberIrmandade <traducions@ciberirmandade.org>\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Basepath: ../../Src\n"
 "Language: gl\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 2.4\n"
 
 #. LANGUAGE, SUBLANGUAGE
 #, c-format
@@ -351,11 +351,11 @@ msgstr "&Traducións"
 
 #, c-format
 msgid "C&onfiguration"
-msgstr "&Configuración…"
+msgstr "&Configuración"
 
 #, c-format
 msgid "&GNU General Public License"
-msgstr "&Licenza Pública Xeral GNU…"
+msgstr "&Licenza Pública Xeral GNU"
 
 #, c-format
 msgid "&About WinMerge..."
@@ -599,6 +599,9 @@ msgstr "Volver comparar como"
 #, c-format
 msgid "&Text"
 msgstr "&Texto"
+
+msgid "&Table"
+msgstr "&Táboa"
 
 #, c-format
 msgid "&XML"
@@ -1665,7 +1668,7 @@ msgid "Compare"
 msgstr "Comparar"
 
 #, c-format
-msgid "Whitespace"
+msgid "Whitespaces"
 msgstr "Espazos en branco"
 
 #, c-format
@@ -1877,10 +1880,6 @@ msgid "Options"
 msgstr "Opcións"
 
 #, c-format
-msgid " Categories"
-msgstr " Categorías"
-
-#, c-format
 msgid "Import..."
 msgstr "Importar…"
 
@@ -1931,10 +1930,6 @@ msgstr "Usuario 2:"
 #, c-format
 msgid "Bold"
 msgstr "Grosa"
-
-#, c-format
-msgid "Marker colors"
-msgstr "Cores do marcador"
 
 #, c-format
 msgid "Search Marker:"
@@ -2115,13 +2110,33 @@ msgstr "&Probar"
 msgid "&Close"
 msgstr "&Pechar"
 
+msgid "Table"
+msgstr "Tabla"
+
+msgid "File type"
+msgstr "Tipo de ficheiro"
+
+msgid "&CSV"
+msgstr "&CSV"
+
+msgid "&TSV"
+msgstr "&TSV"
+
+msgid "Custom &Delimiter-Separated Values"
+msgstr "&Delimitador personalizado-Valores separados"
+
+msgid "D&elimiter character:"
+msgstr "Carácter de&limitador:"
+
+msgid "&Allow newlines in quotes"
+msgstr "&Permitir saltos de liña entre comiñas"
+
+msgid "&Quote character:"
+msgstr "Carác&ter de cita:"
+
 #, c-format
 msgid "&Use customized text colors"
 msgstr "&Empregar cores de texto personalizadas"
-
-#, c-format
-msgid "Custom text colors"
-msgstr "Cores de texto personalizadas"
 
 #, c-format
 msgid "Whitespace:"
@@ -2277,6 +2292,18 @@ msgid ""
 msgstr ""
 "\n"
 "&Número de fíos de comparación (valores negativos indican que se engaden ao número de núcleos da CPU)"
+
+msgid "&CSV File Patterns:"
+msgstr "Patróns de arquivo &CSV:"
+
+msgid "&TSV File Patterns:"
+msgstr "Patróns de arquivo &TSV:"
+
+msgid "Custom Delimiter-Separated Values"
+msgstr "Delimitador personalizado-Valores separados"
+
+msgid "File Patterns:"
+msgstr "Patróns de ficheiro:"
 
 msgctxt "Options dialog|Categories"
 msgid "Binary"
@@ -3468,7 +3495,7 @@ msgstr "Data de creación do arquivo central."
 
 #, c-format
 msgid "Tells which side has newer modification date."
-msgstr "Indica que lado te a data de modificación máis recente:"
+msgstr "Indica que lado ten a data de modificación máis recente."
 
 #, c-format
 msgid "Left side file version, only for some filetypes."
@@ -4054,7 +4081,7 @@ msgid "From file system"
 msgstr "Do sistema de arquivos"
 
 #, c-format
-msgid "From MRU list"
+msgid "From Most Recently Used list"
 msgstr "Da listaxe de últimos arquivos usados"
 
 #, c-format
